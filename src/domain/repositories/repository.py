@@ -1,11 +1,19 @@
 from abc import ABC, abstractmethod
 
-from src.domain.entities.emojis import Categories
+from src.domain.entities.emojis import Categories, Emoji
 
 
-class PymojisService(ABC):
+class PymojisRepository(ABC):
+    @abstractmethod
+    def get_all(self) -> list[Emoji]:
+        pass
+
     @abstractmethod
     def get_random_emoji(self):
+        pass
+
+    @abstractmethod
+    def get_by_code(self, code: str) -> str:
         pass
 
     @abstractmethod
@@ -17,5 +25,5 @@ class PymojisService(ABC):
         pass
 
     @abstractmethod
-    def validate_by_code(self, code: str) -> str:
+    def validate_emoji(self, code: str) -> str:
         pass
