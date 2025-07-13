@@ -6,7 +6,9 @@ from src.domain.entities.emojis import Categories, Emoji
 
 class PymojisRepository(ABC):
     @abstractmethod
-    def get_all(self, exclude: Literal["complex"] | list[Categories]) -> list[Emoji]:
+    def get_all(
+        self, exclude: Literal["complex"] | list[Categories] | None
+    ) -> list[Emoji]:
         pass
 
     @abstractmethod

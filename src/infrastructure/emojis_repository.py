@@ -31,7 +31,9 @@ class EmojisRepository(PymojisRepository):
         except FileNotFoundError:
             raise FileNotFoundError("No file found")
 
-    def get_all(self, exclude: Literal["complex"] | list[Categories]) -> list[Emoji]:
+    def get_all(
+        self, exclude: Literal["complex"] | list[Categories] | None
+    ) -> list[Emoji]:
         all_emojis: list[Emoji] = []
         if not exclude:
             all_emojis = self.emojis.copy()

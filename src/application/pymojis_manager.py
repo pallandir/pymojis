@@ -1,3 +1,4 @@
+from typing import Literal
 from src.domain.entities.emojis import Categories, Emoji
 from src.infrastructure.emojis_repository import EmojisRepository
 
@@ -28,7 +29,28 @@ class PymojisManager:
         """
         return self.repository.get_random_emojis(category, length)
 
-    def get_all_emojis(self, exclude):
+    def get_all_emojis(
+        self, exclude: Literal["complex"] | list[Categories] | None = None
+    ) -> list[Emoji]:
+        """
+        Retrieve all available emojis.
+
+        Returns a list of all emojis in the dataset. You can optionally exclude emojis based on category or complexity. Complex emojis are composed of multiple Unicode code points (e.g., skin tone modifiers, gender variants) and may not be supported on all platforms.
+
+        Args:
+            exclude (Optional[Literal["complex"] | list[Categories]]):
+                - If set to "complex", all complex emojis will be excluded.
+                - If a list of categories is provided, emojis from those categories will be excluded.
+                Defaults to None (no exclusions).
+
+        Returns:
+            list[Emoji]: A list of emoji objects.
+
+        Example:
+            >>> manager = PymojisManager()
+            >>> manager.get_all_emojis()
+            [Emoji(emoji='😊', name='smiling face with smiling eyes', code='1F604', category='Smileys & Emotion'), ...]
+        """
         return self.repository.get_all(exclude)
 
     def get_by_code(self, code: str) -> str | None:
