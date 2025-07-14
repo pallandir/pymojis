@@ -1,17 +1,17 @@
-from enum import StrEnum
+from typing import Literal
 
-
-class Categories(StrEnum):
-    SMILEYS_EMOTION = "Smileys & Emotion"
-    PEOPLE_BODY = "People & Body"
-    ANIMALS_NATURE = "Animals & Nature"
-    FOOD_DRINK = "Food & Drink"
-    ACTIVITIES = "Activities"
-    TRAVEL_PLACES = "Travel & Places"
-    OBJECTS = "Objects"
-    SYMBOLS = "Symbols"
-    FLAGS = "Flags"
-    COMPONENT = "Component"
+Categories = Literal[
+    "Smileys & Emotion",
+    "People & Body",
+    "Animals & Nature",
+    "Food & Drink",
+    "Activities",
+    "Travel & Places",
+    "Objects",
+    "Symbols",
+    "Flags",
+    "Component",
+]
 
 
 class Emoji:
