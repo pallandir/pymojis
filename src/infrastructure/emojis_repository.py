@@ -24,8 +24,9 @@ class EmojisRepository(PymojisRepository):
                         code=emoji.get("code"),
                         emoji=emoji.get("emoji"),
                     )
-                    for category, emojis in data.get("emojis").items()
-                    for emoji in emojis.values()
+                    for category, subcategories in data.get("emojis").items()
+                    for emojis_list in subcategories.values()
+                    for emoji in emojis_list
                 ]
 
         except FileNotFoundError:
