@@ -8,6 +8,9 @@ def test_emoji_repository_get_all(repository):
 
 def test_emoji_repository_get_by_code(repository):
     result = repository.get_by_code("1F600")
-    # assert result == "😀"
+    assert result == "😀"
 
-    print("result::", result)
+
+def test_emoji_repository_get_by_name(repository):
+    result = repository.get_by_name("grinning face")
+    assert result == "😀"
