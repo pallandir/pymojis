@@ -54,10 +54,58 @@ class PymojisManager:
         return self.repository.get_all(exclude)
 
     def get_by_code(self, code: str) -> str | None:
+        """
+        Retrieve an emoji by its Unicode codepoint.
+
+        This method returns the emoji character that corresponds to the given codepoint.
+
+        Args:
+            code (str): The Unicode codepoint of the emoji (e.g., "1F604").
+
+        Returns:
+            str: The emoji character associated with the given codepoint.
+
+        Example:
+            >>> manager = PymojisManager()
+            >>> manager.get_by_code("1F604")
+            '😄'
+        """
         return self.repository.get_by_code(code)
 
     def get_by_name(self, name: str) -> str | None:
+        """
+        Retrieve an emoji by its name.
+
+        This method returns the emoji character that corresponds to the given name.
+
+        Args:
+            name (str): The name of the emoji (e.g., "smiling face with smiling eyes").
+
+        Returns:
+            str: The emoji character associated with the given name.
+
+        Example:
+            >>> manager = PymojisManager()
+            >>> manager.get_by_code("smiling face with smiling eyes")
+            '😄'
+        """
         return self.repository.get_by_name(name)
 
     def get_by_category(self, category: Categories) -> list[str]:
+        """
+        Retrieve all emojis by category.
+
+        This method returns all emojis from a given category.
+
+        Args:
+            name (str): The name of the emoji (e.g., "Smileys & Emotions").
+
+        Returns:
+            list[str]: The emojis associated with a given category.
+
+        Example:
+            >>> manager = PymojisManager()
+            >>> manager.get_by_code("smiling face with smiling eyes")
+            ['😄'....]
+        """
         return self.get_by_category(category)
