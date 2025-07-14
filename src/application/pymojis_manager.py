@@ -108,4 +108,4 @@ class PymojisManager:
             >>> manager.get_by_code("smiling face with smiling eyes")
             ['😄'....]
         """
-        return self.get_by_category(category)
+        return self.repository.get_by_category(category)
