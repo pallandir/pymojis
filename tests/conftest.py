@@ -3,5 +3,5 @@ from src.infrastructure.emojis_repository import EmojisRepository
 
 
 @pytest.fixture
-def repository(scope="module"):
+def repository(scope="module") -> EmojisRepository:
     return EmojisRepository("tests/infrastructure/data/mock_emojis_data.json")
