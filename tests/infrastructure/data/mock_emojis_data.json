@@ -1,0 +1,184 @@
+{
+    "emojis": {
+        "Smileys & Emotion": {
+            "face-smiling": [
+                {
+                    "code": [
+                        "1F600"
+                    ],
+                    "emoji": "😀",
+                    "name": "grinning face"
+                },
+                {
+                    "code": [
+                        "1F603"
+                    ],
+                    "emoji": "😃",
+                    "name": "grinning face with big eyes"
+                }
+            ],
+            "face-affection": [
+                {
+                    "code": [
+                        "1F970"
+                    ],
+                    "emoji": "🥰",
+                    "name": "smiling face with hearts"
+                },
+                {
+                    "code": [
+                        "1F60D"
+                    ],
+                    "emoji": "😍",
+                    "name": "smiling face with heart-eyes"
+                }
+            ],
+            "face-tongue": [
+                {
+                    "code": [
+                        "1F60B"
+                    ],
+                    "emoji": "😋",
+                    "name": "face savoring food"
+                },
+                {
+                    "code": [
+                        "1F61B"
+                    ],
+                    "emoji": "😛",
+                    "name": "face with tongue"
+                },
+                {
+                    "code": [
+                        "1F61C"
+                    ],
+                    "emoji": "😜",
+                    "name": "winking face with tongue"
+                }
+            ],
+            "face-hand": [
+                {
+                    "code": [
+                        "1F917"
+                    ],
+                    "emoji": "🤗",
+                    "name": "smiling face with open hands"
+                },
+                {
+                    "code": [
+                        "1F92D"
+                    ],
+                    "emoji": "🤭",
+                    "name": "face with hand over mouth"
+                },
+                {
+                    "code": [
+                        "1FAE2"
+                    ],
+                    "emoji": "🫢",
+                    "name": "face with open eyes and hand over mouth"
+                }
+            ],
+            "face-neutral-skeptical": [
+                {
+                    "code": [
+                        "1FAE5"
+                    ],
+                    "emoji": "🫥",
+                    "name": "dotted line face"
+                },
+                {
+                    "code": [
+                        "1F636",
+                        "200D",
+                        "1F32B",
+                        "FE0F"
+                    ],
+                    "emoji": "😶‍🌫️",
+                    "name": "face in clouds"
+                },
+                {
+                    "code": [
+                        "1F644"
+                    ],
+                    "emoji": "🙄",
+                    "name": "face with rolling eyes"
+                },
+                {
+                    "code": [
+                        "1F62C"
+                    ],
+                    "emoji": "😬",
+                    "name": "grimacing face"
+                },
+                {
+                    "code": [
+                        "1F62E",
+                        "200D",
+                        "1F4A8"
+                    ],
+                    "emoji": "😮‍💨",
+                    "name": "face exhaling"
+                },
+                {
+                    "code": [
+                        "1F642",
+                        "200D",
+                        "2194",
+                        "FE0F"
+                    ],
+                    "emoji": "🙂‍↔️",
+                    "name": "head shaking horizontally"
+                }
+            ],
+            "face-sleepy": [
+                {
+                    "code": [
+                        "1F60C"
+                    ],
+                    "emoji": "😌",
+                    "name": "relieved face"
+                },
+                {
+                    "code": [
+                        "1F614"
+                    ],
+                    "emoji": "😔",
+                    "name": "pensive face"
+                },
+                {
+                    "code": [
+                        "1F62A"
+                    ],
+                    "emoji": "😪",
+                    "name": "sleepy face"
+                }
+            ],
+            "face-unwell": [
+                {
+                    "code": [
+                        "1F637"
+                    ],
+                    "emoji": "😷",
+                    "name": "face with medical mask"
+                },
+                {
+                    "code": [
+                        "1F912"
+                    ],
+                    "emoji": "🤒",
+                    "name": "face with thermometer"
+                },
+                {
+                    "code": [
+                        "1F635",
+                        "200D",
+                        "1F4AB"
+                    ],
+                    "emoji": "😵‍💫",
+                    "name": "face with spiral eyes"
+                }
+            ]
+        }
+    }
+}
