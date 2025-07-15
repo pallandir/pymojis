@@ -25,3 +25,8 @@ def test_get_emoji_by_code(pymoji_manager: PymojisManager):
 def test_get_emoji_by_name(pymoji_manager: PymojisManager):
     emoji = pymoji_manager.get_by_name("grinning face with smiling eyes")
     assert emoji == "😄"
+
+
+def test_get_emoji_by_category(pymoji_manager: PymojisManager):
+    emojis = pymoji_manager.get_by_category("Activities")
+    assert len(emojis) > 0
