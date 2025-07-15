@@ -1,4 +1,4 @@
-from src.application.pymojis_manager import PymojisManager
+from src.pymojis.application.pymojis_manager import PymojisManager
 
 
 def test_get_all(pymoji_manager: PymojisManager):

@@ -1,6 +1,6 @@
 import pytest
-from src.application.pymojis_manager import PymojisManager
-from src.infrastructure.emojis_repository import EmojisRepository
+from src.pymojis.application.pymojis_manager import PymojisManager
+from src.pymojis.infrastructure.emojis_repository import EmojisRepository
 
 
 @pytest.fixture

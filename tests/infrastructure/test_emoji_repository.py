@@ -1,5 +1,5 @@
-from src.domain.entities.emojis import Emoji
-from src.infrastructure.emojis_repository import EmojisRepository
+from src.pymojis.domain.entities.emojis import Emoji
+from src.pymojis.infrastructure.emojis_repository import EmojisRepository
 
 
 def test_emoji_repository_get_all(repository: EmojisRepository):

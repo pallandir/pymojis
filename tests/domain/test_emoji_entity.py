@@ -1,4 +1,4 @@
-from src.domain.entities.emojis import Emoji
+from src.pymojis.domain.entities.emojis import Emoji
 
 
 def test_create_emoji():

@@ -6,7 +6,7 @@ from src.pymojis.infrastructure.emojis_repository import EmojisRepository
 class PymojisManager:
     def __init__(self):
         self.repository = EmojisRepository(
-            data_file_path="./src/infrastructure/data/emoji_data.json"
+            data_file_path="./src/pymojis/infrastructure/data/emoji_data.json"
         )
 
     def get_random(
