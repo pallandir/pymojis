@@ -20,3 +20,8 @@ def test_get_random_emojis(pymoji_manager: PymojisManager):
 def test_get_emoji_by_code(pymoji_manager: PymojisManager):
     emoji = pymoji_manager.get_by_code("1F604")
     assert emoji == "😄"
+
+
+def test_get_emoji_by_name(pymoji_manager: PymojisManager):
+    emoji = pymoji_manager.get_by_name("grinning face with smiling eyes")
+    assert emoji == "😄"
