@@ -9,7 +9,9 @@ class PymojisManager:
             data_file_path="./src/infrastructure/data/emoji_data.json"
         )
 
-    def get_random(self, category: Categories, length: int = 1) -> list[Emoji]:
+    def get_random(
+        self, category: Categories | None = None, length: int = 1
+    ) -> list[Emoji]:
         """
         Retrieve a list of random emojis.
 
