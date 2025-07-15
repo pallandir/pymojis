@@ -3,8 +3,8 @@ from pathlib import Path
 from typing import Literal
 from random import sample
 
-from src.domain.repositories.repository import PymojisRepository
-from src.domain.entities.emojis import Emoji, Categories
+from src.pymojis.domain.repositories.repository import PymojisRepository
+from src.pymojis.domain.entities.emojis import Emoji, Categories
 
 
 class EmojisRepository(PymojisRepository):
