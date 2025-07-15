@@ -14,3 +14,4 @@ def test_get_all_complex_emojis(pymoji_manager: PymojisManager):
 def test_get_random_emojis(pymoji_manager: PymojisManager):
     emojis = pymoji_manager.get_random(length=10)
     assert len(emojis) == 10
+    assert isinstance(emojis, list)
