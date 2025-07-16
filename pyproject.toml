@@ -132,7 +132,6 @@ ignore = [
 [tool.ruff.per-file-ignores]
 "tests/*" = ["E501"]
 
-# MyPy type checking
 [tool.mypy]
 python_version = "3.12"
 warn_return_any = true
@@ -152,7 +151,6 @@ strict_equality = true
 module = "tests.*"
 disallow_untyped_defs = false
 
-# Coverage configuration
 [tool.coverage.run]
 source = ["src"]
 branch = true
