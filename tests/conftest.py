@@ -1,4 +1,5 @@
 import pytest
+
 from src.pymojis.application.pymojis_manager import PymojisManager
 from src.pymojis.infrastructure.emojis_repository import EmojisRepository
 
