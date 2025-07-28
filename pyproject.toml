@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Pymojis"
-version = "0.1.5"
+version = "0.1.6"
 description = "A Python library for emoji handling and utilities"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -65,7 +65,7 @@ include = ["pymojis*"]
 exclude = ["tests*"]
 
 [tool.setuptools.package-data]
-pymojis = ["py.typed", "*.txt", "*.md"]
+pymojis = ["py.typed", "*.txt", "*.md","**/*.json"]
 
 # Pytest configuration
 [tool.pytest.ini_options]
