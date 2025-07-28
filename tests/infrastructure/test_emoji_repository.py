@@ -4,7 +4,6 @@ from pymojis.infrastructure.emojis_repository import EmojisRepository
 
 def test_emoji_repository_get_all(repository: EmojisRepository):
     result = repository.get_all(None)
-    print("", type(result[0]))
     assert isinstance(result[0], Emoji)
 
 
