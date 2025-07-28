@@ -1,5 +1,5 @@
 import json
-from pathlib import Path
+import os
 from random import sample
 from typing import Literal
 
@@ -8,14 +8,20 @@ from pymojis.domain.repositories.repository import PymojisRepository
 
 
 class EmojisRepository(PymojisRepository):
-    def __init__(self, data_file_path: str):
-        self.data_path: Path = Path(data_file_path)
+    def __init__(self, data_file_path: str | None = None):
+        if data_file_path is None:
+            base_dir = os.path.dirname(__file__)
+            data_file_path = os.path.join(base_dir, "data", "emoji_data.json")
+
+        if not os.path.exists(data_file_path):
+            raise FileNotFoundError("No file found \n", data_file_path)
+        self.data_file_path = data_file_path
         self.emojis: list[Emoji] = []
         self._load_data()
 
     def _load_data(self) -> None:
         try:
-            with open(self.data_path, encoding="utf-8") as _file:
+            with open(self.data_file_path, encoding="utf-8") as _file:
                 data = json.load(_file)
                 self.emojis = [
                     Emoji(
@@ -29,8 +35,10 @@ class EmojisRepository(PymojisRepository):
                     for emoji in emojis_list
                 ]
 
-        except FileNotFoundError:
-            raise FileNotFoundError("No file found") from FileNotFoundError
+        except FileNotFoundError as file_not_found:
+            raise FileNotFoundError(
+                "No file found\n", file_not_found
+            ) from FileNotFoundError
 
     def get_all(
         self, exclude: Literal["complex"] | list[Categories] | None
