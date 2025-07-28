@@ -1,7 +1,7 @@
 from typing import Literal
 
-from src.pymojis.domain.entities.emojis import Categories, Emoji
-from src.pymojis.infrastructure.emojis_repository import EmojisRepository
+from pymojis.domain.entities.emojis import Categories, Emoji
+from pymojis.infrastructure.emojis_repository import EmojisRepository
 
 
 class PymojisManager:

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Literal
 
-from src.pymojis.domain.entities.emojis import Categories, Emoji
+from pymojis.domain.entities.emojis import Categories, Emoji
 
 
 class PymojisRepository(ABC):
