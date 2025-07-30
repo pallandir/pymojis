@@ -1,4 +1,4 @@
-from pymojis.domain.entities.emojis import Emoji
+from pymojis.domain.entities.emojis import Categories, Emoji
 from pymojis.infrastructure.pymojis_repository import PymojisRepositoryImpl
 
 
@@ -29,5 +29,18 @@ def test_emoji_repository_get_random(repository: PymojisRepositoryImpl):
 
 
 def test_emoji_repository_get_random_exclude(repository: PymojisRepositoryImpl):
-    result = repository.get_random_emojis(exclude="complex")
+    result = repository.get_random_emojis(length=10, exclude="complex")
     assert all(len(emoji.code) == 1 for emoji in result)
+
+
+def test_emoji_repository_get_random_large_length(repository: PymojisRepositoryImpl):
+    result = repository.get_random_emojis(length=100000)
+    assert len(result) == len(repository.get_all())
+
+
+def test_emoji_repository_get_random_exclude_category(
+    repository: PymojisRepositoryImpl,
+):
+    excluded_categories: list[Categories] = ["Smileys & Emotion"]
+    result = repository.get_random_emojis(exclude=excluded_categories)
+    assert all(emoji.category not in excluded_categories for emoji in result)

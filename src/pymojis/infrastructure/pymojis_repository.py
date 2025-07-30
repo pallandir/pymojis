@@ -91,7 +91,7 @@ class PymojisRepositoryImpl(PymojisRepository):
         length: int = 1,
         exclude: Literal["complex"] | list[Categories] | None = None,
     ) -> list[Emoji]:
-        emojis: list[Emoji] = self.emojis.copy()
+        emojis: list[Emoji] = []
         if category:
             emojis = [
                 emoji
@@ -103,4 +103,6 @@ class PymojisRepositoryImpl(PymojisRepository):
                 if should_exclude(emoji, exclude):
                     continue
                 emojis.append(emoji)
+        else:
+            emojis = self.emojis.copy()
         return sample(emojis, min(length, len(emojis)))
