@@ -49,13 +49,11 @@ class Emoji:
         self.emoji = emoji
 
     def __eq__(self, other) -> bool:
-        """Entity equality based on ID (DDD pattern)"""
         if not isinstance(other, Emoji):
             return False
         return self.id == other.id
 
     def __hash__(self) -> int:
-        """Hash based on ID for use in sets/dicts"""
         return hash(self.id)
 
     def __repr__(self) -> str:
