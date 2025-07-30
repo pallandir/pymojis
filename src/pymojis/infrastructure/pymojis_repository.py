@@ -7,7 +7,7 @@ from pymojis.domain.entities.emojis import Categories, Emoji
 from pymojis.domain.repositories.repository import PymojisRepository
 
 
-class EmojisRepository(PymojisRepository):
+class PymojisRepositoryImpl(PymojisRepository):
     def __init__(self, data_file_path: str | None = None):
         if data_file_path is None:
             base_dir = os.path.dirname(__file__)

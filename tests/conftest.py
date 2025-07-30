@@ -1,12 +1,12 @@
 import pytest
 
 from src.pymojis.application.pymojis_manager import PymojisManager
-from src.pymojis.infrastructure.emojis_repository import EmojisRepository
+from src.pymojis.infrastructure.pymojis_repository import PymojisRepositoryImpl
 
 
 @pytest.fixture
-def repository(scope="module") -> EmojisRepository:
-    return EmojisRepository("tests/infrastructure/data/mock_emojis_data.json")
+def repository(scope="module") -> PymojisRepositoryImpl:
+    return PymojisRepositoryImpl("tests/infrastructure/data/mock_emojis_data.json")
 
 
 @pytest.fixture
