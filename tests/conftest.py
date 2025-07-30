@@ -10,5 +10,5 @@ def repository(scope="module") -> PymojisRepositoryImpl:
 
 
 @pytest.fixture
-def pymoji_manager(scope="module") -> PymojisManager:
+def manager(scope="module") -> PymojisManager:
     return PymojisManager()
