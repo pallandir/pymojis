@@ -9,7 +9,10 @@ class PymojisManager:
         self.repository = PymojisRepositoryImpl()
 
     def get_random(
-        self, category: Categories | None = None, length: int = 1
+        self,
+        category: Categories | None = None,
+        length: int = 1,
+        exclude: Literal["complex"] | list[Categories] | None = None,
     ) -> list[Emoji]:
         """
         Retrieve a list of random emojis.
@@ -28,7 +31,7 @@ class PymojisManager:
             >>> manager.get_random(length=3)
             [Emoji(emoji='😊', name='smiling face with smiling eyes', code='1F604',category='Smiley & Emotions'), ...]
         """
-        return self.repository.get_random_emojis(category, length)
+        return self.repository.get_random_emojis(category, length, exclude)
 
     def get_all_emojis(
         self, exclude: Literal["complex"] | list[Categories] | None = None

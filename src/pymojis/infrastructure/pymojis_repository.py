@@ -6,6 +6,8 @@ from typing import Literal
 from pymojis.domain.entities.emojis import Categories, Emoji
 from pymojis.domain.repositories.repository import PymojisRepository
 
+from .utils import should_exclude
+
 
 class PymojisRepositoryImpl(PymojisRepository):
     def __init__(self, data_file_path: str | None = None):
@@ -41,16 +43,14 @@ class PymojisRepositoryImpl(PymojisRepository):
             ) from FileNotFoundError
 
     def get_all(
-        self, exclude: Literal["complex"] | list[Categories] | None
+        self, exclude: Literal["complex"] | list[Categories] | None = None
     ) -> list[Emoji]:
         all_emojis: list[Emoji] = []
         if not exclude:
             all_emojis = self.emojis.copy()
         else:
             for emoji in self.emojis:
-                if exclude == "complex" and len(emoji.code) > 1:
-                    continue
-                if emoji.category.lower() in (excluded.lower() for excluded in exclude):
+                if should_exclude(emoji, exclude):
                     continue
                 all_emojis.append(emoji)
         return all_emojis
@@ -86,7 +86,10 @@ class PymojisRepositoryImpl(PymojisRepository):
         return [emoji.emoji for emoji in self.emojis if code in emoji.code]
 
     def get_random_emojis(
-        self, category: Categories | None = None, length: int = 1
+        self,
+        category: Categories | None = None,
+        length: int = 1,
+        exclude: Literal["complex"] | list[Categories] | None = None,
     ) -> list[Emoji]:
         emojis: list[Emoji] = self.emojis.copy()
         if category:
@@ -95,4 +98,9 @@ class PymojisRepositoryImpl(PymojisRepository):
                 for emoji in self.emojis
                 if emoji.category.lower() == category.lower()
             ]
+        if exclude:
+            for emoji in self.emojis:
+                if should_exclude(emoji, exclude):
+                    continue
+                emojis.append(emoji)
         return sample(emojis, min(length, len(emojis)))

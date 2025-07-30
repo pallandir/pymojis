@@ -7,13 +7,16 @@ from pymojis.domain.entities.emojis import Categories, Emoji
 class PymojisRepository(ABC):
     @abstractmethod
     def get_all(
-        self, exclude: Literal["complex"] | list[Categories] | None
+        self, exclude: Literal["complex"] | list[Categories] | None = None
     ) -> list[Emoji]:
         pass
 
     @abstractmethod
     def get_random_emojis(
-        self, category: Categories | None = None, length: int = 1
+        self,
+        category: Categories | None = None,
+        length: int = 1,
+        exclude: Literal["complex"] | list[Categories] | None = None,
     ) -> list[Emoji]:
         pass
 
