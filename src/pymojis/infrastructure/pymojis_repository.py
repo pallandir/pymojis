@@ -87,16 +87,17 @@ class PymojisRepositoryImpl(PymojisRepository):
 
     def get_random_emojis(
         self,
-        category: Categories | None = None,
+        categories: list[Categories] | None = None,
         length: int = 1,
         exclude: Literal["complex"] | list[Categories] | None = None,
     ) -> list[Emoji]:
         emojis: list[Emoji] = []
-        if category:
+        if categories:
             emojis = [
                 emoji
                 for emoji in self.emojis
-                if emoji.category.lower() == category.lower()
+                if emoji.category.lower()
+                in (category.lower() for category in categories)
             ]
         if exclude:
             for emoji in self.emojis:

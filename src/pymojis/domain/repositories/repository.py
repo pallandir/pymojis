@@ -14,7 +14,7 @@ class PymojisRepository(ABC):
     @abstractmethod
     def get_random_emojis(
         self,
-        category: Categories | None = None,
+        categories: list[Categories] | None = None,
         length: int = 1,
         exclude: Literal["complex"] | list[Categories] | None = None,
     ) -> list[Emoji]:
