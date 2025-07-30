@@ -44,3 +44,11 @@ def test_emoji_repository_get_random_exclude_category(
     excluded_categories: list[Categories] = ["Smileys & Emotion"]
     result = repository.get_random_emojis(exclude=excluded_categories)
     assert all(emoji.category not in excluded_categories for emoji in result)
+
+
+def test_emoji_repository_get_random_include_exclude(repository: PymojisRepositoryImpl):
+    excluded_categories: list[Categories] = ["Smileys & Emotion"]
+    result = repository.get_random_emojis(
+        "Smileys & Emotion", exclude=excluded_categories, length=10
+    )
+    assert all(emoji.category in excluded_categories for emoji in result)
