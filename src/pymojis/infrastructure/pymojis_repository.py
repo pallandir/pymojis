@@ -56,7 +56,7 @@ class PymojisRepositoryImpl(PymojisRepository):
         return all_emojis
 
     def get_by_category(self, category: Categories) -> list[str]:
-        if not check_type(category, Categories):
+        if not check_type(category, str):
             return []
         return [
             emoji.emoji
