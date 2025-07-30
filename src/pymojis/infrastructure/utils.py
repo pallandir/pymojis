@@ -1,3 +1,4 @@
+import warnings
 from typing import Literal
 
 from pymojis.domain.entities.emojis import Categories, Emoji
@@ -11,3 +12,12 @@ def should_exclude(emoji: Emoji, exclude: Literal["complex"] | list[Categories] 
     ):
         return True
     return False
+
+
+def check_type(value, expected_type: type) -> bool:
+    if not isinstance(value, expected_type):
+        warnings.warn(
+            f"\n\nExpected type {expected_type}, got {type(value)}\n", stacklevel=1
+        )
+        return False
+    return True

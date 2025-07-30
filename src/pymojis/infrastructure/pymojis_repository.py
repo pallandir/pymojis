@@ -6,7 +6,7 @@ from typing import Literal
 from pymojis.domain.entities.emojis import Categories, Emoji
 from pymojis.domain.repositories.repository import PymojisRepository
 
-from .utils import should_exclude
+from .utils import check_type, should_exclude
 
 
 class PymojisRepositoryImpl(PymojisRepository):
@@ -56,6 +56,8 @@ class PymojisRepositoryImpl(PymojisRepository):
         return all_emojis
 
     def get_by_category(self, category: Categories) -> list[str]:
+        if not check_type(category, Categories):
+            return []
         return [
             emoji.emoji
             for emoji in self.emojis
@@ -63,16 +65,21 @@ class PymojisRepositoryImpl(PymojisRepository):
         ]
 
     def get_by_code(self, code: str) -> str | None:
+        if not check_type(code, str):
+            return None
         return next(
             (
                 emoji.emoji
                 for emoji in self.emojis
-                if code in emoji.code and len(emoji.code) == 1
+                if code.lower() in (emoji_code.lower() for emoji_code in emoji.code)
+                and len(emoji.code) == 1
             ),
             None,
         )
 
     def get_by_name(self, name: str) -> str | None:
+        if not check_type(name, str):
+            return None
         return next(
             (
                 emoji.emoji
@@ -83,7 +90,11 @@ class PymojisRepositoryImpl(PymojisRepository):
         )
 
     def validate_emoji(self, code: str) -> list[str]:
-        return [emoji.emoji for emoji in self.emojis if code in emoji.code]
+        return [
+            emoji.emoji
+            for emoji in self.emojis
+            if code.lower() in (emoji_code.lower() for emoji_code in emoji.code)
+        ]
 
     def get_random_emojis(
         self,

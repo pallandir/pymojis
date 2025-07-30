@@ -28,6 +28,9 @@ classifiers = [
     "Topic :: Text Processing",
     "Topic :: Utilities",
 ]
+dependencies = [
+    "pytest-cov>=6.2.1",
+]
 
 
 [project.optional-dependencies]
