@@ -1,12 +1,12 @@
 from typing import Literal
 
 from pymojis.domain.entities.emojis import Categories, Emoji
-from pymojis.infrastructure.emojis_repository import EmojisRepository
+from pymojis.infrastructure.pymojis_repository import PymojisRepositoryImpl
 
 
 class PymojisManager:
     def __init__(self):
-        self.repository = EmojisRepository()
+        self.repository = PymojisRepositoryImpl()
 
     def get_random(
         self, category: Categories | None = None, length: int = 1
