@@ -20,3 +20,9 @@ class Emoji:
         self.code = code
         self.name = name
         self.emoji = emoji
+
+    def __repr__(self) -> str:
+        return (
+            f"Emoji(name={self.name!r}, emoji={self.emoji!r}, "
+            f"code={self.code!r}, category={self.category!r})"
+        )
