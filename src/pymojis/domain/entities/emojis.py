@@ -22,7 +22,6 @@ class Emoji:
         code: list[str],
         name: str,
         emoji: str,
-        id: str | None = None,
     ):
         valid_categories = get_args(Categories)
 
@@ -39,8 +38,6 @@ class Emoji:
             raise ValueError("name must be a non-empty string")
         if not isinstance(emoji, str) or not emoji:
             raise ValueError("emoji must be a non-empty string")
-        if id is not None and (not isinstance(id, str) or not id.strip()):
-            raise ValueError("id must be a non-empty string if provided")
 
         return super().__new__(cls)
 
