@@ -39,6 +39,11 @@ def test_get_emoji_by_name(manager: PymojisManager):
     assert emoji == "😄"
 
 
+def test_get_emoji_by_name_wrong_value(manager: PymojisManager):
+    emoji = manager.get_by_name(1234)
+    assert emoji is None
+
+
 def test_get_emoji_by_category(manager: PymojisManager):
     emojis = manager.get_by_category("Activities")
     assert len(emojis) > 0

@@ -17,7 +17,7 @@ def should_exclude(emoji: Emoji, exclude: Literal["complex"] | list[Categories] 
 def check_type(value, expected_type: type[Any] | tuple[type[Any], ...]) -> bool:
     if not isinstance(value, expected_type):
         warnings.warn(
-            f"\n\nExpected type {expected_type}, got {type(value)}\n", stacklevel=1
+            f"\n\nExpected type {expected_type}, got {type(value)}\n", stacklevel=4
         )
         return False
     return True
