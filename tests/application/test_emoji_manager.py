@@ -47,3 +47,4 @@ def test_get_emoji_by_name_wrong_value(manager: PymojisManager):
 def test_get_emoji_by_category(manager: PymojisManager):
     emojis = manager.get_by_category("Activities")
     assert len(emojis) > 0
+    assert all(isinstance(emoji, str) for emoji in emojis)
