@@ -43,3 +43,7 @@ class PymojisRepository(ABC):
     @abstractmethod
     def contains_emojis(self, string: str) -> bool:
         pass
+
+    @abstractmethod
+    def is_emoji(self, string: str) -> bool:
+        pass

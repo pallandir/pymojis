@@ -68,3 +68,13 @@ def test_contains_emojis(repository: PymojisRepositoryImpl):
 def test_contain_emojis_false(repository: PymojisRepositoryImpl):
     result = repository.contains_emojis("This string does not contain emojis")
     assert result is False
+
+
+def test_is_emoji(repository: PymojisRepositoryImpl):
+    assert repository.is_emoji("😵‍💫")
+    assert repository.is_emoji(" 😵‍💫")
+
+
+def test_is_emoji_false(repository: PymojisRepositoryImpl):
+    assert not repository.is_emoji("")
+    assert not repository.is_emoji("test 😵‍💫")
