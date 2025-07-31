@@ -159,3 +159,16 @@ class PymojisRepositoryImpl(PymojisRepository):
         )
 
         return emoji_pattern.fullmatch(text) is not None
+
+    def emojifie(self, text: str) -> str:
+        tokens = text.split()
+        for index, token in enumerate(tokens):
+            for emoji in self.emojis:
+                if token.lower() in emoji.name.lower():
+                    tokens[index] = emoji.emoji
+                    break
+        return " ".join(tokens)
+
+    def to_html(self, emoji: str) -> str:
+        codepoints = [f"&#x{ord(char):X};" for char in emoji]
+        return "".join(codepoints)

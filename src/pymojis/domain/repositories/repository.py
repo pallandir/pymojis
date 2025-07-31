@@ -43,3 +43,11 @@ class PymojisRepository(ABC):
     @abstractmethod
     def is_emoji(self, text: str) -> bool:
         pass
+
+    @abstractmethod
+    def emojifie(self, text: str) -> str:
+        pass
+
+    @abstractmethod
+    def to_html(self, emoji: str) -> str:
+        pass

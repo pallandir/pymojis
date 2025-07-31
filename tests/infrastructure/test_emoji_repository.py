@@ -78,3 +78,18 @@ def test_is_emoji(repository: PymojisRepositoryImpl):
 def test_is_emoji_false(repository: PymojisRepositoryImpl):
     assert not repository.is_emoji("")
     assert not repository.is_emoji("test 😵‍💫")
+
+
+def test_emojifie(repository: PymojisRepositoryImpl):
+    result = repository.emojifie("I'm sleepy")
+    assert result == "I'm 😪"
+
+
+def test_to_html(repository: PymojisRepositoryImpl):
+    result = repository.to_html("😪")
+    assert result == "&#x1F62A;"
+
+
+def test_to_html_complex(repository: PymojisRepositoryImpl):
+    result = repository.to_html("😵‍💫")
+    assert result == "&#x1F635;&#x200D;&#x1F4AB;"
