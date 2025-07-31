@@ -168,3 +168,7 @@ class PymojisRepositoryImpl(PymojisRepository):
                     tokens[index] = emoji.emoji
                     break
         return " ".join(tokens)
+
+    def to_html(self, emoji: str) -> str:
+        codepoints = [f"&#x{ord(char):X};" for char in emoji]
+        return "".join(codepoints)
