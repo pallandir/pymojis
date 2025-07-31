@@ -176,3 +176,46 @@ class PymojisManager:
             True
         """
         return self.repository.is_emoji(text)
+
+    def emojifie(self, text: str) -> str:
+        """
+        Replace words in the text with matching emojis based on their names.
+
+        This method scans the input text and replaces tokens that match or partially match
+        an emoji's name with the corresponding emoji character.
+
+        Args:
+            text (str): The input text to transform.
+
+        Returns:
+            str: The text with relevant words replaced by emojis.
+
+        Example:
+            >>> manager = PymojisManager()
+            >>> manager.emojifie("I'm sleepy")
+            "I'm 😪"
+        """
+        return self.repository.emojifie(text)
+
+    def to_html(self, emoji: str) -> str:
+        """
+            Convert an emoji character to its HTML Unicode representation.
+
+        This method takes an emoji and returns its equivalent HTML format, supported by most browsers.
+        It also handles complex emojis composed of multiple Unicode code points, joining them appropriately.
+
+        Args:
+            text (str): The emoji character to convert.
+
+        Returns:
+            str: The HTML Unicode representation of the emoji.
+
+        Example:
+            >>> manager = PymojisManager()
+            >>> manager.to_html("😪")
+            "&#x1F62A;"
+
+            >>> manager.to_html("😵‍💫")  # This emoji is a composition of multiple Unicode characters
+            "&#x1F635;&#x200D;&#x1F4AB;"
+        """
+        return self.repository.to_html(emoji)
