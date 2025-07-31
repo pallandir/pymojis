@@ -90,13 +90,6 @@ class PymojisRepositoryImpl(PymojisRepository):
             None,
         )
 
-    def validate_emoji(self, code: str) -> list[str]:
-        return [
-            emoji.emoji
-            for emoji in self.emojis
-            if code.lower() in (emoji_code.lower() for emoji_code in emoji.code)
-        ]
-
     def get_random_emojis(
         self,
         categories: list[Categories] | None = None,
@@ -129,16 +122,16 @@ class PymojisRepositoryImpl(PymojisRepository):
 
         return found_emoji
 
-    def contains_emojis(self, string: str) -> bool:
+    def contains_emojis(self, text: str) -> bool:
         for emoji in self.emojis:
-            if emoji.emoji in string:
+            if emoji.emoji in text:
                 return True
         return False
 
-    def is_emoji(self, string: str) -> bool:
-        if not check_type(string, str):
+    def is_emoji(self, text: str) -> bool:
+        if not check_type(text, str):
             return False
-        string = string.strip()
+        text = text.strip()
         emoji_pattern = re.compile(
             "["
             "\U0001f600-\U0001f64f"  # emoticons
@@ -165,4 +158,4 @@ class PymojisRepositoryImpl(PymojisRepository):
             flags=re.UNICODE,
         )
 
-        return emoji_pattern.fullmatch(string) is not None
+        return emoji_pattern.fullmatch(text) is not None

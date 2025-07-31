@@ -119,3 +119,60 @@ class PymojisManager:
             ['😄'....]
         """
         return self.repository.get_by_category(category)
+
+    def get_by_emoji(self, emoji: str) -> Emoji | None:
+        """
+        Retrieve an Emoji object by its Unicode character.
+
+        Looks up and returns the details of the specified emoji based on its visual representation.
+
+        Args:
+            emoji (str): The Unicode emoji character to search for.
+
+        Returns:
+            Emoji | None: The corresponding Emoji object if found, otherwise None.
+
+        Example:
+            >>> manager = PymojisManager()
+            >>> manager.get_by_emoji("😊")
+            Emoji(emoji='😊', name='smiling face with smiling eyes', code='1F604', category='Smileys & Emotion')
+        """
+        return self.repository.get_by_emoji(emoji)
+
+    def contains_emojis(self, text: str) -> bool:
+        """
+        Determine is a string contains any emoji.
+
+        This method returns True if a string contains an emoji, False otherwise.
+
+        Args:
+            text (str): The text to validate.
+
+        Returns:
+            Boolean: True if contains any emoji, False otherwise.
+
+        Example:
+            >>> manager = PymojisManager()
+            >>> manager.contains_emojis("This string contains emojis: 😄")
+            True
+        """
+        return self.repository.contains_emojis(text)
+
+    def is_emoji(self, text: str) -> bool:
+        """
+        Determine is a string is an emoji.
+
+        This method returns True if a string is an emoji, False otherwise.
+
+        Args:
+            text (str): The text to validate.
+
+        Returns:
+            Boolean: True if it's an emoji, False otherwise.
+
+        Example:
+            >>> manager = PymojisManager()
+            >>> manager.is_emoji("😄")
+            True
+        """
+        return self.repository.is_emoji(text)
