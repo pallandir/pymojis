@@ -118,3 +118,12 @@ class PymojisRepositoryImpl(PymojisRepository):
         else:
             emojis = self.emojis.copy()
         return sample(emojis, min(length, len(emojis)))
+
+    def get_by_emoji(self, emoji: str) -> Emoji | None:
+        found_emoji = None
+        for current_emoji in self.emojis:
+            if current_emoji.emoji == emoji:
+                found_emoji = current_emoji
+                break
+
+        return found_emoji

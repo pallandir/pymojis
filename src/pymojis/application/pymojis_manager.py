@@ -96,7 +96,7 @@ class PymojisManager:
 
         Example:
             >>> manager = PymojisManager()
-            >>> manager.get_by_code("smiling face with smiling eyes")
+            >>> manager.get_by_name("smiling face with smiling eyes")
             '😄'
         """
         return self.repository.get_by_name(name)
@@ -115,7 +115,7 @@ class PymojisManager:
 
         Example:
             >>> manager = PymojisManager()
-            >>> manager.get_by_code("smiling face with smiling eyes")
+            >>> manager.get_by_category("Smileys & Emotion")
             ['😄'....]
         """
         return self.repository.get_by_category(category)

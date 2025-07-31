@@ -33,5 +33,9 @@ class PymojisRepository(ABC):
         pass
 
     @abstractmethod
+    def get_by_emoji(self, emoji: str) -> Emoji | None:
+        pass
+
+    @abstractmethod
     def validate_emoji(self, code: str) -> list[str]:
         pass
