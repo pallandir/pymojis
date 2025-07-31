@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from random import sample
 from typing import Literal
 
@@ -89,13 +90,6 @@ class PymojisRepositoryImpl(PymojisRepository):
             None,
         )
 
-    def validate_emoji(self, code: str) -> list[str]:
-        return [
-            emoji.emoji
-            for emoji in self.emojis
-            if code.lower() in (emoji_code.lower() for emoji_code in emoji.code)
-        ]
-
     def get_random_emojis(
         self,
         categories: list[Categories] | None = None,
@@ -118,3 +112,50 @@ class PymojisRepositoryImpl(PymojisRepository):
         else:
             emojis = self.emojis.copy()
         return sample(emojis, min(length, len(emojis)))
+
+    def get_by_emoji(self, emoji: str) -> Emoji | None:
+        found_emoji = None
+        for current_emoji in self.emojis:
+            if current_emoji.emoji == emoji:
+                found_emoji = current_emoji
+                break
+
+        return found_emoji
+
+    def contains_emojis(self, text: str) -> bool:
+        for emoji in self.emojis:
+            if emoji.emoji in text:
+                return True
+        return False
+
+    def is_emoji(self, text: str) -> bool:
+        if not check_type(text, str):
+            return False
+        text = text.strip()
+        emoji_pattern = re.compile(
+            "["
+            "\U0001f600-\U0001f64f"  # emoticons
+            "\U0001f300-\U0001f5ff"  # symbols & pictographs
+            "\U0001f680-\U0001f6ff"  # transport & map symbols
+            "\U0001f1e0-\U0001f1ff"  # flags (iOS)
+            "\U00002702-\U000027b0"  # dingbats
+            "\U000024c2-\U0001f251"  # enclosed characters
+            "\U0001f900-\U0001f9ff"  # supplemental symbols and pictographs
+            "\U0001fa70-\U0001faff"  # symbols and pictographs extended-A
+            "\U00002600-\U000026ff"  # miscellaneous symbols
+            "\U00002700-\U000027bf"  # dingbats
+            "\U0001f004"  # mahjong tile red dragon
+            "\U0001f0cf"  # playing card black joker
+            "\U0001f18e"  # negative squared ab
+            "\U0001f191-\U0001f19a"  # squared symbols
+            "\U0001f201-\U0001f202"  # squared katakana
+            "\U0001f21a-\U0001f22f"  # squared cjk ideographs
+            "\U0001f232-\U0001f23a"  # squared cjk ideographs
+            "\U0001f250-\U0001f251"  # circled ideographs
+            "\U0000200d"  # zero width joiner
+            "\U0000fe0f"  # variation selector-16
+            "]+",
+            flags=re.UNICODE,
+        )
+
+        return emoji_pattern.fullmatch(text) is not None

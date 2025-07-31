@@ -52,3 +52,29 @@ def test_emoji_repository_get_random_include_exclude(repository: PymojisReposito
         categories=excluded_categories, exclude=excluded_categories, length=10
     )
     assert all(emoji.category in excluded_categories for emoji in result)
+
+
+def test_get_by_emoji(repository: PymojisRepositoryImpl):
+    result = repository.get_by_emoji("😀")
+    assert isinstance(result, Emoji)
+    assert "1F600" in result.code
+
+
+def test_contains_emojis(repository: PymojisRepositoryImpl):
+    result = repository.contains_emojis("This string contains emoji: 😵‍💫")
+    assert result is True
+
+
+def test_contain_emojis_false(repository: PymojisRepositoryImpl):
+    result = repository.contains_emojis("This string does not contain emojis")
+    assert result is False
+
+
+def test_is_emoji(repository: PymojisRepositoryImpl):
+    assert repository.is_emoji("😵‍💫")
+    assert repository.is_emoji(" 😵‍💫")
+
+
+def test_is_emoji_false(repository: PymojisRepositoryImpl):
+    assert not repository.is_emoji("")
+    assert not repository.is_emoji("test 😵‍💫")
