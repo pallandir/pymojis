@@ -58,3 +58,13 @@ def test_get_by_emoji(repository: PymojisRepositoryImpl):
     result = repository.get_by_emoji("😀")
     assert isinstance(result, Emoji)
     assert "1F600" in result.code
+
+
+def test_contains_emojis(repository: PymojisRepositoryImpl):
+    result = repository.contains_emojis("This string contains emoji: 😵‍💫")
+    assert result is True
+
+
+def test_contain_emojis_false(repository: PymojisRepositoryImpl):
+    result = repository.contains_emojis("This string does not contain emojis")
+    assert result is False

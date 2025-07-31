@@ -127,3 +127,9 @@ class PymojisRepositoryImpl(PymojisRepository):
                 break
 
         return found_emoji
+
+    def contains_emojis(self, string: str) -> bool:
+        for emoji in self.emojis:
+            if emoji.emoji in string:
+                return True
+        return False
