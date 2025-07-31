@@ -1,6 +1,6 @@
 import json
-import os
 import re
+from importlib.resources import files
 from random import sample
 from typing import Literal
 
@@ -12,37 +12,50 @@ from .utils import check_type, should_exclude
 
 class PymojisRepositoryImpl(PymojisRepository):
     def __init__(self, data_file_path: str | None = None):
-        if data_file_path is None:
-            base_dir = os.path.dirname(__file__)
-            data_file_path = os.path.join(base_dir, "data", "emoji_data.json")
-
-        if not os.path.exists(data_file_path):
-            raise FileNotFoundError("No file found \n", data_file_path)
-        self.data_file_path = data_file_path
         self.emojis: list[Emoji] = []
-        self._load_data()
 
-    def _load_data(self) -> None:
+        if data_file_path is not None:
+            self.data_file_path = data_file_path
+            self._load_data_from_path()
+        else:
+            # Try full dataset first
+            try:
+                self.data_file = files("pymojis_fulldata.data").joinpath(
+                    "full_emoji_data.json"
+                )
+                self._load_data_from_resource()
+            except ModuleNotFoundError:
+                self.data_file = files("pymojis.infrastructure.data").joinpath(
+                    "emoji_data.json"
+                )
+                self._load_data_from_resource()
+
+    def _load_data_from_path(self) -> None:
         try:
-            with open(self.data_file_path, encoding="utf-8") as _file:
-                data = json.load(_file)
-                self.emojis = [
-                    Emoji(
-                        category=category,
-                        sub_category=subcategory,
-                        name=emoji.get("name"),
-                        code=emoji.get("code"),
-                        emoji=emoji.get("emoji"),
-                    )
-                    for category, subcategories in data.get("emojis").items()
-                    for subcategory, emojis_list in subcategories.items()
-                    for emoji in emojis_list
-                ]
-
-        except FileNotFoundError as file_not_found:
+            with open(self.data_file_path, encoding="utf-8") as f:
+                self._parse_emojis(json.load(f))
+        except FileNotFoundError:
             raise FileNotFoundError(
-                "No file found\n", file_not_found
+                f"No file found at: {self.data_file_path}"
             ) from FileNotFoundError
+
+    def _load_data_from_resource(self) -> None:
+        with self.data_file.open("r", encoding="utf-8") as f:
+            self._parse_emojis(json.load(f))
+
+    def _parse_emojis(self, data: dict) -> None:
+        self.emojis = [
+            Emoji(
+                category=category,
+                sub_category=subcategory,
+                name=emoji.get("name"),
+                code=emoji.get("code"),
+                emoji=emoji.get("emoji"),
+            )
+            for category, subcategories in data.get("emojis", {}).items()
+            for subcategory, emojis_list in subcategories.items()
+            for emoji in emojis_list
+        ]
 
     def get_all(
         self, exclude: Literal["complex"] | list[Categories] | None = None
