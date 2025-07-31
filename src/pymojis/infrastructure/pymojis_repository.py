@@ -29,12 +29,13 @@ class PymojisRepositoryImpl(PymojisRepository):
                 self.emojis = [
                     Emoji(
                         category=category,
+                        sub_category=subcategory,
                         name=emoji.get("name"),
                         code=emoji.get("code"),
                         emoji=emoji.get("emoji"),
                     )
                     for category, subcategories in data.get("emojis").items()
-                    for emojis_list in subcategories.values()
+                    for subcategory, emojis_list in subcategories.items()
                     for emoji in emojis_list
                 ]
 
