@@ -6,7 +6,9 @@ from src.pymojis.infrastructure.pymojis_repository import PymojisRepositoryImpl
 
 @pytest.fixture
 def repository(scope="module") -> PymojisRepositoryImpl:
-    return PymojisRepositoryImpl("tests/infrastructure/data/mock_emojis_data.json")
+    repo = PymojisRepositoryImpl()
+    repo.load_emojis()
+    return repo
 
 
 @pytest.fixture
