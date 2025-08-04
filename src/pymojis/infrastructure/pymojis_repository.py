@@ -18,7 +18,6 @@ class PymojisRepositoryImpl(PymojisRepository):
         self.logger = logging.getLogger(__name__)
         self._emojis: list[Emoji] = []
         self._data_loader: EmojiDataLoader = EmojiDataLoader(file_loader=FileLoader())
-        self.load_emojis(self.data_file_path)
 
     def load_emojis(self, data_file_path: str | None = None) -> None:
         try:
@@ -147,22 +146,21 @@ class PymojisRepositoryImpl(PymojisRepository):
         length: int = 1,
         exclude: Literal["complex"] | list[Categories] | None = None,
     ) -> list[Emoji]:
-        emojis: list[Emoji] = []
         if categories:
-            emojis = [
+            category_set = {cat.lower() for cat in categories}
+            filtered = [
                 emoji
                 for emoji in self._emojis
-                if emoji.category.lower()
-                in (category.lower() for category in categories)
+                if emoji.category.lower() in category_set
             ]
-        if exclude:
-            for emoji in self._emojis:
-                if should_exclude(emoji, exclude):
-                    continue
-                emojis.append(emoji)
         else:
-            emojis = self._emojis.copy()
-        return sample(emojis, min(length, len(emojis)))
+            filtered = (
+                [emoji for emoji in self._emojis if not should_exclude(emoji, exclude)]
+                if exclude
+                else self._emojis.copy()
+            )
+
+        return sample(filtered, min(length, len(filtered)))
 
     def get_by_emoji(self, emoji: str) -> Emoji | None:
         found_emoji = None
