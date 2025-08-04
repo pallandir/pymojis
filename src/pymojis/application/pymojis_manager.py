@@ -7,6 +7,7 @@ from pymojis.infrastructure.pymojis_repository import PymojisRepositoryImpl
 class PymojisManager:
     def __init__(self):
         self.repository = PymojisRepositoryImpl()
+        self.repository.load_emojis()
 
     def get_random(
         self,
