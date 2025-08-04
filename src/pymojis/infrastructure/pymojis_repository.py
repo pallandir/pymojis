@@ -1,70 +1,107 @@
-import json
+import logging
 import re
-from importlib.resources import files
 from random import sample
-from typing import Literal
+from typing import Any, Literal
 
 from pymojis.domain.entities.emojis import Categories, Emoji
 from pymojis.domain.repositories.repository import PymojisRepository
+from pymojis.infrastructure.data_loader.emojis_loader import EmojiDataLoader
+from pymojis.infrastructure.data_loader.file_loader import FileLoader
 
+from .exceptions import InfrastructureError
 from .utils import check_type, should_exclude
 
 
 class PymojisRepositoryImpl(PymojisRepository):
     def __init__(self, data_file_path: str | None = None):
-        self.emojis: list[Emoji] = []
+        self.data_file_path: str | None = data_file_path
+        self.logger = logging.getLogger(__name__)
+        self._emojis: list[Emoji] = []
+        self._data_loader: EmojiDataLoader = EmojiDataLoader(file_loader=FileLoader())
+        self.load_emojis(self.data_file_path)
 
-        if data_file_path is not None:
-            self.data_file_path = data_file_path
-            self._load_data_from_path()
-        else:
-            # Try full dataset first
-            try:
-                self.data_file = files("pymojis_fulldata.data").joinpath(
-                    "full_emoji_data.json"
-                )
-                self._load_data_from_resource()
-            except ModuleNotFoundError:
-                self.data_file = files("pymojis.infrastructure.data").joinpath(
-                    "emoji_data.json"
-                )
-                self._load_data_from_resource()
-
-    def _load_data_from_path(self) -> None:
+    def load_emojis(self, data_file_path: str | None = None) -> None:
         try:
-            with open(self.data_file_path, encoding="utf-8") as f:
-                self._parse_emojis(json.load(f))
-        except FileNotFoundError:
-            raise FileNotFoundError(
-                f"No file found at: {self.data_file_path}"
-            ) from FileNotFoundError
+            if data_file_path:
+                self.logger.info(f"Loading emojis from custom path: {data_file_path}")
+                raw_data = self._data_loader.load_from_path(data_file_path)
+            else:
+                self.logger.info("Loading emojis from default sources")
+                raw_data = self._data_loader.load_from_default_sources()
 
-    def _load_data_from_resource(self) -> None:
-        with self.data_file.open("r", encoding="utf-8") as f:
-            self._parse_emojis(json.load(f))
+            self._parse_emojis(raw_data)
+            self.logger.info(f"Successfully loaded {len(self._emojis)} emojis")
 
-    def _parse_emojis(self, data: dict) -> None:
-        self.emojis = [
-            Emoji(
-                category=category,
-                sub_category=subcategory,
-                name=emoji.get("name"),
-                code=emoji.get("code"),
-                emoji=emoji.get("emoji"),
-            )
-            for category, subcategories in data.get("emojis", {}).items()
-            for subcategory, emojis_list in subcategories.items()
-            for emoji in emojis_list
-        ]
+        except Exception as infra_error:
+            self.logger.error(f"Failed to load emojis: {infra_error}")
+            raise InfrastructureError(
+                f"Emoji loading failed: {infra_error}"
+            ) from infra_error
+
+    def _parse_emojis(self, data: dict[str, Any]) -> None:
+        try:
+            emojis_data = data.get("emojis", {})
+            if not isinstance(emojis_data, dict):
+                raise InfrastructureError(
+                    "Invalid data structure: 'emojis' must be a dictionary"
+                )
+
+            parsed_emojis = []
+
+            for category, subcategories in emojis_data.items():
+                if not isinstance(subcategories, dict):
+                    self.logger.warning(f"Skipping invalid category '{category}'")
+                    continue
+
+                for subcategory, emojis_list in subcategories.items():
+                    if not isinstance(emojis_list, list):
+                        self.logger.warning(
+                            f"Skipping invalid subcategory '{subcategory}'"
+                        )
+                        continue
+
+                    for emoji_data in emojis_list:
+                        try:
+                            emoji = self._create_emoji_from_data(
+                                category, subcategory, emoji_data
+                            )
+                            parsed_emojis.append(emoji)
+                        except Exception as invalid_emoji:
+                            self.logger.warning(
+                                f"Skipping invalid emoji: {invalid_emoji}"
+                            )
+                            continue
+
+            self._emojis = parsed_emojis
+            self.logger.debug(f"Parsed {len(self._emojis)} emojis successfully")
+
+        except Exception as infra_error:
+            raise InfrastructureError(
+                f"Failed to parse emoji data: {infra_error}"
+            ) from infra_error
+
+    def _create_emoji_from_data(
+        self, category: Categories, subcategory: str, emoji_data: dict[str, Any]
+    ) -> Emoji:
+        if not isinstance(emoji_data, dict):
+            raise ValueError("Emoji data must be a dictionary")
+
+        return Emoji(
+            category=category,
+            sub_category=subcategory,
+            name=emoji_data.get("name", ""),
+            code=emoji_data.get("code", ""),
+            emoji=emoji_data.get("emoji", ""),
+        )
 
     def get_all(
         self, exclude: Literal["complex"] | list[Categories] | None = None
     ) -> list[Emoji]:
         all_emojis: list[Emoji] = []
         if not exclude:
-            all_emojis = self.emojis.copy()
+            all_emojis = self._emojis.copy()
         else:
-            for emoji in self.emojis:
+            for emoji in self._emojis:
                 if should_exclude(emoji, exclude):
                     continue
                 all_emojis.append(emoji)
@@ -75,7 +112,7 @@ class PymojisRepositoryImpl(PymojisRepository):
             return []
         return [
             emoji.emoji
-            for emoji in self.emojis
+            for emoji in self._emojis
             if category.lower() == emoji.category.lower()
         ]
 
@@ -85,7 +122,7 @@ class PymojisRepositoryImpl(PymojisRepository):
         return next(
             (
                 emoji.emoji
-                for emoji in self.emojis
+                for emoji in self._emojis
                 if code.lower() in (emoji_code.lower() for emoji_code in emoji.code)
                 and len(emoji.code) == 1
             ),
@@ -98,7 +135,7 @@ class PymojisRepositoryImpl(PymojisRepository):
         return next(
             (
                 emoji.emoji
-                for emoji in self.emojis
+                for emoji in self._emojis
                 if emoji.name.lower() == name.lower()
             ),
             None,
@@ -114,22 +151,22 @@ class PymojisRepositoryImpl(PymojisRepository):
         if categories:
             emojis = [
                 emoji
-                for emoji in self.emojis
+                for emoji in self._emojis
                 if emoji.category.lower()
                 in (category.lower() for category in categories)
             ]
         if exclude:
-            for emoji in self.emojis:
+            for emoji in self._emojis:
                 if should_exclude(emoji, exclude):
                     continue
                 emojis.append(emoji)
         else:
-            emojis = self.emojis.copy()
+            emojis = self._emojis.copy()
         return sample(emojis, min(length, len(emojis)))
 
     def get_by_emoji(self, emoji: str) -> Emoji | None:
         found_emoji = None
-        for current_emoji in self.emojis:
+        for current_emoji in self._emojis:
             if current_emoji.emoji == emoji:
                 found_emoji = current_emoji
                 break
@@ -137,7 +174,7 @@ class PymojisRepositoryImpl(PymojisRepository):
         return found_emoji
 
     def contains_emojis(self, text: str) -> bool:
-        for emoji in self.emojis:
+        for emoji in self._emojis:
             if emoji.emoji in text:
                 return True
         return False
@@ -177,7 +214,7 @@ class PymojisRepositoryImpl(PymojisRepository):
     def emojifie(self, text: str) -> str:
         tokens = text.split()
         for index, token in enumerate(tokens):
-            for emoji in self.emojis:
+            for emoji in self._emojis:
                 if token.lower() in emoji.name.lower():
                     tokens[index] = emoji.emoji
                     break
