@@ -1,13 +1,19 @@
 from typing import Literal
 
 from pymojis.domain.entities.emojis import Categories, Emoji
+from pymojis.infrastructure.exceptions import DatasetNotFoundError
 from pymojis.infrastructure.pymojis_repository import PymojisRepositoryImpl
 
 
 class PymojisManager:
     def __init__(self):
         self.repository = PymojisRepositoryImpl()
-        self.repository.load_emojis()
+        try:
+            self.repository.load_emojis()
+        except Exception as dataset_error:
+            raise DatasetNotFoundError(
+                f"No dataset found: {dataset_error}"
+            ) from dataset_error
 
     def get_random(
         self,
