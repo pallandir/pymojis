@@ -19,6 +19,7 @@ class Emoji:
     def __new__(
         cls,
         category: Categories,
+        sub_category: str,
         code: list[str],
         name: str,
         emoji: str,
@@ -28,6 +29,8 @@ class Emoji:
         if not isinstance(category, str) or category not in valid_categories:
             valid_cats = ", ".join(f"'{cat}'" for cat in sorted(valid_categories))
             raise ValueError(f"category must be one of: {valid_cats}, got {category!r}")
+        if not isinstance(sub_category, str) or not sub_category.strip():
+            raise ValueError("Sub category should be a valid non-empty string")
         if (
             not isinstance(code, list)
             or not code
@@ -41,9 +44,12 @@ class Emoji:
 
         return super().__new__(cls)
 
-    def __init__(self, category: str, code: list[str], name: str, emoji: str) -> None:
+    def __init__(
+        self, category: str, sub_category: str, code: list[str], name: str, emoji: str
+    ) -> None:
         self.id = str(uuid4())
         self.category = category
+        self.sub_category = sub_category
         self.code = code
         self.name = name
         self.emoji = emoji
@@ -57,7 +63,4 @@ class Emoji:
         return hash(self.id)
 
     def __repr__(self) -> str:
-        return (
-            f"Emoji(name={self.name!r}, emoji={self.emoji!r}, "
-            f"code={self.code!r}, category={self.category!r})"
-        )
+        return f"Emoji(name={self.name!r}, emoji={self.emoji!r}, code={self.code!r}, category={self.category!r}, sub_category={self.sub_category!r})"

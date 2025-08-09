@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pymojis-fulldata"
+version = "0.1.0"
+description = "Full emoji datasets for pymojis"
+dependencies = []
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["pymojis_fulldata"]
+
+[tool.setuptools.package-data]
+pymojis_fulldata = ["**/*.json"]
+
