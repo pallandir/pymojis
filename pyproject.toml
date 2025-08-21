@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=61.0", "wheel", "setuptools-scm[simple]>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "Pymojis"
-version = "0.1.10"
+version = "1.0.0"
 description = "A Python library for emoji handling and utilities"
 readme = "README.md"
 requires-python = ">=3.12"
