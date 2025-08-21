@@ -224,8 +224,6 @@ jobs:
             echo "" >> current_changelog.md
             git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 HEAD~1)..HEAD >> current_changelog.md
           fi
-
-          # Set output for GitHub release
           {
             echo 'changelog<<EOF'
             cat current_changelog.md
