@@ -14,4 +14,3 @@ packages = ["pymojis_fulldata"]
 
 [tool.setuptools.package-data]
 pymojis_fulldata = ["**/*.json"]
-
