@@ -1,6 +1,9 @@
+default_language_version:
+  python: python3.12
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -14,42 +17,38 @@ repos:
       - id: detect-private-key
       - id: mixed-line-ending
 
-  - repo: https://github.com/psf/black
-    rev: 24.3.0
-    hooks:
-      - id: black
-        language_version: python3.12
-
-  - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
-        args: ["--profile", "black"]
-
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.0
+    rev: v0.14.0
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.9.0
+    rev: v1.18.2
     hooks:
       - id: mypy
         additional_dependencies: []
-        args: [--strict, --ignore-missing-imports]
+        args:
+          [
+            --strict,
+            --ignore-missing-imports,
+            --warn-unreachable,
+            --warn-unused-configs,
+            --warn-return-any,
+          ]
         exclude: ^tests/
 
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.8
+    rev: 1.8.6
     hooks:
       - id: bandit
         args: ["-c", "pyproject.toml"]
         additional_dependencies: ["bandit[toml]"]
-        exclude: ^tests/
+        exclude: ^(tests/|migrations/)
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.28.0
+    rev: 0.34.1
     hooks:
       - id: check-github-workflows
       - id: check-github-actions
