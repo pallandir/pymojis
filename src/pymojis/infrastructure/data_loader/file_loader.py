@@ -1,7 +1,7 @@
 import json
 import logging
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from ..exceptions import FileLoadingError, InvalidPathError
 
@@ -42,7 +42,7 @@ class FileLoader:
             with validated_path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
                 self.logger.info(f"Loaded JSON from: {validated_path}")
-                return data
+                return cast(dict[str, Any], data)
 
         except FileNotFoundError as file_error:
             raise FileLoadingError(f"File not found: {validated_path}") from file_error
@@ -63,7 +63,7 @@ class FileLoader:
             with resource_path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
                 self.logger.info(f"Loaded JSON resource: {module}/{filename}")
-                return data
+                return cast(dict[str, Any], data)
 
         except (ModuleNotFoundError, FileNotFoundError) as file_error:
             raise FileLoadingError(

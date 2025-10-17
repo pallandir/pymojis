@@ -4,7 +4,9 @@ from typing import Any, Literal
 from pymojis.domain.entities.emojis import Categories, Emoji
 
 
-def should_exclude(emoji: Emoji, exclude: Literal["complex"] | list[Categories] | None):
+def should_exclude(
+    emoji: Emoji, exclude: Literal["complex"] | list[Categories] | None
+) -> bool:
     if exclude == "complex" and len(emoji.code) > 1:
         return True
     if isinstance(exclude, list) and emoji.category.lower() in (
@@ -14,7 +16,7 @@ def should_exclude(emoji: Emoji, exclude: Literal["complex"] | list[Categories] 
     return False
 
 
-def check_type(value, expected_type: type[Any] | tuple[type[Any], ...]) -> bool:
+def check_type(value: Any, expected_type: type[Any] | tuple[type[Any], ...]) -> bool:
     if not isinstance(value, expected_type):
         warnings.warn(
             f"\n\nExpected type {expected_type}, got {type(value)}\n", stacklevel=4

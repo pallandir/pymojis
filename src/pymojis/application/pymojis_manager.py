@@ -6,7 +6,7 @@ from pymojis.infrastructure.pymojis_repository import PymojisRepositoryImpl
 
 
 class PymojisManager:
-    def __init__(self):
+    def __init__(self) -> None:
         self.repository = PymojisRepositoryImpl()
         try:
             self.repository.load_emojis()
