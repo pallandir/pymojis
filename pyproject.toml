@@ -31,7 +31,7 @@ classifiers = [
     "Typing :: Typed",
     "Natural Language :: English",
 ]
-dependencies = []  # Runtime dependencies only - moved pytest-cov
+dependencies = []
 
 [project.optional-dependencies]
 dev = [
@@ -71,9 +71,8 @@ include = ["pymojis*"]
 exclude = ["tests*", "*.tests", "*.tests.*"]
 
 [tool.setuptools.package-data]
-pymojis = ["py.typed", "data/*.json"]  # Be explicit about what you include
+pymojis = ["py.typed", "data/*.json"]
 
-# Pytest configuration
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
