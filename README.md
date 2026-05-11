@@ -1,276 +1,172 @@
-# 🎭 Pymojis
+# pymojis
 
-[![PyPI version](https://badge.fury.io/py/pymojis.svg)](https://badge.fury.io/py/pymojis)
-[![Python Support](https://img.shields.io/pypi/pyversions/pymojis.svg)](https://pypi.org/project/pymojis/)
-[![License](https://img.shields.io/pypi/l/pymojis.svg)](https://github.com/yourusername/pymojis/blob/main/LICENSE)
+[![PyPI version](https://img.shields.io/pypi/v/pymojis.svg)](https://pypi.org/project/pymojis/)
+[![Python versions](https://img.shields.io/pypi/pyversions/pymojis.svg)](https://pypi.org/project/pymojis/)
+[![License: MIT](https://img.shields.io/pypi/l/pymojis.svg)](https://github.com/pallandir/pymojis/blob/main/LICENSE)
+[![CI](https://github.com/pallandir/pymojis/actions/workflows/github_ci.yaml/badge.svg)](https://github.com/pallandir/pymojis/actions/workflows/github_ci.yaml)
 
-A comprehensive and intuitive Python library for emoji manipulation, search, and transformation. Pymojis provides a clean API for working with emojis in your Python applications with support for categories, random selection, text transformation, and more.
+A small, type-safe Python library for working with emojis: search them by
+name / code / character, transform text, detect emojis in strings, and
+convert to HTML.
 
-## ✨ Features
+- **Zero runtime dependencies.**
+- **Two install sizes**: a tiny default (~230 KB of data) or the full
+  Unicode dataset (~1 MB) via the `[full]` extra.
+- **Strict typing** — `py.typed`, full mypy strict compliance.
+- **Fail-fast API** — bad input raises immediately, no silent `None`
+  returns or warnings.
 
-- 🎲 **Random emoji generation** with category filtering
-- 📂 **Category-based emoji organization**
-- 🔍 **Search emojis** by name, code, or character
-- 🎨 **Text transformation** - convert words to emojis automatically
-- ✅ **Emoji detection** and validation in strings
-- 🌐 **HTML conversion** with Unicode support
-- 🚫 **Flexible exclusion filters** for complex emojis
-- 🏗️ **Type-safe** with full type hints support
-
-## 🚀 Installation
+## Install
 
 ```bash
-pip install pymojis
+pip install pymojis              # lightweight: ~1900 emojis
+pip install 'pymojis[full]'      # full Unicode coverage: ~3790 emojis
 ```
 
-## 📋 Requirements
+Requires **Python 3.12+**.
 
-- Python 3.12+
-- No external dependencies required
-
-## 🎯 Quick Start
+## Quick start
 
 ```python
 from pymojis import PymojisManager
 
-# Initialize the manager
 manager = PymojisManager()
 
-# Get random emojis
-random_emojis = manager.get_random(length=3)
-print([emoji.emoji for emoji in random_emojis])  # ['😊', '🎉', '🌟']
+# Pick random emojis
+print([e.emoji for e in manager.get_random(length=3)])
+# → ['😊', '🎉', '🌟']
 
-# Transform text with emojis
-text = manager.emojifie("I'm feeling happy and sleepy")
-print(text)  # "I'm feeling 😊 and 😪"
+# Look up by name / code / character
+manager.get_by_name("grinning face with smiling eyes")  # → '😄'
+manager.get_by_code("1F604")                            # → '😄'
+manager.get_by_emoji("😊")                              # → Emoji(...)
 
-# Check if text contains emojis
-has_emojis = manager.contains_emojis("Hello 👋 World!")
-print(has_emojis)  # True
+# Replace whole-word matches in text
+manager.emojifie("I'm sleepy")
+# → "I'm 😪"
+
+# Detection
+manager.contains_emojis("hello 👋")    # → True
+manager.is_emoji("😄")                 # → True
+manager.is_emoji("😄😊")               # → False
+
+# HTML hex references
+manager.to_html("😵‍💫")
+# → "&#x1F635;&#x200D;&#x1F4AB;"
 ```
 
-## 📚 API Reference
-
-### Core Methods
-
-#### `get_random(categories=None, length=1, exclude=None)`
-
-Generate random emojis with optional filtering.
+To use the full Unicode dataset:
 
 ```python
-# Get 5 random emojis
-emojis = manager.get_random(length=5)
-
-# Get random emojis from specific categories
-from pymojis import Categories
-happy_emojis = manager.get_random(
-    categories=[Categories.SMILEYS_EMOTION],
-    length=3
-)
-
-# Exclude complex emojis (multi-codepoint)
-simple_emojis = manager.get_random(length=5, exclude="complex")
+manager = PymojisManager(use_full_dataset=True)
+# Requires `pip install 'pymojis[full]'`. Raises DatasetNotFoundError
+# with installation instructions otherwise.
 ```
 
-#### `get_all_emojis(exclude=None)`
+## API
 
-Retrieve all available emojis with optional exclusions.
+| Method | Returns | Notes |
+|---|---|---|
+| `get_random(categories=None, length=1, exclude=None)` | `list[Emoji]` | `categories` takes precedence over `exclude`. |
+| `get_all_emojis(exclude=None)` | `list[Emoji]` | `exclude` accepts `"complex"` or a list of categories. |
+| `get_by_code(code)` | `str \| None` | Single-codepoint lookup. Case-insensitive. |
+| `get_by_name(name)` | `str \| None` | Full-name lookup. Case-insensitive. |
+| `get_by_category(category)` | `list[str]` | All emojis in a category. |
+| `get_by_emoji(emoji)` | `Emoji \| None` | Reverse lookup from character to record. |
+| `contains_emojis(text)` | `bool` | True if `text` contains at least one known emoji. |
+| `is_emoji(text)` | `bool` | True if `text.strip()` is a single known emoji. |
+| `emojifie(text)` | `str` | Replace whole words with emojis (whose name *contains* that word). |
+| `to_html(emoji)` | `str` | Encode each codepoint as `&#xHEX;`. |
 
-```python
-# Get all emojis
-all_emojis = manager.get_all_emojis()
+All methods raise `TypeError` on non-`str` arguments — no silent `None`.
 
-# Get all except complex ones
-simple_emojis = manager.get_all_emojis(exclude="complex")
-
-# Exclude specific categories
-filtered_emojis = manager.get_all_emojis(
-    exclude=[Categories.SYMBOLS, Categories.FLAGS]
-)
-```
-
-### Search Methods
-
-#### `get_by_code(code)`
-
-Find emoji by Unicode codepoint.
-
-```python
-emoji = manager.get_by_code("1F604")
-print(emoji)  # "😄"
-```
-
-#### `get_by_name(name)`
-
-Find emoji by its descriptive name.
-
-```python
-emoji = manager.get_by_name("smiling face with smiling eyes")
-print(emoji)  # "😄"
-```
-
-#### `get_by_category(category)`
-
-Get all emojis from a specific category.
-
-```python
-food_emojis = manager.get_by_category(Categories.FOOD_DRINK)
-print(food_emojis[:3])  # ['🍎', '🍌', '🍇']
-```
-
-#### `get_by_emoji(emoji)`
-
-Get detailed information about an emoji.
-
-```python
-emoji_info = manager.get_by_emoji("😊")
-print(emoji_info.name)  # "smiling face with smiling eyes"
-print(emoji_info.category)  # "Smileys & Emotion"
-print(emoji_info.code)  # "1F60A"
-```
-
-### Text Processing
-
-#### `emojifie(text)`
-
-Transform text by replacing words with matching emojis.
-
-```python
-text = manager.emojifie("I love pizza and coffee")
-print(text)  # "I ❤️ 🍕 and ☕"
-
-text = manager.emojifie("Good morning! Have a great day")
-print(text)  # "Good 🌅! Have a great day"
-```
-
-#### `contains_emojis(text)`
-
-Check if text contains any emojis.
-
-```python
-result = manager.contains_emojis("Hello 👋 World!")
-print(result)  # True
-
-result = manager.contains_emojis("Just plain text")
-print(result)  # False
-```
-
-#### `is_emoji(text)`
-
-Check if a string is a single emoji.
-
-```python
-result = manager.is_emoji("😄")
-print(result)  # True
-
-result = manager.is_emoji("😄😊")
-print(result)  # False
-```
-
-### Utility Methods
-
-#### `to_html(emoji)`
-
-Convert emoji to HTML Unicode representation.
-
-```python
-html = manager.to_html("😪")
-print(html)  # "&#x1F62A;"
-
-# Works with complex emojis too
-html = manager.to_html("😵‍💫")
-print(html)  # "&#x1F635;&#x200D;&#x1F4AB;"
-```
-
-## 🎨 Advanced Usage
-
-### Working with Categories
+### Categories
 
 ```python
 from pymojis import Categories
 
-# Available categories
-categories = [
-    Categories.SMILEYS_EMOTION,
-    Categories.PEOPLE_BODY,
-    Categories.ANIMALS_NATURE,
-    Categories.FOOD_DRINK,
-    Categories.TRAVEL_PLACES,
-    Categories.ACTIVITIES,
-    Categories.OBJECTS,
-    Categories.SYMBOLS,
-    Categories.FLAGS
-]
-
-# Get emojis from multiple categories
-party_emojis = manager.get_random(
-    categories=[Categories.SMILEYS_EMOTION, Categories.ACTIVITIES],
-    length=10
-)
+Categories  # type alias of all valid categories:
+#   "Smileys & Emotion", "People & Body", "Animals & Nature",
+#   "Food & Drink", "Activities", "Travel & Places", "Objects",
+#   "Symbols", "Flags", "Component"
 ```
 
-### Complex Emoji Filtering
+### `Emoji` data model
 
 ```python
-# Complex emojis include skin tones, gender variants, etc.
-# Examples: 👨‍💻, 🤷‍♀️, 👋🏽
+from pymojis import Emoji
 
-# Get only simple emojis
-simple_only = manager.get_random(length=10, exclude="complex")
-
-# Get all emojis except from specific categories
-filtered = manager.get_all_emojis(
-    exclude=[Categories.FLAGS, Categories.SYMBOLS]
-)
-```
-
-### Batch Text Processing
-
-```python
-texts = [
-    "I'm so happy today!",
-    "Time for coffee break",
-    "Working late tonight",
-    "Weekend party time!"
-]
-
-emojified_texts = [manager.emojifie(text) for text in texts]
-for original, emojified in zip(texts, emojified_texts):
-    print(f"{original} -> {emojified}")
-```
-
-## 🏗️ Data Model
-
-The `Emoji` class represents individual emoji objects:
-
-```python
-@dataclass
+@dataclass-like
 class Emoji:
-    emoji: str          # The actual emoji character
-    name: str           # Descriptive name
-    code: str           # Unicode codepoint
-    category: str       # Category classification
+    id: str            # auto-generated UUID
+    emoji: str         # the character itself, e.g. "😄"
+    name: str          # e.g. "grinning face with smiling eyes"
+    code: list[str]    # one or more Unicode codepoints, e.g. ["1F604"]
+                       #   (multi-codepoint emojis like ZWJ sequences have len > 1)
+    category: str      # e.g. "Smileys & Emotion"
+    sub_category: str  # e.g. "face-smiling"
 ```
 
-## ⚠️ Important Notes
+## Notes on `emojifie`
 
-- **Category Precedence**: When both `categories` and `exclude` parameters are provided, `categories` takes precedence
-- **Complex Emojis**: Some emojis may not render properly on all platforms due to Unicode support variations
-- **Performance**: The emoji dataset is loaded once during initialization for optimal performance
+`emojifie` does whole-word matching. Each word in the input is looked up in
+an index of emoji-name tokens. Tokens shorter than 3 characters are skipped
+(otherwise pronouns like "I" and "m" would be replaced by ℹ and Ⓜ). When a
+word matches multiple emojis, the first one (in dataset order) wins.
 
-## 🤝 Contributing
+```python
+manager.emojifie("I'm sleepy")           # → "I'm 😪"  (sleepy → "sleepy face")
+manager.emojifie("zzzz xyzzy")           # → "zzzz xyzzy"  (no match, unchanged)
+```
 
-We welcome contributions! Please feel free to submit issues, feature requests, or pull requests.
+## Releases (maintainer notes)
 
-## 📄 License
+This repo publishes **two** packages on every git tag: `pymojis` and
+`pymojis-fulldata`. Both must share the same version.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+To cut a release:
 
-## 🙏 Acknowledgments
+```bash
+# 1. Bump version in BOTH pyproject files
+$EDITOR pyproject.toml                                  # version = "X.Y.Z"
+$EDITOR packages/pymojis-fulldata/pyproject.toml        # version = "X.Y.Z"
+# Also bump the [full] extra dependency pin in pyproject.toml.
 
-- Unicode Consortium for emoji standards
-- Python community for excellent tooling and libraries
+# 2. Commit, tag, push
+git commit -am "Release vX.Y.Z"
+git tag vX.Y.Z
+git push origin main --tags
+```
 
----
+CI runs `scripts/verify_versions.py` to ensure the tag and both pyproject
+versions agree, builds both wheels, and publishes via PyPI Trusted
+Publishing (OIDC — no API tokens). One-time setup: register both projects
+as Trusted Publishers on https://pypi.org pointing at this repo and the
+workflow `.github/workflows/github_ci.yaml`.
 
-**Made with ❤️ for the Python community**
+## Development
+
+```bash
+uv sync --all-extras --dev
+uv run ruff check .
+uv run ruff format --check .
+uv run mypy src
+uv run pytest
+./scripts/build_all.sh
+```
+
+`pre-commit` is configured: `uv run pre-commit install` once, and the same
+checks run on every commit.
+
+## Contributing
+
+Issues and PRs welcome. Please run the full check suite above before
+opening a PR.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+The bundled emoji metadata derives from the work of
+[Chalda Pnuzig](https://github.com/chalda-pnuzig/emojis.json) (ISC License,
+see `third_party/`).

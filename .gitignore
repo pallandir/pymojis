@@ -209,3 +209,42 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 pyrightconfig.json
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Editor backups / swap files
+*.swp
+*.swo
+*.swn
+*~
+.netrwhist
+
+# Build artifacts (defense in depth — also covered by dist/ and build/ above)
+*.whl
+*.tar.gz
+
+# Local environment / secrets
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+
+# Extra coverage / test artifacts
+.benchmarks/
+.testmondata
+
+# Local notes / scratch
+TODO.local.md
+NOTES.local.md
+scratch/
+tmp/
+.tmp/

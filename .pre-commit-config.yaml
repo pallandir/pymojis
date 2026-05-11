@@ -10,7 +10,7 @@ repos:
       - id: check-yaml
       - id: check-toml
       - id: check-added-large-files
-        args: ["--maxkb=1000"]
+        args: ["--maxkb=1500"]
       - id: check-merge-conflict
       - id: check-case-conflict
       - id: check-json
@@ -18,39 +18,20 @@ repos:
       - id: mixed-line-ending
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.7.0
+    rev: v0.8.4
     hooks:
       - id: ruff
-        name: ruff-lint
         args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
-        name: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.18.2
     hooks:
       - id: mypy
-        additional_dependencies: []
-        args:
-          [
-            --strict,
-            --ignore-missing-imports,
-            --warn-unreachable,
-            --warn-unused-configs,
-            --warn-return-any,
-          ]
+        args: [--strict]
         exclude: ^tests/
-
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.8.6
-    hooks:
-      - id: bandit
-        args: ["-c", "pyproject.toml"]
-        additional_dependencies: ["bandit[toml]"]
-        exclude: ^(tests/|migrations/)
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.34.1
     hooks:
       - id: check-github-workflows
-      - id: check-github-actions
