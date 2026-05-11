@@ -1,4 +1,3 @@
 The used datasets were originally created by Chalda Pnuzig.
 Licensed under the ISC License.
 Used as part of the emoji database in this package.
-

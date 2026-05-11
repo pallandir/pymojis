@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pymojis-fulldata"
+version = "1.0.0"
+description = "Full Unicode emoji dataset for the pymojis library."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    {name = "Pallandir", email = "pallandir2@gmail.com"}
+]
+keywords = ["emoji", "unicode", "data", "pymojis"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/pallandir/pymojis"
+Repository = "https://github.com/pallandir/pymojis"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["pymojis_fulldata*"]
+
+[tool.setuptools.package-data]
+pymojis_fulldata = ["data/*.json"]

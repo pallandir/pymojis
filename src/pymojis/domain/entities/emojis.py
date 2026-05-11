@@ -1,4 +1,4 @@
-from typing import Literal, get_args
+from typing import Any, Literal, Self, get_args
 from uuid import uuid4
 
 Categories = Literal[
@@ -23,7 +23,7 @@ class Emoji:
         code: list[str],
         name: str,
         emoji: str,
-    ):
+    ) -> Self:
         valid_categories = get_args(Categories)
 
         if not isinstance(category, str) or category not in valid_categories:
@@ -46,7 +46,7 @@ class Emoji:
 
     def __init__(
         self, category: str, sub_category: str, code: list[str], name: str, emoji: str
-    ) -> None:
+    ):
         self.id = str(uuid4())
         self.category = category
         self.sub_category = sub_category
@@ -54,7 +54,7 @@ class Emoji:
         self.name = name
         self.emoji = emoji
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other: Any) -> bool:
         if not isinstance(other, Emoji):
             return False
         return self.id == other.id

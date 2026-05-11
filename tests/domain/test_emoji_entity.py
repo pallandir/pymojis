@@ -1,9 +1,9 @@
 import pytest
 
-from src.pymojis.domain.entities.emojis import Emoji
+from pymojis.domain.entities.emojis import Emoji
 
 
-def test_create_emoji():
+def test_create_emoji() -> None:
     emoji = Emoji(
         emoji="😄",
         code=["1F600"],
@@ -17,13 +17,12 @@ def test_create_emoji():
     assert emoji.sub_category == "faces"
 
 
-def test_create_emoji_wrong():
-    with pytest.raises(ValueError) as value_error:
+def test_create_emoji_invalid_inputs_raise() -> None:
+    with pytest.raises(ValueError):
         Emoji(
-            emoji=123,
+            emoji=123,  # type: ignore[arg-type]
             code=["1f600"],
             name="test",
-            category=["test"],
-            sub_category=12345,
+            category=["test"],  # type: ignore[arg-type]
+            sub_category=12345,  # type: ignore[arg-type]
         )
-    assert value_error
