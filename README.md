@@ -138,21 +138,26 @@ git tag vX.Y.Z
 git push origin main --tags
 ```
 
-CI runs `scripts/verify_versions.py` to ensure the tag and both pyproject
-versions agree, builds both wheels, and publishes via PyPI Trusted
-Publishing (OIDC — no API tokens). One-time setup: register both projects
-as Trusted Publishers on https://pypi.org pointing at this repo and the
+CI runs the full `make ci` pipeline (lint, format, typecheck, tests,
+build both wheels, twine check) and publishes via PyPI Trusted Publishing
+(OIDC — no API tokens). One-time setup: register both projects as
+Trusted Publishers on https://pypi.org pointing at this repo and the
 workflow `.github/workflows/github_ci.yaml`.
 
 ## Development
 
+A `Makefile` wraps the common workflows:
+
 ```bash
-uv sync --all-extras --dev
-uv run ruff check .
-uv run ruff format --check .
-uv run mypy src
-uv run pytest
-./scripts/build_all.sh
+make install       # uv sync --extra dev --frozen
+make lint          # ruff check
+make format-check  # ruff format --check
+make typecheck     # mypy src
+make test          # pytest
+make build         # build both wheels into dist/
+make twine-check   # twine check dist/*
+make ci            # lint + format-check + typecheck + test + build + twine-check
+make clean         # remove dist/, build/, *.egg-info
 ```
 
 `pre-commit` is configured: `uv run pre-commit install` once, and the same
