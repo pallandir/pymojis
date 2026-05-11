@@ -22,8 +22,8 @@ Implement an endpoint to:
 ### 💡 Proposed Solution
 Implementation should use the following stack:
 - **Framework**: [e.g., FastAPI]
-- **ORM**: [e.g., SQLAlchemy]  
-- Follow RESTful design principles and conform to OpenAPI specs.  
+- **ORM**: [e.g., SQLAlchemy]
+- Follow RESTful design principles and conform to OpenAPI specs.
 - Include Swagger-compatible documentation for automatic API docs generation.
 
 ### ✅ Acceptance Criteria

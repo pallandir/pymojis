@@ -1,19 +1,20 @@
 from typing import Literal
 
 from pymojis.domain.entities.emojis import Categories, Emoji
-from pymojis.infrastructure.exceptions import DatasetNotFoundError
 from pymojis.infrastructure.pymojis_repository import PymojisRepositoryImpl
 
 
 class PymojisManager:
-    def __init__(self):
+    """High-level facade for emoji search, transformation, and detection.
+
+    By default the manager loads the lightweight bundled dataset (~228 KB).
+    Pass ``use_full_dataset=True`` to load the full dataset, which requires
+    the optional ``pymojis-fulldata`` package (``pip install 'pymojis[full]'``).
+    """
+
+    def __init__(self, *, use_full_dataset: bool = False) -> None:
         self.repository = PymojisRepositoryImpl()
-        try:
-            self.repository.load_emojis()
-        except Exception as dataset_error:
-            raise DatasetNotFoundError(
-                f"No dataset found: {dataset_error}"
-            ) from dataset_error
+        self.repository.load_emojis(kind="full" if use_full_dataset else "light")
 
     def get_random(
         self,
@@ -21,208 +22,82 @@ class PymojisManager:
         length: int = 1,
         exclude: Literal["complex"] | list[Categories] | None = None,
     ) -> list[Emoji]:
-        """
-        Retrieve a list of random emojis.
-
-        This method returns a list of random emojis from the dataset. You can optionally filter by specific categories and specify the number of emojis to retrieve. By default, it returns one emoji selected from all available categories.
+        """Return ``length`` random ``Emoji`` objects, optionally filtered.
 
         Args:
-            categories (Optional[List[str]]): A list of category names to filter emojis by. Defaults to all categories.
-            length (Optional[int]): The number of random emojis to return. Defaults to 1. Maximum is the total number of emojis available in the dataset.
-            exclude (Optional[Literal["complex"] | list[Categories]]):
-                - If set to "complex", all complex emojis will be excluded.
-                - If a list of categories is provided, emojis from those categories will be excluded.
-                Defaults to None (no exclusions).
-        ⚠️ The categories parameter takes precedence on exclude. If you ask for a specific category and also exclude it, get_random will still generate emojis from this category.
-
-
-        Returns:
-            List[Emoji]: A list of randomly selected emoji objects.
+            categories: If provided, only emojis from these categories are
+                considered. Takes precedence over ``exclude``.
+            length: Number of emojis to return. Capped at the size of the pool.
+            exclude: ``"complex"`` to exclude multi-codepoint emojis (skin
+                tones, ZWJ sequences), or a list of categories to skip.
 
         Example:
             >>> manager = PymojisManager()
-            >>> manager.get_random(length=3)
-            [Emoji(emoji='😊', name='smiling face with smiling eyes', code='1F604',category='Smiley & Emotions'), ...]
+            >>> [e.emoji for e in manager.get_random(length=2)]  # doctest: +SKIP
+            ['😊', '🌟']
         """
         return self.repository.get_random_emojis(categories, length, exclude)
 
     def get_all_emojis(
         self, exclude: Literal["complex"] | list[Categories] | None = None
     ) -> list[Emoji]:
-        """
-        Retrieve all available emojis.
-
-        Returns a list of all emojis in the dataset. You can optionally exclude emojis based on category or complexity. Complex emojis are composed of multiple Unicode code points (e.g., skin tone modifiers, gender variants) and may not be supported on all platforms.
-
-        Args:
-            exclude (Optional[Literal["complex"] | list[Categories]]):
-                - If set to "complex", all complex emojis will be excluded.
-                - If a list of categories is provided, emojis from those categories will be excluded.
-                Defaults to None (no exclusions).
-
-        Returns:
-            list[Emoji]: A list of emoji objects.
-
-        Example:
-            >>> manager = PymojisManager()
-            >>> manager.get_all_emojis()
-            [Emoji(emoji='😊', name='smiling face with smiling eyes', code='1F604', category='Smileys & Emotion'), ...]
-        """
+        """Return every loaded ``Emoji``, optionally filtered by ``exclude``."""
         return self.repository.get_all(exclude)
 
     def get_by_code(self, code: str) -> str | None:
-        """
-        Retrieve an emoji by its Unicode codepoint.
+        """Return the emoji character matching the given Unicode codepoint.
 
-        This method returns the emoji character that corresponds to the given codepoint.
-
-        Args:
-            code (str): The Unicode codepoint of the emoji (e.g., "1F604").
-
-        Returns:
-            str: The emoji character associated with the given codepoint.
-
-        Example:
-            >>> manager = PymojisManager()
-            >>> manager.get_by_code("1F604")
-            '😄'
+        Only single-codepoint emojis are addressable this way. Returns
+        ``None`` if no match.
         """
         return self.repository.get_by_code(code)
 
     def get_by_name(self, name: str) -> str | None:
-        """
-        Retrieve an emoji by its name.
+        """Return the emoji character whose full name equals ``name``.
 
-        This method returns the emoji character that corresponds to the given name.
-
-        Args:
-            name (str): The name of the emoji (e.g., "smiling face with smiling eyes").
-
-        Returns:
-            str: The emoji character associated with the given name.
-
-        Example:
-            >>> manager = PymojisManager()
-            >>> manager.get_by_name("smiling face with smiling eyes")
-            '😄'
+        Matching is case-insensitive. Returns ``None`` if no match.
         """
         return self.repository.get_by_name(name)
 
     def get_by_category(self, category: Categories) -> list[str]:
-        """
-        Retrieve all emojis by category.
-
-        This method returns all emojis from a given category.
-
-        Args:
-            name (str): The name of the emoji (e.g., "Smileys & Emotions").
-
-        Returns:
-            list[str]: The emojis associated with a given category.
-
-        Example:
-            >>> manager = PymojisManager()
-            >>> manager.get_by_category("Smileys & Emotion")
-            ['😄'....]
-        """
+        """Return all emoji characters in the given category."""
         return self.repository.get_by_category(category)
 
     def get_by_emoji(self, emoji: str) -> Emoji | None:
-        """
-        Retrieve an Emoji object by its Unicode character.
-
-        Looks up and returns the details of the specified emoji based on its visual representation.
-
-        Args:
-            emoji (str): The Unicode emoji character to search for.
-
-        Returns:
-            Emoji | None: The corresponding Emoji object if found, otherwise None.
-
-        Example:
-            >>> manager = PymojisManager()
-            >>> manager.get_by_emoji("😊")
-            Emoji(emoji='😊', name='smiling face with smiling eyes', code='1F604', category='Smileys & Emotion')
-        """
+        """Return the ``Emoji`` object whose character equals ``emoji``."""
         return self.repository.get_by_emoji(emoji)
 
     def contains_emojis(self, text: str) -> bool:
-        """
-        Determine is a string contains any emoji.
-
-        This method returns True if a string contains an emoji, False otherwise.
-
-        Args:
-            text (str): The text to validate.
-
-        Returns:
-            Boolean: True if contains any emoji, False otherwise.
-
-        Example:
-            >>> manager = PymojisManager()
-            >>> manager.contains_emojis("This string contains emojis: 😄")
-            True
-        """
+        """Return ``True`` if ``text`` contains at least one known emoji."""
         return self.repository.contains_emojis(text)
 
     def is_emoji(self, text: str) -> bool:
-        """
-        Determine is a string is an emoji.
-
-        This method returns True if a string is an emoji, False otherwise.
-
-        Args:
-            text (str): The text to validate.
-
-        Returns:
-            Boolean: True if it's an emoji, False otherwise.
-
-        Example:
-            >>> manager = PymojisManager()
-            >>> manager.is_emoji("😄")
-            True
-        """
+        """Return ``True`` if ``text`` (after stripping) is a single known emoji."""
         return self.repository.is_emoji(text)
 
     def emojifie(self, text: str) -> str:
-        """
-        Replace words in the text with matching emojis based on their names.
+        """Replace each whole word in ``text`` whose lowercase form is a token
+        of an emoji name with that emoji.
 
-        This method scans the input text and replaces tokens that match or partially match
-        an emoji's name with the corresponding emoji character.
-
-        Args:
-            text (str): The input text to transform.
-
-        Returns:
-            str: The text with relevant words replaced by emojis.
+        Tokens are matched against the first word of any emoji's name (e.g.
+        ``"sleepy"`` matches the emoji named ``"sleepy face"``). Words that
+        match no emoji are left unchanged.
 
         Example:
             >>> manager = PymojisManager()
-            >>> manager.emojifie("I'm sleepy")
+            >>> manager.emojifie("I'm sleepy")  # doctest: +SKIP
             "I'm 😪"
         """
         return self.repository.emojifie(text)
 
     def to_html(self, emoji: str) -> str:
-        """
-            Convert an emoji character to its HTML Unicode representation.
+        """Return ``emoji`` as a sequence of HTML hex character references.
 
-        This method takes an emoji and returns its equivalent HTML format, supported by most browsers.
-        It also handles complex emojis composed of multiple Unicode code points, joining them appropriately.
-
-        Args:
-            text (str): The emoji character to convert.
-
-        Returns:
-            str: The HTML Unicode representation of the emoji.
+        Multi-codepoint emojis (ZWJ sequences, variation selectors) are
+        encoded codepoint by codepoint.
 
         Example:
-            >>> manager = PymojisManager()
-            >>> manager.to_html("😪")
-            "&#x1F62A;"
-
-            >>> manager.to_html("😵‍💫")  # This emoji is a composition of multiple Unicode characters
-            "&#x1F635;&#x200D;&#x1F4AB;"
+            >>> PymojisManager().to_html("😪")  # doctest: +SKIP
+            '&#x1F62A;'
         """
         return self.repository.to_html(emoji)

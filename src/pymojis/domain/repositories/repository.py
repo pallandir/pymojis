@@ -8,8 +8,7 @@ class PymojisRepository(ABC):
     @abstractmethod
     def get_all(
         self, exclude: Literal["complex"] | list[Categories] | None = None
-    ) -> list[Emoji]:
-        pass
+    ) -> list[Emoji]: ...
 
     @abstractmethod
     def get_random_emojis(
@@ -17,37 +16,28 @@ class PymojisRepository(ABC):
         categories: list[Categories] | None = None,
         length: int = 1,
         exclude: Literal["complex"] | list[Categories] | None = None,
-    ) -> list[Emoji]:
-        pass
+    ) -> list[Emoji]: ...
 
     @abstractmethod
-    def get_by_code(self, code: str) -> str | None:
-        pass
+    def get_by_code(self, code: str) -> str | None: ...
 
     @abstractmethod
-    def get_by_name(self, name: str) -> str | None:
-        pass
+    def get_by_name(self, name: str) -> str | None: ...
 
     @abstractmethod
-    def get_by_category(self, category: Categories) -> list[str]:
-        pass
+    def get_by_category(self, category: Categories) -> list[str]: ...
 
     @abstractmethod
-    def get_by_emoji(self, emoji: str) -> Emoji | None:
-        pass
+    def get_by_emoji(self, emoji: str) -> Emoji | None: ...
 
     @abstractmethod
-    def contains_emojis(self, text: str) -> bool:
-        pass
+    def contains_emojis(self, text: str) -> bool: ...
 
     @abstractmethod
-    def is_emoji(self, text: str) -> bool:
-        pass
+    def is_emoji(self, text: str) -> bool: ...
 
     @abstractmethod
-    def emojifie(self, text: str) -> str:
-        pass
+    def emojifie(self, text: str) -> str: ...
 
     @abstractmethod
-    def to_html(self, emoji: str) -> str:
-        pass
+    def to_html(self, emoji: str) -> str: ...
