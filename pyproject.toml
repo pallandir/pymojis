@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pymojis"
-version = "1.0.0"
+version = "1.0.1"
 description = "A lightweight, type-safe Python library for emoji search, transformation, and detection."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -33,7 +33,7 @@ classifiers = [
 dependencies = []
 
 [project.optional-dependencies]
-full = ["pymojis-fulldata==1.0.0"]
+full = ["pymojis-fulldata==1.0.1"]
 dev = [
     "build~=1.2",
     "pre-commit~=4.2",
