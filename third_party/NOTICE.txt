@@ -1,3 +1,14 @@
-The used datasets were originally created by Chalda Pnuzig.
-Licensed under the ISC License.
-Used as part of the emoji database in this package.
+Unicode CLDR and emoji-test data
+Files: third_party/cldr/en.xml, third_party/cldr/emoji-test.txt
+Copyright © 1991-2024 Unicode, Inc.
+Licensed under the Unicode License V3 (SPDX: Unicode-3.0). See third_party/cldr/LICENSE.
+
+Sources:
+- emoji-test.txt: Unicode 16.0 (https://www.unicode.org/Public/emoji/16.0/emoji-test.txt)
+- en.xml: CLDR release-46 (https://github.com/unicode-org/cldr/tree/release-46/common/annotations)
+
+These files are vendored to enable offline, reproducible dataset builds.
+They are read by scripts/build_dataset.py to generate the bundled emoji
+datasets (light + full) with names, codepoints, unicode_version,
+qualification, base-relationship metadata, and keyword annotations.
+Refresh via the manual `refresh-dataset` GitHub workflow.

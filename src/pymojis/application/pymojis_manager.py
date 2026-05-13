@@ -1,3 +1,4 @@
+from collections.abc import Callable, Iterator
 from typing import Literal
 
 from pymojis.domain.entities.emojis import Categories, Emoji
@@ -101,3 +102,193 @@ class PymojisManager:
             '&#x1F62A;'
         """
         return self.repository.to_html(emoji)
+
+    def extract(self, text: str) -> list[Emoji]:
+        """Return all emojis present in ``text``, in order of appearance.
+
+        ZWJ sequences and skin-tone composites are matched as whole units
+        (e.g. ``"👍🏽"`` returns the medium-skin-tone variant, not the bare
+        thumbs-up plus a separate modifier).
+        """
+        return self.repository.extract(text)
+
+    def find(self, text: str) -> Iterator[tuple[Emoji, int, int]]:
+        """Yield ``(emoji, start, end)`` for each emoji match in ``text``.
+
+        Indices are over the raw string (the same indices ``str.find`` uses),
+        so callers can slice ``text[start:end]`` to recover the matched glyph.
+        """
+        return self.repository.find(text)
+
+    def count(self, text: str) -> int:
+        """Return the total number of emoji occurrences in ``text``."""
+        return self.repository.count(text)
+
+    def count_by(self, text: str) -> dict[Emoji, int]:
+        """Return a histogram of ``{Emoji: occurrence_count}`` for ``text``."""
+        return self.repository.count_by(text)
+
+    def strip(self, text: str) -> str:
+        """Return ``text`` with every emoji removed (no whitespace collapsing)."""
+        return self.repository.strip(text)
+
+    def replace(self, text: str, repl: str | Callable[[Emoji], str]) -> str:
+        """Replace each emoji in ``text``.
+
+        Args:
+            repl: A literal string used for every match, or a callable
+                ``(Emoji) -> str`` invoked once per match.
+
+        Example:
+            >>> PymojisManager().replace("Hello 😀", "[emoji]")  # doctest: +SKIP
+            'Hello [emoji]'
+        """
+        return self.repository.replace(text, repl)
+
+    def demojifie(self, text: str) -> str:
+        """Return ``text`` with each emoji rewritten as ``:slugified_name:``.
+
+        Slugification lowercases the emoji name and replaces runs of
+        non-alphanumeric characters with single underscores.
+
+        Example:
+            >>> PymojisManager().demojifie("hi 😀")  # doctest: +SKIP
+            'hi :grinning_face:'
+        """
+        return self.repository.demojifie(text)
+
+    def to_codepoint_string(
+        self, emoji: str, sep: str = " ", prefix: str = "U+"
+    ) -> str:
+        """Format an emoji as its codepoint string, e.g. ``'U+1F600'``.
+
+        Multi-codepoint emojis are space-separated by default.
+
+        Example:
+            >>> PymojisManager().to_codepoint_string("😀")  # doctest: +SKIP
+            'U+1F600'
+        """
+        return self.repository.to_codepoint_string(emoji, sep=sep, prefix=prefix)
+
+    def to_unicode_escape(self, emoji: str) -> str:
+        r"""Format an emoji as Python ``\\U`` escapes, suitable for source code.
+
+        Always emits 8-hex-digit ``\\U`` escapes (codepoints above U+FFFF
+        cannot use the 4-digit ``\\u`` form).
+
+        Example:
+            >>> PymojisManager().to_unicode_escape("😀")  # doctest: +SKIP
+            '\\U0001F600'
+        """
+        return self.repository.to_unicode_escape(emoji)
+
+    def to_image_url(
+        self,
+        emoji: str,
+        provider: Literal["twemoji", "openmoji"] = "twemoji",
+        extension: Literal["svg", "png"] = "svg",
+    ) -> str:
+        """Return a public CDN URL for the emoji's image at the given provider.
+
+        ``twemoji`` keeps Variation-Selector-16 (``FE0F``) in the filename;
+        ``openmoji`` strips it per their repo convention.
+        """
+        return self.repository.to_image_url(emoji, provider, extension)
+
+    def to_shortcode(self, emoji: str, set_name: str = "github") -> str | None:
+        """Return the emoji's shortcode for the given vendor set, or ``None``.
+
+        Requires the full dataset for any non-trivial result — the light
+        dataset ships without shortcodes, so this always returns ``None``
+        there.
+        """
+        return self.repository.to_shortcode(emoji, set_name)
+
+    def from_shortcode(self, code: str, set_name: str | None = None) -> str | None:
+        """Reverse lookup: shortcode (e.g. ``':grinning_face:'``) → emoji.
+
+        With ``set_name=None``, returns the first match across all vendor
+        sets. Returns ``None`` if no match.
+        """
+        return self.repository.from_shortcode(code, set_name)
+
+    def base_of(self, emoji: str) -> str | None:
+        """Return the base emoji for a skin-tone or ZWJ variant.
+
+        ``base_of('👍🏽')`` → ``'👍'``. Returns ``None`` for emojis that
+        have no parent (base emojis themselves, or unknown input).
+        """
+        return self.repository.base_of(emoji)
+
+    def skin_tones(self, emoji: str) -> list[str]:
+        """Return all skin-tone variants of the same base as ``emoji``.
+
+        Works whether ``emoji`` is the base or one of the variants. Empty
+        list if the emoji has no skin-tone family.
+        """
+        return self.repository.skin_tones(emoji)
+
+    def is_flag(self, emoji: str) -> bool:
+        """Return ``True`` if ``emoji`` is a country flag.
+
+        Accepts both dataset-known flags (Flags category) and any bare
+        Regional Indicator Symbol pair, even ones not yet in the dataset.
+        """
+        return self.repository.is_flag(emoji)
+
+    def flag_for(self, country_code: str) -> str:
+        """Return the flag emoji for an ISO 3166-1 alpha-2 country code.
+
+        Example:
+            >>> PymojisManager().flag_for('FR')  # doctest: +SKIP
+            '🇫🇷'
+
+        Raises ``ValueError`` for inputs that are not 2 ASCII letters.
+        """
+        return self.repository.flag_for(country_code)
+
+    def country_of(self, emoji: str) -> str | None:
+        """Return the ISO 3166-1 alpha-2 country code for a flag emoji, or ``None``.
+
+        Only the 2-Regional-Indicator-Symbol form is decoded; subdivision
+        flags (England, Scotland, Wales) use tag sequences and return ``None``.
+        """
+        return self.repository.country_of(emoji)
+
+    def search(self, query: str, limit: int = 10) -> list[Emoji]:
+        """Return the top ``limit`` emojis matching ``query`` by name or keyword.
+
+        Scoring (highest wins): exact name (100) > name substring (50) >
+        name token equal (40) > exact keyword (30) > keyword substring (15).
+        Keyword matches require the full dataset (the light bundle ships
+        without keywords).
+
+        Example:
+            >>> [e.emoji for e in PymojisManager().search("grin", limit=3)]  # doctest: +SKIP
+            ['😀', '😁', '😃']
+        """
+        return self.repository.search(query, limit)
+
+    def suggest(self, emoji: str, limit: int = 5) -> list[Emoji]:
+        """Return ``limit`` emojis related to ``emoji``.
+
+        Same subcategory ranks highest, then keyword overlap (full dataset
+        only), then same category. The input emoji is excluded from
+        results. Empty list if ``emoji`` is unknown.
+        """
+        return self.repository.suggest(emoji, limit)
+
+    def categories(self) -> list[str]:
+        """Return the list of category names present in the loaded dataset.
+
+        Preserves dataset insertion order.
+        """
+        return self.repository.categories()
+
+    def sub_categories(self, category: str | None = None) -> list[str]:
+        """Return all subcategory names, optionally filtered to one category."""
+        return self.repository.sub_categories(category)
+
+    def get_by_subcategory(self, name: str) -> list[Emoji]:
+        """Return every ``Emoji`` whose ``sub_category`` matches ``name`` (case-insensitive)."""
+        return self.repository.get_by_subcategory(name)

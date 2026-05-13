@@ -659,7 +659,7 @@ wheels = [
 
 [[package]]
 name = "pymojis"
-version = "1.0.1"
+version = "1.1.0"
 source = { editable = "." }
 
 [package.optional-dependencies]
@@ -701,7 +701,7 @@ provides-extras = ["full", "dev", "test"]
 
 [[package]]
 name = "pymojis-fulldata"
-version = "1.0.1"
+version = "1.1.0"
 source = { editable = "packages/pymojis-fulldata" }
 
 [[package]]
