@@ -23,7 +23,7 @@ Without `use_full_dataset=True`, the lightweight bundled dataset is used.
 
 ## License
 
-MIT — see the LICENSE file. The underlying emoji metadata is derived from
-the [emoji-test data](https://unicode.org/Public/emoji/) maintained by the
-Unicode Consortium and the work of Chalda Pnuzig (ISC License, see
-`third_party/`).
+MIT — see the LICENSE file. The underlying emoji metadata is generated
+from the [Unicode CLDR](https://cldr.unicode.org/) sources
+([`emoji-test.txt`](https://unicode.org/Public/emoji/) and the English
+annotations), licensed under the Unicode License V3.

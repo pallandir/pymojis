@@ -1,9 +1,6 @@
 {
-  "@version": "16.0.0",
-  "@author": "Chalda Pnuzig <chalda_emoji＠chalda.it>",
-  "@copyright": "Chalda Pnuzig 2021-2024",
-  "@see": "{@link https://github.com/chalda-pnuzig/emojis.json|GitHub}",
-  "@license": "ISC",
+  "@version": "16.0",
+  "@source": "Unicode CLDR — emoji-test.txt + annotations/en.xml (vendored under third_party/cldr/)",
   "@cldr": "Unicode 16.0 (vendored CLDR annotations)",
   "emojis": {
     "Smileys & Emotion": {
@@ -197,6 +194,17 @@
           "emoji": "😗",
           "name": "kissing face",
           "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "263A",
+            "FE0F"
+          ],
+          "emoji": "☺️",
+          "name": "smiling face",
+          "unicode_version": "0.6",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -841,6 +849,17 @@
         },
         {
           "code": [
+            "2639",
+            "FE0F"
+          ],
+          "emoji": "☹️",
+          "name": "frowning face",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2639"
           ],
           "emoji": "☹",
@@ -1128,6 +1147,17 @@
           "emoji": "💀",
           "name": "skull",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2620",
+            "FE0F"
+          ],
+          "emoji": "☠️",
+          "name": "skull and crossbones",
+          "unicode_version": "1.0",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -1441,6 +1471,17 @@
         },
         {
           "code": [
+            "2763",
+            "FE0F"
+          ],
+          "emoji": "❣️",
+          "name": "heart exclamation",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2763"
           ],
           "emoji": "❣",
@@ -1475,6 +1516,18 @@
         {
           "code": [
             "2764",
+            "200D",
+            "1F525"
+          ],
+          "emoji": "❤‍🔥",
+          "name": "heart on fire",
+          "unicode_version": "13.1",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2764",
             "FE0F",
             "200D",
             "1FA79"
@@ -1482,6 +1535,29 @@
           "emoji": "❤️‍🩹",
           "name": "mending heart",
           "unicode_version": "13.1",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2764",
+            "200D",
+            "1FA79"
+          ],
+          "emoji": "❤‍🩹",
+          "name": "mending heart",
+          "unicode_version": "13.1",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2764",
+            "FE0F"
+          ],
+          "emoji": "❤️",
+          "name": "red heart",
+          "unicode_version": "0.6",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -1679,6 +1755,17 @@
         },
         {
           "code": [
+            "1F573",
+            "FE0F"
+          ],
+          "emoji": "🕳️",
+          "name": "hole",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F573"
           ],
           "emoji": "🕳",
@@ -1713,12 +1800,59 @@
         },
         {
           "code": [
+            "1F441",
+            "200D",
+            "1F5E8",
+            "FE0F"
+          ],
+          "emoji": "👁‍🗨️",
+          "name": "eye in speech bubble",
+          "unicode_version": "2.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F441",
+            "200D",
+            "1F5E8"
+          ],
+          "emoji": "👁‍🗨",
+          "name": "eye in speech bubble",
+          "unicode_version": "2.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F5E8",
+            "FE0F"
+          ],
+          "emoji": "🗨️",
+          "name": "left speech bubble",
+          "unicode_version": "2.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5E8"
           ],
           "emoji": "🗨",
           "name": "left speech bubble",
           "unicode_version": "2.0",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F5EF",
+            "FE0F"
+          ],
+          "emoji": "🗯️",
+          "name": "right anger bubble",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -1772,6 +1906,17 @@
           "emoji": "🤚",
           "name": "raised back of hand",
           "unicode_version": "3.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F590",
+            "FE0F"
+          ],
+          "emoji": "🖐️",
+          "name": "hand with fingers splayed",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -1899,6 +2044,17 @@
         },
         {
           "code": [
+            "270C",
+            "FE0F"
+          ],
+          "emoji": "✌️",
+          "name": "victory hand",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "270C"
           ],
           "emoji": "✌",
@@ -2005,6 +2161,17 @@
           ],
           "emoji": "👇",
           "name": "backhand index pointing down",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "261D",
+            "FE0F"
+          ],
+          "emoji": "☝️",
+          "name": "index pointing up",
           "unicode_version": "0.6",
           "qualification": "fully-qualified",
           "base_code": null
@@ -2165,6 +2332,17 @@
         }
       ],
       "hand-prop": [
+        {
+          "code": [
+            "270D",
+            "FE0F"
+          ],
+          "emoji": "✍️",
+          "name": "writing hand",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
         {
           "code": [
             "270D"
@@ -2334,6 +2512,17 @@
           "emoji": "👀",
           "name": "eyes",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F441",
+            "FE0F"
+          ],
+          "emoji": "👁️",
+          "name": "eye",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -3682,6 +3871,17 @@
         },
         {
           "code": [
+            "1F575",
+            "FE0F"
+          ],
+          "emoji": "🕵️",
+          "name": "detective",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F575"
           ],
           "emoji": "🕵",
@@ -3707,6 +3907,31 @@
         {
           "code": [
             "1F575",
+            "200D",
+            "2642",
+            "FE0F"
+          ],
+          "emoji": "🕵‍♂️",
+          "name": "man detective",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F575",
+            "200D",
+            "2642"
+          ],
+          "emoji": "🕵‍♂",
+          "name": "man detective",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F575",
             "FE0F",
             "200D",
             "2640",
@@ -3716,6 +3941,31 @@
           "name": "woman detective",
           "unicode_version": "4.0",
           "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F575",
+            "200D",
+            "2640",
+            "FE0F"
+          ],
+          "emoji": "🕵‍♀️",
+          "name": "woman detective",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F575",
+            "200D",
+            "2640"
+          ],
+          "emoji": "🕵‍♀",
+          "name": "woman detective",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
           "base_code": null
         },
         {
@@ -5030,6 +5280,17 @@
         },
         {
           "code": [
+            "1F574",
+            "FE0F"
+          ],
+          "emoji": "🕴️",
+          "name": "person in suit levitating",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F574"
           ],
           "emoji": "🕴",
@@ -5170,6 +5431,17 @@
         },
         {
           "code": [
+            "26F7",
+            "FE0F"
+          ],
+          "emoji": "⛷️",
+          "name": "skier",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "26F7"
           ],
           "emoji": "⛷",
@@ -5185,6 +5457,17 @@
           "emoji": "🏂",
           "name": "snowboarder",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3CC",
+            "FE0F"
+          ],
+          "emoji": "🏌️",
+          "name": "person golfing",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -5215,6 +5498,31 @@
         {
           "code": [
             "1F3CC",
+            "200D",
+            "2642",
+            "FE0F"
+          ],
+          "emoji": "🏌‍♂️",
+          "name": "man golfing",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3CC",
+            "200D",
+            "2642"
+          ],
+          "emoji": "🏌‍♂",
+          "name": "man golfing",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3CC",
             "FE0F",
             "200D",
             "2640",
@@ -5224,6 +5532,31 @@
           "name": "woman golfing",
           "unicode_version": "4.0",
           "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3CC",
+            "200D",
+            "2640",
+            "FE0F"
+          ],
+          "emoji": "🏌‍♀️",
+          "name": "woman golfing",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3CC",
+            "200D",
+            "2640"
+          ],
+          "emoji": "🏌‍♀",
+          "name": "woman golfing",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
           "base_code": null
         },
         {
@@ -5336,6 +5669,17 @@
         },
         {
           "code": [
+            "26F9",
+            "FE0F"
+          ],
+          "emoji": "⛹️",
+          "name": "person bouncing ball",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "26F9"
           ],
           "emoji": "⛹",
@@ -5361,6 +5705,31 @@
         {
           "code": [
             "26F9",
+            "200D",
+            "2642",
+            "FE0F"
+          ],
+          "emoji": "⛹‍♂️",
+          "name": "man bouncing ball",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "26F9",
+            "200D",
+            "2642"
+          ],
+          "emoji": "⛹‍♂",
+          "name": "man bouncing ball",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "26F9",
             "FE0F",
             "200D",
             "2640",
@@ -5369,6 +5738,42 @@
           "emoji": "⛹️‍♀️",
           "name": "woman bouncing ball",
           "unicode_version": "4.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "26F9",
+            "200D",
+            "2640",
+            "FE0F"
+          ],
+          "emoji": "⛹‍♀️",
+          "name": "woman bouncing ball",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "26F9",
+            "200D",
+            "2640"
+          ],
+          "emoji": "⛹‍♀",
+          "name": "woman bouncing ball",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3CB",
+            "FE0F"
+          ],
+          "emoji": "🏋️",
+          "name": "person lifting weights",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -5399,6 +5804,31 @@
         {
           "code": [
             "1F3CB",
+            "200D",
+            "2642",
+            "FE0F"
+          ],
+          "emoji": "🏋‍♂️",
+          "name": "man lifting weights",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3CB",
+            "200D",
+            "2642"
+          ],
+          "emoji": "🏋‍♂",
+          "name": "man lifting weights",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3CB",
             "FE0F",
             "200D",
             "2640",
@@ -5408,6 +5838,31 @@
           "name": "woman lifting weights",
           "unicode_version": "4.0",
           "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3CB",
+            "200D",
+            "2640",
+            "FE0F"
+          ],
+          "emoji": "🏋‍♀️",
+          "name": "woman lifting weights",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3CB",
+            "200D",
+            "2640"
+          ],
+          "emoji": "🏋‍♀",
+          "name": "woman lifting weights",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
           "base_code": null
         },
         {
@@ -6246,6 +6701,17 @@
       "person-symbol": [
         {
           "code": [
+            "1F5E3",
+            "FE0F"
+          ],
+          "emoji": "🗣️",
+          "name": "speaking head",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5E3"
           ],
           "emoji": "🗣",
@@ -6944,6 +7410,17 @@
         },
         {
           "code": [
+            "1F43F",
+            "FE0F"
+          ],
+          "emoji": "🐿️",
+          "name": "chipmunk",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F43F"
           ],
           "emoji": "🐿",
@@ -7164,6 +7641,17 @@
           "emoji": "🐧",
           "name": "penguin",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F54A",
+            "FE0F"
+          ],
+          "emoji": "🕊️",
+          "name": "dove",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -7671,12 +8159,34 @@
         },
         {
           "code": [
+            "1F577",
+            "FE0F"
+          ],
+          "emoji": "🕷️",
+          "name": "spider",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F577"
           ],
           "emoji": "🕷",
           "name": "spider",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F578",
+            "FE0F"
+          ],
+          "emoji": "🕸️",
+          "name": "spider web",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -7778,6 +8288,17 @@
           "emoji": "🪷",
           "name": "lotus",
           "unicode_version": "14.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3F5",
+            "FE0F"
+          ],
+          "emoji": "🏵️",
+          "name": "rosette",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -7940,6 +8461,17 @@
           "emoji": "🌿",
           "name": "herb",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2618",
+            "FE0F"
+          ],
+          "emoji": "☘️",
+          "name": "shamrock",
+          "unicode_version": "1.0",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -8288,6 +8820,17 @@
           "emoji": "🌽",
           "name": "ear of corn",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F336",
+            "FE0F"
+          ],
+          "emoji": "🌶️",
+          "name": "hot pepper",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -9305,6 +9848,17 @@
         },
         {
           "code": [
+            "1F37D",
+            "FE0F"
+          ],
+          "emoji": "🍽️",
+          "name": "fork and knife with plate",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F37D"
           ],
           "emoji": "🍽",
@@ -9409,6 +9963,17 @@
         },
         {
           "code": [
+            "1F5FA",
+            "FE0F"
+          ],
+          "emoji": "🗺️",
+          "name": "world map",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5FA"
           ],
           "emoji": "🗺",
@@ -9441,12 +10006,34 @@
       "place-geographic": [
         {
           "code": [
+            "1F3D4",
+            "FE0F"
+          ],
+          "emoji": "🏔️",
+          "name": "snow-capped mountain",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F3D4"
           ],
           "emoji": "🏔",
           "name": "snow-capped mountain",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "26F0",
+            "FE0F"
+          ],
+          "emoji": "⛰️",
+          "name": "mountain",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -9481,12 +10068,34 @@
         },
         {
           "code": [
+            "1F3D5",
+            "FE0F"
+          ],
+          "emoji": "🏕️",
+          "name": "camping",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F3D5"
           ],
           "emoji": "🏕",
           "name": "camping",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3D6",
+            "FE0F"
+          ],
+          "emoji": "🏖️",
+          "name": "beach with umbrella",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -9501,6 +10110,17 @@
         },
         {
           "code": [
+            "1F3DC",
+            "FE0F"
+          ],
+          "emoji": "🏜️",
+          "name": "desert",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F3DC"
           ],
           "emoji": "🏜",
@@ -9511,12 +10131,34 @@
         },
         {
           "code": [
+            "1F3DD",
+            "FE0F"
+          ],
+          "emoji": "🏝️",
+          "name": "desert island",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F3DD"
           ],
           "emoji": "🏝",
           "name": "desert island",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3DE",
+            "FE0F"
+          ],
+          "emoji": "🏞️",
+          "name": "national park",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -9533,6 +10175,17 @@
       "place-building": [
         {
           "code": [
+            "1F3DF",
+            "FE0F"
+          ],
+          "emoji": "🏟️",
+          "name": "stadium",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F3DF"
           ],
           "emoji": "🏟",
@@ -9543,12 +10196,34 @@
         },
         {
           "code": [
+            "1F3DB",
+            "FE0F"
+          ],
+          "emoji": "🏛️",
+          "name": "classical building",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F3DB"
           ],
           "emoji": "🏛",
           "name": "classical building",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3D7",
+            "FE0F"
+          ],
+          "emoji": "🏗️",
+          "name": "building construction",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -9603,12 +10278,34 @@
         },
         {
           "code": [
+            "1F3D8",
+            "FE0F"
+          ],
+          "emoji": "🏘️",
+          "name": "houses",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F3D8"
           ],
           "emoji": "🏘",
           "name": "houses",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3DA",
+            "FE0F"
+          ],
+          "emoji": "🏚️",
+          "name": "derelict house",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -9845,6 +10542,17 @@
         },
         {
           "code": [
+            "26E9",
+            "FE0F"
+          ],
+          "emoji": "⛩️",
+          "name": "shinto shrine",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "26E9"
           ],
           "emoji": "⛩",
@@ -9907,6 +10615,17 @@
         },
         {
           "code": [
+            "1F3D9",
+            "FE0F"
+          ],
+          "emoji": "🏙️",
+          "name": "cityscape",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F3D9"
           ],
           "emoji": "🏙",
@@ -9961,6 +10680,17 @@
           ],
           "emoji": "🌉",
           "name": "bridge at night",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2668",
+            "FE0F"
+          ],
+          "emoji": "♨️",
+          "name": "hot springs",
           "unicode_version": "0.6",
           "qualification": "fully-qualified",
           "base_code": null
@@ -10329,12 +11059,34 @@
         },
         {
           "code": [
+            "1F3CE",
+            "FE0F"
+          ],
+          "emoji": "🏎️",
+          "name": "racing car",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F3CE"
           ],
           "emoji": "🏎",
           "name": "racing car",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3CD",
+            "FE0F"
+          ],
+          "emoji": "🏍️",
+          "name": "motorcycle",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -10439,6 +11191,17 @@
         },
         {
           "code": [
+            "1F6E3",
+            "FE0F"
+          ],
+          "emoji": "🛣️",
+          "name": "motorway",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F6E3"
           ],
           "emoji": "🛣",
@@ -10449,12 +11212,34 @@
         },
         {
           "code": [
+            "1F6E4",
+            "FE0F"
+          ],
+          "emoji": "🛤️",
+          "name": "railway track",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F6E4"
           ],
           "emoji": "🛤",
           "name": "railway track",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F6E2",
+            "FE0F"
+          ],
+          "emoji": "🛢️",
+          "name": "oil drum",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -10591,6 +11376,17 @@
         },
         {
           "code": [
+            "1F6F3",
+            "FE0F"
+          ],
+          "emoji": "🛳️",
+          "name": "passenger ship",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F6F3"
           ],
           "emoji": "🛳",
@@ -10601,12 +11397,34 @@
         },
         {
           "code": [
+            "26F4",
+            "FE0F"
+          ],
+          "emoji": "⛴️",
+          "name": "ferry",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "26F4"
           ],
           "emoji": "⛴",
           "name": "ferry",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F6E5",
+            "FE0F"
+          ],
+          "emoji": "🛥️",
+          "name": "motor boat",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -10633,12 +11451,34 @@
       "transport-air": [
         {
           "code": [
+            "2708",
+            "FE0F"
+          ],
+          "emoji": "✈️",
+          "name": "airplane",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2708"
           ],
           "emoji": "✈",
           "name": "airplane",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F6E9",
+            "FE0F"
+          ],
+          "emoji": "🛩️",
+          "name": "small airplane",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -10733,6 +11573,17 @@
         },
         {
           "code": [
+            "1F6F0",
+            "FE0F"
+          ],
+          "emoji": "🛰️",
+          "name": "satellite",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F6F0"
           ],
           "emoji": "🛰",
@@ -10763,6 +11614,17 @@
         }
       ],
       "hotel": [
+        {
+          "code": [
+            "1F6CE",
+            "FE0F"
+          ],
+          "emoji": "🛎️",
+          "name": "bellhop bell",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
         {
           "code": [
             "1F6CE"
@@ -10827,6 +11689,17 @@
         },
         {
           "code": [
+            "23F1",
+            "FE0F"
+          ],
+          "emoji": "⏱️",
+          "name": "stopwatch",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "23F1"
           ],
           "emoji": "⏱",
@@ -10837,12 +11710,34 @@
         },
         {
           "code": [
+            "23F2",
+            "FE0F"
+          ],
+          "emoji": "⏲️",
+          "name": "timer clock",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "23F2"
           ],
           "emoji": "⏲",
           "name": "timer clock",
           "unicode_version": "1.0",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F570",
+            "FE0F"
+          ],
+          "emoji": "🕰️",
+          "name": "mantelpiece clock",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -11219,12 +12114,34 @@
         },
         {
           "code": [
+            "1F321",
+            "FE0F"
+          ],
+          "emoji": "🌡️",
+          "name": "thermometer",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F321"
           ],
           "emoji": "🌡",
           "name": "thermometer",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2600",
+            "FE0F"
+          ],
+          "emoji": "☀️",
+          "name": "sun",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -11309,6 +12226,17 @@
         },
         {
           "code": [
+            "2601",
+            "FE0F"
+          ],
+          "emoji": "☁️",
+          "name": "cloud",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2601"
           ],
           "emoji": "☁",
@@ -11329,12 +12257,34 @@
         },
         {
           "code": [
+            "26C8",
+            "FE0F"
+          ],
+          "emoji": "⛈️",
+          "name": "cloud with lightning and rain",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "26C8"
           ],
           "emoji": "⛈",
           "name": "cloud with lightning and rain",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F324",
+            "FE0F"
+          ],
+          "emoji": "🌤️",
+          "name": "sun behind small cloud",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -11349,12 +12299,34 @@
         },
         {
           "code": [
+            "1F325",
+            "FE0F"
+          ],
+          "emoji": "🌥️",
+          "name": "sun behind large cloud",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F325"
           ],
           "emoji": "🌥",
           "name": "sun behind large cloud",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F326",
+            "FE0F"
+          ],
+          "emoji": "🌦️",
+          "name": "sun behind rain cloud",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -11369,12 +12341,34 @@
         },
         {
           "code": [
+            "1F327",
+            "FE0F"
+          ],
+          "emoji": "🌧️",
+          "name": "cloud with rain",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F327"
           ],
           "emoji": "🌧",
           "name": "cloud with rain",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F328",
+            "FE0F"
+          ],
+          "emoji": "🌨️",
+          "name": "cloud with snow",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -11389,12 +12383,34 @@
         },
         {
           "code": [
+            "1F329",
+            "FE0F"
+          ],
+          "emoji": "🌩️",
+          "name": "cloud with lightning",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F329"
           ],
           "emoji": "🌩",
           "name": "cloud with lightning",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F32A",
+            "FE0F"
+          ],
+          "emoji": "🌪️",
+          "name": "tornado",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -11409,12 +12425,34 @@
         },
         {
           "code": [
+            "1F32B",
+            "FE0F"
+          ],
+          "emoji": "🌫️",
+          "name": "fog",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F32B"
           ],
           "emoji": "🌫",
           "name": "fog",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F32C",
+            "FE0F"
+          ],
+          "emoji": "🌬️",
+          "name": "wind face",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -11459,6 +12497,17 @@
         },
         {
           "code": [
+            "2602",
+            "FE0F"
+          ],
+          "emoji": "☂️",
+          "name": "umbrella",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2602"
           ],
           "emoji": "☂",
@@ -11474,6 +12523,17 @@
           "emoji": "☔",
           "name": "umbrella with rain drops",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "26F1",
+            "FE0F"
+          ],
+          "emoji": "⛱️",
+          "name": "umbrella on ground",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -11499,12 +12559,34 @@
         },
         {
           "code": [
+            "2744",
+            "FE0F"
+          ],
+          "emoji": "❄️",
+          "name": "snowflake",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2744"
           ],
           "emoji": "❄",
           "name": "snowflake",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2603",
+            "FE0F"
+          ],
+          "emoji": "☃️",
+          "name": "snowman",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -11524,6 +12606,17 @@
           "emoji": "⛄",
           "name": "snowman without snow",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2604",
+            "FE0F"
+          ],
+          "emoji": "☄️",
+          "name": "comet",
+          "unicode_version": "1.0",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -11753,12 +12846,34 @@
         },
         {
           "code": [
+            "1F397",
+            "FE0F"
+          ],
+          "emoji": "🎗️",
+          "name": "reminder ribbon",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F397"
           ],
           "emoji": "🎗",
           "name": "reminder ribbon",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F39F",
+            "FE0F"
+          ],
+          "emoji": "🎟️",
+          "name": "admission tickets",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -11783,6 +12898,17 @@
         }
       ],
       "award-medal": [
+        {
+          "code": [
+            "1F396",
+            "FE0F"
+          ],
+          "emoji": "🎖️",
+          "name": "military medal",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
         {
           "code": [
             "1F396"
@@ -12047,6 +13173,17 @@
         },
         {
           "code": [
+            "26F8",
+            "FE0F"
+          ],
+          "emoji": "⛸️",
+          "name": "ice skate",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "26F8"
           ],
           "emoji": "⛸",
@@ -12199,6 +13336,17 @@
         },
         {
           "code": [
+            "1F579",
+            "FE0F"
+          ],
+          "emoji": "🕹️",
+          "name": "joystick",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F579"
           ],
           "emoji": "🕹",
@@ -12279,12 +13427,34 @@
         },
         {
           "code": [
+            "2660",
+            "FE0F"
+          ],
+          "emoji": "♠️",
+          "name": "spade suit",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2660"
           ],
           "emoji": "♠",
           "name": "spade suit",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2665",
+            "FE0F"
+          ],
+          "emoji": "♥️",
+          "name": "heart suit",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -12299,6 +13469,17 @@
         },
         {
           "code": [
+            "2666",
+            "FE0F"
+          ],
+          "emoji": "♦️",
+          "name": "diamond suit",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2666"
           ],
           "emoji": "♦",
@@ -12309,12 +13490,34 @@
         },
         {
           "code": [
+            "2663",
+            "FE0F"
+          ],
+          "emoji": "♣️",
+          "name": "club suit",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2663"
           ],
           "emoji": "♣",
           "name": "club suit",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "265F",
+            "FE0F"
+          ],
+          "emoji": "♟️",
+          "name": "chess pawn",
+          "unicode_version": "11.0",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -12366,6 +13569,17 @@
           "emoji": "🎭",
           "name": "performing arts",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F5BC",
+            "FE0F"
+          ],
+          "emoji": "🖼️",
+          "name": "framed picture",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -12440,6 +13654,17 @@
           "emoji": "👓",
           "name": "glasses",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F576",
+            "FE0F"
+          ],
+          "emoji": "🕶️",
+          "name": "sunglasses",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -12675,6 +13900,17 @@
         },
         {
           "code": [
+            "1F6CD",
+            "FE0F"
+          ],
+          "emoji": "🛍️",
+          "name": "shopping bags",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F6CD"
           ],
           "emoji": "🛍",
@@ -12855,6 +14091,17 @@
         },
         {
           "code": [
+            "26D1",
+            "FE0F"
+          ],
+          "emoji": "⛑️",
+          "name": "rescue worker’s helmet",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "26D1"
           ],
           "emoji": "⛑",
@@ -13029,6 +14276,17 @@
         },
         {
           "code": [
+            "1F399",
+            "FE0F"
+          ],
+          "emoji": "🎙️",
+          "name": "studio microphone",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F399"
           ],
           "emoji": "🎙",
@@ -13039,12 +14297,34 @@
         },
         {
           "code": [
+            "1F39A",
+            "FE0F"
+          ],
+          "emoji": "🎚️",
+          "name": "level slider",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F39A"
           ],
           "emoji": "🎚",
           "name": "level slider",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F39B",
+            "FE0F"
+          ],
+          "emoji": "🎛️",
+          "name": "control knobs",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -13233,6 +14513,17 @@
         },
         {
           "code": [
+            "260E",
+            "FE0F"
+          ],
+          "emoji": "☎️",
+          "name": "telephone",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "260E"
           ],
           "emoji": "☎",
@@ -13315,12 +14606,34 @@
         },
         {
           "code": [
+            "1F5A5",
+            "FE0F"
+          ],
+          "emoji": "🖥️",
+          "name": "desktop computer",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5A5"
           ],
           "emoji": "🖥",
           "name": "desktop computer",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F5A8",
+            "FE0F"
+          ],
+          "emoji": "🖨️",
+          "name": "printer",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -13335,6 +14648,17 @@
         },
         {
           "code": [
+            "2328",
+            "FE0F"
+          ],
+          "emoji": "⌨️",
+          "name": "keyboard",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2328"
           ],
           "emoji": "⌨",
@@ -13345,12 +14669,34 @@
         },
         {
           "code": [
+            "1F5B1",
+            "FE0F"
+          ],
+          "emoji": "🖱️",
+          "name": "computer mouse",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5B1"
           ],
           "emoji": "🖱",
           "name": "computer mouse",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F5B2",
+            "FE0F"
+          ],
+          "emoji": "🖲️",
+          "name": "trackball",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -13427,12 +14773,34 @@
         },
         {
           "code": [
+            "1F39E",
+            "FE0F"
+          ],
+          "emoji": "🎞️",
+          "name": "film frames",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F39E"
           ],
           "emoji": "🎞",
           "name": "film frames",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F4FD",
+            "FE0F"
+          ],
+          "emoji": "📽️",
+          "name": "film projector",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -13522,6 +14890,17 @@
           "emoji": "🔎",
           "name": "magnifying glass tilted right",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F56F",
+            "FE0F"
+          ],
+          "emoji": "🕯️",
+          "name": "candle",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -13709,6 +15088,17 @@
         },
         {
           "code": [
+            "1F5DE",
+            "FE0F"
+          ],
+          "emoji": "🗞️",
+          "name": "rolled-up newspaper",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5DE"
           ],
           "emoji": "🗞",
@@ -13734,6 +15124,17 @@
           "emoji": "🔖",
           "name": "bookmark",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3F7",
+            "FE0F"
+          ],
+          "emoji": "🏷️",
+          "name": "label",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -13851,6 +15252,17 @@
         }
       ],
       "mail": [
+        {
+          "code": [
+            "2709",
+            "FE0F"
+          ],
+          "emoji": "✉️",
+          "name": "envelope",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
         {
           "code": [
             "2709"
@@ -13973,6 +15385,17 @@
         },
         {
           "code": [
+            "1F5F3",
+            "FE0F"
+          ],
+          "emoji": "🗳️",
+          "name": "ballot box with ballot",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5F3"
           ],
           "emoji": "🗳",
@@ -13985,12 +15408,34 @@
       "writing": [
         {
           "code": [
+            "270F",
+            "FE0F"
+          ],
+          "emoji": "✏️",
+          "name": "pencil",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "270F"
           ],
           "emoji": "✏",
           "name": "pencil",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2712",
+            "FE0F"
+          ],
+          "emoji": "✒️",
+          "name": "black nib",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -14005,12 +15450,34 @@
         },
         {
           "code": [
+            "1F58B",
+            "FE0F"
+          ],
+          "emoji": "🖋️",
+          "name": "fountain pen",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F58B"
           ],
           "emoji": "🖋",
           "name": "fountain pen",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F58A",
+            "FE0F"
+          ],
+          "emoji": "🖊️",
+          "name": "pen",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -14025,12 +15492,34 @@
         },
         {
           "code": [
+            "1F58C",
+            "FE0F"
+          ],
+          "emoji": "🖌️",
+          "name": "paintbrush",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F58C"
           ],
           "emoji": "🖌",
           "name": "paintbrush",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F58D",
+            "FE0F"
+          ],
+          "emoji": "🖍️",
+          "name": "crayon",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -14087,6 +15576,17 @@
         },
         {
           "code": [
+            "1F5C2",
+            "FE0F"
+          ],
+          "emoji": "🗂️",
+          "name": "card index dividers",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5C2"
           ],
           "emoji": "🗂",
@@ -14117,12 +15617,34 @@
         },
         {
           "code": [
+            "1F5D2",
+            "FE0F"
+          ],
+          "emoji": "🗒️",
+          "name": "spiral notepad",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5D2"
           ],
           "emoji": "🗒",
           "name": "spiral notepad",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F5D3",
+            "FE0F"
+          ],
+          "emoji": "🗓️",
+          "name": "spiral calendar",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -14217,6 +15739,17 @@
         },
         {
           "code": [
+            "1F587",
+            "FE0F"
+          ],
+          "emoji": "🖇️",
+          "name": "linked paperclips",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F587"
           ],
           "emoji": "🖇",
@@ -14247,12 +15780,34 @@
         },
         {
           "code": [
+            "2702",
+            "FE0F"
+          ],
+          "emoji": "✂️",
+          "name": "scissors",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2702"
           ],
           "emoji": "✂",
           "name": "scissors",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F5C3",
+            "FE0F"
+          ],
+          "emoji": "🗃️",
+          "name": "card file box",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -14267,12 +15822,34 @@
         },
         {
           "code": [
+            "1F5C4",
+            "FE0F"
+          ],
+          "emoji": "🗄️",
+          "name": "file cabinet",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5C4"
           ],
           "emoji": "🗄",
           "name": "file cabinet",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F5D1",
+            "FE0F"
+          ],
+          "emoji": "🗑️",
+          "name": "wastebasket",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -14339,6 +15916,17 @@
         },
         {
           "code": [
+            "1F5DD",
+            "FE0F"
+          ],
+          "emoji": "🗝️",
+          "name": "old key",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5DD"
           ],
           "emoji": "🗝",
@@ -14371,12 +15959,34 @@
         },
         {
           "code": [
+            "26CF",
+            "FE0F"
+          ],
+          "emoji": "⛏️",
+          "name": "pick",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "26CF"
           ],
           "emoji": "⛏",
           "name": "pick",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2692",
+            "FE0F"
+          ],
+          "emoji": "⚒️",
+          "name": "hammer and pick",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -14391,6 +16001,17 @@
         },
         {
           "code": [
+            "1F6E0",
+            "FE0F"
+          ],
+          "emoji": "🛠️",
+          "name": "hammer and wrench",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F6E0"
           ],
           "emoji": "🛠",
@@ -14401,12 +16022,34 @@
         },
         {
           "code": [
+            "1F5E1",
+            "FE0F"
+          ],
+          "emoji": "🗡️",
+          "name": "dagger",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5E1"
           ],
           "emoji": "🗡",
           "name": "dagger",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2694",
+            "FE0F"
+          ],
+          "emoji": "⚔️",
+          "name": "crossed swords",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -14446,6 +16089,17 @@
           "emoji": "🏹",
           "name": "bow and arrow",
           "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F6E1",
+            "FE0F"
+          ],
+          "emoji": "🛡️",
+          "name": "shield",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -14501,6 +16155,17 @@
         },
         {
           "code": [
+            "2699",
+            "FE0F"
+          ],
+          "emoji": "⚙️",
+          "name": "gear",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2699"
           ],
           "emoji": "⚙",
@@ -14511,12 +16176,34 @@
         },
         {
           "code": [
+            "1F5DC",
+            "FE0F"
+          ],
+          "emoji": "🗜️",
+          "name": "clamp",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F5DC"
           ],
           "emoji": "🗜",
           "name": "clamp",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2696",
+            "FE0F"
+          ],
+          "emoji": "⚖️",
+          "name": "balance scale",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -14559,6 +16246,29 @@
           "emoji": "⛓️‍💥",
           "name": "broken chain",
           "unicode_version": "15.1",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "26D3",
+            "200D",
+            "1F4A5"
+          ],
+          "emoji": "⛓‍💥",
+          "name": "broken chain",
+          "unicode_version": "15.1",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "26D3",
+            "FE0F"
+          ],
+          "emoji": "⛓️",
+          "name": "chains",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -14624,6 +16334,17 @@
         }
       ],
       "science": [
+        {
+          "code": [
+            "2697",
+            "FE0F"
+          ],
+          "emoji": "⚗️",
+          "name": "alembic",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
         {
           "code": [
             "2697"
@@ -14810,12 +16531,34 @@
         },
         {
           "code": [
+            "1F6CF",
+            "FE0F"
+          ],
+          "emoji": "🛏️",
+          "name": "bed",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F6CF"
           ],
           "emoji": "🛏",
           "name": "bed",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F6CB",
+            "FE0F"
+          ],
+          "emoji": "🛋️",
+          "name": "couch and lamp",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15032,6 +16775,17 @@
         },
         {
           "code": [
+            "26B0",
+            "FE0F"
+          ],
+          "emoji": "⚰️",
+          "name": "coffin",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "26B0"
           ],
           "emoji": "⚰",
@@ -15047,6 +16801,17 @@
           "emoji": "🪦",
           "name": "headstone",
           "unicode_version": "13.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "26B1",
+            "FE0F"
+          ],
+          "emoji": "⚱️",
+          "name": "funeral urn",
+          "unicode_version": "1.0",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -15248,6 +17013,17 @@
       "warning": [
         {
           "code": [
+            "26A0",
+            "FE0F"
+          ],
+          "emoji": "⚠️",
+          "name": "warning",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "26A0"
           ],
           "emoji": "⚠",
@@ -15358,12 +17134,34 @@
         },
         {
           "code": [
+            "2622",
+            "FE0F"
+          ],
+          "emoji": "☢️",
+          "name": "radioactive",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2622"
           ],
           "emoji": "☢",
           "name": "radioactive",
           "unicode_version": "1.0",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2623",
+            "FE0F"
+          ],
+          "emoji": "☣️",
+          "name": "biohazard",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15380,12 +17178,34 @@
       "arrow": [
         {
           "code": [
+            "2B06",
+            "FE0F"
+          ],
+          "emoji": "⬆️",
+          "name": "up arrow",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2B06"
           ],
           "emoji": "⬆",
           "name": "up arrow",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2197",
+            "FE0F"
+          ],
+          "emoji": "↗️",
+          "name": "up-right arrow",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15400,12 +17220,34 @@
         },
         {
           "code": [
+            "27A1",
+            "FE0F"
+          ],
+          "emoji": "➡️",
+          "name": "right arrow",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "27A1"
           ],
           "emoji": "➡",
           "name": "right arrow",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2198",
+            "FE0F"
+          ],
+          "emoji": "↘️",
+          "name": "down-right arrow",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15420,12 +17262,34 @@
         },
         {
           "code": [
+            "2B07",
+            "FE0F"
+          ],
+          "emoji": "⬇️",
+          "name": "down arrow",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2B07"
           ],
           "emoji": "⬇",
           "name": "down arrow",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2199",
+            "FE0F"
+          ],
+          "emoji": "↙️",
+          "name": "down-left arrow",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15440,12 +17304,34 @@
         },
         {
           "code": [
+            "2B05",
+            "FE0F"
+          ],
+          "emoji": "⬅️",
+          "name": "left arrow",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2B05"
           ],
           "emoji": "⬅",
           "name": "left arrow",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2196",
+            "FE0F"
+          ],
+          "emoji": "↖️",
+          "name": "up-left arrow",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15460,12 +17346,34 @@
         },
         {
           "code": [
+            "2195",
+            "FE0F"
+          ],
+          "emoji": "↕️",
+          "name": "up-down arrow",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2195"
           ],
           "emoji": "↕",
           "name": "up-down arrow",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2194",
+            "FE0F"
+          ],
+          "emoji": "↔️",
+          "name": "left-right arrow",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15480,12 +17388,34 @@
         },
         {
           "code": [
+            "21A9",
+            "FE0F"
+          ],
+          "emoji": "↩️",
+          "name": "right arrow curving left",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "21A9"
           ],
           "emoji": "↩",
           "name": "right arrow curving left",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "21AA",
+            "FE0F"
+          ],
+          "emoji": "↪️",
+          "name": "left arrow curving right",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15500,12 +17430,34 @@
         },
         {
           "code": [
+            "2934",
+            "FE0F"
+          ],
+          "emoji": "⤴️",
+          "name": "right arrow curving up",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2934"
           ],
           "emoji": "⤴",
           "name": "right arrow curving up",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2935",
+            "FE0F"
+          ],
+          "emoji": "⤵️",
+          "name": "right arrow curving down",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15602,12 +17554,34 @@
         },
         {
           "code": [
+            "269B",
+            "FE0F"
+          ],
+          "emoji": "⚛️",
+          "name": "atom symbol",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "269B"
           ],
           "emoji": "⚛",
           "name": "atom symbol",
           "unicode_version": "1.0",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F549",
+            "FE0F"
+          ],
+          "emoji": "🕉️",
+          "name": "om",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15622,12 +17596,34 @@
         },
         {
           "code": [
+            "2721",
+            "FE0F"
+          ],
+          "emoji": "✡️",
+          "name": "star of David",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2721"
           ],
           "emoji": "✡",
           "name": "star of David",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2638",
+            "FE0F"
+          ],
+          "emoji": "☸️",
+          "name": "wheel of dharma",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15642,12 +17638,34 @@
         },
         {
           "code": [
+            "262F",
+            "FE0F"
+          ],
+          "emoji": "☯️",
+          "name": "yin yang",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "262F"
           ],
           "emoji": "☯",
           "name": "yin yang",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "271D",
+            "FE0F"
+          ],
+          "emoji": "✝️",
+          "name": "latin cross",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15662,6 +17680,17 @@
         },
         {
           "code": [
+            "2626",
+            "FE0F"
+          ],
+          "emoji": "☦️",
+          "name": "orthodox cross",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2626"
           ],
           "emoji": "☦",
@@ -15672,12 +17701,34 @@
         },
         {
           "code": [
+            "262A",
+            "FE0F"
+          ],
+          "emoji": "☪️",
+          "name": "star and crescent",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "262A"
           ],
           "emoji": "☪",
           "name": "star and crescent",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "262E",
+            "FE0F"
+          ],
+          "emoji": "☮️",
+          "name": "peace symbol",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15886,6 +17937,17 @@
         },
         {
           "code": [
+            "25B6",
+            "FE0F"
+          ],
+          "emoji": "▶️",
+          "name": "play button",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "25B6"
           ],
           "emoji": "▶",
@@ -15906,6 +17968,17 @@
         },
         {
           "code": [
+            "23ED",
+            "FE0F"
+          ],
+          "emoji": "⏭️",
+          "name": "next track button",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "23ED"
           ],
           "emoji": "⏭",
@@ -15916,12 +17989,34 @@
         },
         {
           "code": [
+            "23EF",
+            "FE0F"
+          ],
+          "emoji": "⏯️",
+          "name": "play or pause button",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "23EF"
           ],
           "emoji": "⏯",
           "name": "play or pause button",
           "unicode_version": "1.0",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "25C0",
+            "FE0F"
+          ],
+          "emoji": "◀️",
+          "name": "reverse button",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -15941,6 +18036,17 @@
           "emoji": "⏪",
           "name": "fast reverse button",
           "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "23EE",
+            "FE0F"
+          ],
+          "emoji": "⏮️",
+          "name": "last track button",
+          "unicode_version": "0.7",
           "qualification": "fully-qualified",
           "base_code": null
         },
@@ -15996,12 +18102,34 @@
         },
         {
           "code": [
+            "23F8",
+            "FE0F"
+          ],
+          "emoji": "⏸️",
+          "name": "pause button",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "23F8"
           ],
           "emoji": "⏸",
           "name": "pause button",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "23F9",
+            "FE0F"
+          ],
+          "emoji": "⏹️",
+          "name": "stop button",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -16016,12 +18144,34 @@
         },
         {
           "code": [
+            "23FA",
+            "FE0F"
+          ],
+          "emoji": "⏺️",
+          "name": "record button",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "23FA"
           ],
           "emoji": "⏺",
           "name": "record button",
           "unicode_version": "0.7",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "23CF",
+            "FE0F"
+          ],
+          "emoji": "⏏️",
+          "name": "eject button",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -16108,12 +18258,34 @@
       "gender": [
         {
           "code": [
+            "2640",
+            "FE0F"
+          ],
+          "emoji": "♀️",
+          "name": "female sign",
+          "unicode_version": "4.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2640"
           ],
           "emoji": "♀",
           "name": "female sign",
           "unicode_version": "4.0",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2642",
+            "FE0F"
+          ],
+          "emoji": "♂️",
+          "name": "male sign",
+          "unicode_version": "4.0",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -16128,6 +18300,17 @@
         },
         {
           "code": [
+            "26A7",
+            "FE0F"
+          ],
+          "emoji": "⚧️",
+          "name": "transgender symbol",
+          "unicode_version": "13.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "26A7"
           ],
           "emoji": "⚧",
@@ -16138,6 +18321,17 @@
         }
       ],
       "math": [
+        {
+          "code": [
+            "2716",
+            "FE0F"
+          ],
+          "emoji": "✖️",
+          "name": "multiply",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
         {
           "code": [
             "2716"
@@ -16190,6 +18384,17 @@
         },
         {
           "code": [
+            "267E",
+            "FE0F"
+          ],
+          "emoji": "♾️",
+          "name": "infinity",
+          "unicode_version": "11.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "267E"
           ],
           "emoji": "♾",
@@ -16202,12 +18407,34 @@
       "punctuation": [
         {
           "code": [
+            "203C",
+            "FE0F"
+          ],
+          "emoji": "‼️",
+          "name": "double exclamation mark",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "203C"
           ],
           "emoji": "‼",
           "name": "double exclamation mark",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2049",
+            "FE0F"
+          ],
+          "emoji": "⁉️",
+          "name": "exclamation question mark",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -16262,6 +18489,17 @@
         },
         {
           "code": [
+            "3030",
+            "FE0F"
+          ],
+          "emoji": "〰️",
+          "name": "wavy dash",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "3030"
           ],
           "emoji": "〰",
@@ -16296,6 +18534,17 @@
       "other-symbol": [
         {
           "code": [
+            "2695",
+            "FE0F"
+          ],
+          "emoji": "⚕️",
+          "name": "medical symbol",
+          "unicode_version": "4.0",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2695"
           ],
           "emoji": "⚕",
@@ -16306,12 +18555,34 @@
         },
         {
           "code": [
+            "267B",
+            "FE0F"
+          ],
+          "emoji": "♻️",
+          "name": "recycling symbol",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "267B"
           ],
           "emoji": "♻",
           "name": "recycling symbol",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "269C",
+            "FE0F"
+          ],
+          "emoji": "⚜️",
+          "name": "fleur-de-lis",
+          "unicode_version": "1.0",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -16376,12 +18647,34 @@
         },
         {
           "code": [
+            "2611",
+            "FE0F"
+          ],
+          "emoji": "☑️",
+          "name": "check box with check",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2611"
           ],
           "emoji": "☑",
           "name": "check box with check",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2714",
+            "FE0F"
+          ],
+          "emoji": "✔️",
+          "name": "check mark",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -16436,12 +18729,34 @@
         },
         {
           "code": [
+            "303D",
+            "FE0F"
+          ],
+          "emoji": "〽️",
+          "name": "part alternation mark",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "303D"
           ],
           "emoji": "〽",
           "name": "part alternation mark",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2733",
+            "FE0F"
+          ],
+          "emoji": "✳️",
+          "name": "eight-spoked asterisk",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -16456,12 +18771,34 @@
         },
         {
           "code": [
+            "2734",
+            "FE0F"
+          ],
+          "emoji": "✴️",
+          "name": "eight-pointed star",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2734"
           ],
           "emoji": "✴",
           "name": "eight-pointed star",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2747",
+            "FE0F"
+          ],
+          "emoji": "❇️",
+          "name": "sparkle",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -16476,6 +18813,17 @@
         },
         {
           "code": [
+            "00A9",
+            "FE0F"
+          ],
+          "emoji": "©️",
+          "name": "copyright",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "00A9"
           ],
           "emoji": "©",
@@ -16486,12 +18834,34 @@
         },
         {
           "code": [
+            "00AE",
+            "FE0F"
+          ],
+          "emoji": "®️",
+          "name": "registered",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "00AE"
           ],
           "emoji": "®",
           "name": "registered",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "2122",
+            "FE0F"
+          ],
+          "emoji": "™️",
+          "name": "trade mark",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -16530,6 +18900,17 @@
         },
         {
           "code": [
+            "0023",
+            "20E3"
+          ],
+          "emoji": "#⃣",
+          "name": "keycap: #",
+          "unicode_version": "0.6",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "002A",
             "FE0F",
             "20E3"
@@ -16538,6 +18919,17 @@
           "name": "keycap: *",
           "unicode_version": "2.0",
           "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "002A",
+            "20E3"
+          ],
+          "emoji": "*⃣",
+          "name": "keycap: *",
+          "unicode_version": "2.0",
+          "qualification": "unqualified",
           "base_code": null
         },
         {
@@ -16554,6 +18946,17 @@
         },
         {
           "code": [
+            "0030",
+            "20E3"
+          ],
+          "emoji": "0⃣",
+          "name": "keycap: 0",
+          "unicode_version": "0.6",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "0031",
             "FE0F",
             "20E3"
@@ -16562,6 +18965,17 @@
           "name": "keycap: 1",
           "unicode_version": "0.6",
           "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "0031",
+            "20E3"
+          ],
+          "emoji": "1⃣",
+          "name": "keycap: 1",
+          "unicode_version": "0.6",
+          "qualification": "unqualified",
           "base_code": null
         },
         {
@@ -16578,6 +18992,17 @@
         },
         {
           "code": [
+            "0032",
+            "20E3"
+          ],
+          "emoji": "2⃣",
+          "name": "keycap: 2",
+          "unicode_version": "0.6",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "0033",
             "FE0F",
             "20E3"
@@ -16586,6 +19011,17 @@
           "name": "keycap: 3",
           "unicode_version": "0.6",
           "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "0033",
+            "20E3"
+          ],
+          "emoji": "3⃣",
+          "name": "keycap: 3",
+          "unicode_version": "0.6",
+          "qualification": "unqualified",
           "base_code": null
         },
         {
@@ -16602,6 +19038,17 @@
         },
         {
           "code": [
+            "0034",
+            "20E3"
+          ],
+          "emoji": "4⃣",
+          "name": "keycap: 4",
+          "unicode_version": "0.6",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "0035",
             "FE0F",
             "20E3"
@@ -16610,6 +19057,17 @@
           "name": "keycap: 5",
           "unicode_version": "0.6",
           "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "0035",
+            "20E3"
+          ],
+          "emoji": "5⃣",
+          "name": "keycap: 5",
+          "unicode_version": "0.6",
+          "qualification": "unqualified",
           "base_code": null
         },
         {
@@ -16626,6 +19084,17 @@
         },
         {
           "code": [
+            "0036",
+            "20E3"
+          ],
+          "emoji": "6⃣",
+          "name": "keycap: 6",
+          "unicode_version": "0.6",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "0037",
             "FE0F",
             "20E3"
@@ -16634,6 +19103,17 @@
           "name": "keycap: 7",
           "unicode_version": "0.6",
           "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "0037",
+            "20E3"
+          ],
+          "emoji": "7⃣",
+          "name": "keycap: 7",
+          "unicode_version": "0.6",
+          "qualification": "unqualified",
           "base_code": null
         },
         {
@@ -16650,6 +19130,17 @@
         },
         {
           "code": [
+            "0038",
+            "20E3"
+          ],
+          "emoji": "8⃣",
+          "name": "keycap: 8",
+          "unicode_version": "0.6",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "0039",
             "FE0F",
             "20E3"
@@ -16658,6 +19149,17 @@
           "name": "keycap: 9",
           "unicode_version": "0.6",
           "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "0039",
+            "20E3"
+          ],
+          "emoji": "9⃣",
+          "name": "keycap: 9",
+          "unicode_version": "0.6",
+          "qualification": "unqualified",
           "base_code": null
         },
         {
@@ -16724,6 +19226,17 @@
         },
         {
           "code": [
+            "1F170",
+            "FE0F"
+          ],
+          "emoji": "🅰️",
+          "name": "A button (blood type)",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F170"
           ],
           "emoji": "🅰",
@@ -16738,6 +19251,17 @@
           ],
           "emoji": "🆎",
           "name": "AB button (blood type)",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F171",
+            "FE0F"
+          ],
+          "emoji": "🅱️",
+          "name": "B button (blood type)",
           "unicode_version": "0.6",
           "qualification": "fully-qualified",
           "base_code": null
@@ -16784,6 +19308,17 @@
         },
         {
           "code": [
+            "2139",
+            "FE0F"
+          ],
+          "emoji": "ℹ️",
+          "name": "information",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "2139"
           ],
           "emoji": "ℹ",
@@ -16798,6 +19333,17 @@
           ],
           "emoji": "🆔",
           "name": "ID button",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "24C2",
+            "FE0F"
+          ],
+          "emoji": "Ⓜ️",
+          "name": "circled M",
           "unicode_version": "0.6",
           "qualification": "fully-qualified",
           "base_code": null
@@ -16834,6 +19380,17 @@
         },
         {
           "code": [
+            "1F17E",
+            "FE0F"
+          ],
+          "emoji": "🅾️",
+          "name": "O button (blood type)",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F17E"
           ],
           "emoji": "🅾",
@@ -16848,6 +19405,17 @@
           ],
           "emoji": "🆗",
           "name": "OK button",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F17F",
+            "FE0F"
+          ],
+          "emoji": "🅿️",
+          "name": "P button",
           "unicode_version": "0.6",
           "qualification": "fully-qualified",
           "base_code": null
@@ -16904,12 +19472,34 @@
         },
         {
           "code": [
+            "1F202",
+            "FE0F"
+          ],
+          "emoji": "🈂️",
+          "name": "Japanese “service charge” button",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F202"
           ],
           "emoji": "🈂",
           "name": "Japanese “service charge” button",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F237",
+            "FE0F"
+          ],
+          "emoji": "🈷️",
+          "name": "Japanese “monthly amount” button",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -17024,12 +19614,34 @@
         },
         {
           "code": [
+            "3297",
+            "FE0F"
+          ],
+          "emoji": "㊗️",
+          "name": "Japanese “congratulations” button",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "3297"
           ],
           "emoji": "㊗",
           "name": "Japanese “congratulations” button",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "3299",
+            "FE0F"
+          ],
+          "emoji": "㊙️",
+          "name": "Japanese “secret” button",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -17246,12 +19858,34 @@
         },
         {
           "code": [
+            "25FC",
+            "FE0F"
+          ],
+          "emoji": "◼️",
+          "name": "black medium square",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "25FC"
           ],
           "emoji": "◼",
           "name": "black medium square",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "25FB",
+            "FE0F"
+          ],
+          "emoji": "◻️",
+          "name": "white medium square",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -17286,12 +19920,34 @@
         },
         {
           "code": [
+            "25AA",
+            "FE0F"
+          ],
+          "emoji": "▪️",
+          "name": "black small square",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "25AA"
           ],
           "emoji": "▪",
           "name": "black small square",
           "unicode_version": "0.6",
           "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "25AB",
+            "FE0F"
+          ],
+          "emoji": "▫️",
+          "name": "white small square",
+          "unicode_version": "0.6",
+          "qualification": "fully-qualified",
           "base_code": null
         },
         {
@@ -17450,6 +20106,17 @@
         },
         {
           "code": [
+            "1F3F3",
+            "FE0F"
+          ],
+          "emoji": "🏳️",
+          "name": "white flag",
+          "unicode_version": "0.7",
+          "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
             "1F3F3"
           ],
           "emoji": "🏳",
@@ -17474,6 +20141,18 @@
         {
           "code": [
             "1F3F3",
+            "200D",
+            "1F308"
+          ],
+          "emoji": "🏳‍🌈",
+          "name": "rainbow flag",
+          "unicode_version": "4.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3F3",
             "FE0F",
             "200D",
             "26A7",
@@ -17483,6 +20162,31 @@
           "name": "transgender flag",
           "unicode_version": "13.0",
           "qualification": "fully-qualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3F3",
+            "200D",
+            "26A7",
+            "FE0F"
+          ],
+          "emoji": "🏳‍⚧️",
+          "name": "transgender flag",
+          "unicode_version": "13.0",
+          "qualification": "unqualified",
+          "base_code": null
+        },
+        {
+          "code": [
+            "1F3F3",
+            "200D",
+            "26A7"
+          ],
+          "emoji": "🏳‍⚧",
+          "name": "transgender flag",
+          "unicode_version": "13.0",
+          "qualification": "unqualified",
           "base_code": null
         },
         {
