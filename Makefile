@@ -25,7 +25,7 @@ twine-check:
 
 ci: lint format-check typecheck test build twine-check
 
-# Regenerate the bundled emoji datasets from Chalda + vendored CLDR sources.
+# Regenerate the bundled emoji datasets from vendored CLDR sources.
 # CLDR sources at third_party/cldr/ are refreshed separately by the
 # `refresh-dataset` GitHub workflow — this target never touches the network.
 data:

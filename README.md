@@ -205,9 +205,8 @@ Issues and PRs welcome. Run `make ci` before opening one.
 
 MIT — see [LICENSE](LICENSE).
 
-The bundled emoji metadata is derived from
-[Chalda Pnuzig's emojis.json](https://github.com/chalda-pnuzig/emojis.json)
-(ISC, see `third_party/`). Keywords and shortcode hints come from the
-[Unicode CLDR](https://cldr.unicode.org/) annotations (Unicode License V3,
-see `third_party/cldr/LICENSE` and `third_party/NOTICE.txt`). Thanks to
-both projects for doing the tedious part.
+The bundled emoji metadata is generated directly from the
+[Unicode CLDR](https://cldr.unicode.org/) sources — `emoji-test.txt` (UTS #51)
+for the canonical emoji list and `annotations/en.xml` for keywords. Both are
+vendored under `third_party/cldr/` and licensed under the Unicode License V3
+(see `third_party/cldr/LICENSE` and `third_party/NOTICE.txt`).

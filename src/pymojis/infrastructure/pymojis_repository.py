@@ -379,7 +379,7 @@ class PymojisRepositoryImpl(PymojisRepository):
         q = query.strip().lower()
         if not q:
             return []
-        scored: list[tuple[int, str, Emoji]] = []
+        scored: list[tuple[int, str, str, Emoji]] = []
         for e in self._emojis:
             score = 0
             name_low = e.name.lower()
@@ -396,9 +396,9 @@ class PymojisRepositoryImpl(PymojisRepository):
                 elif q in kw_low:
                     score = max(score, 15)
             if score:
-                scored.append((-score, e.name, e))
+                scored.append((-score, e.name, e.emoji, e))
         scored.sort()
-        return [e for _, _, e in scored[:limit]]
+        return [e for _, _, _, e in scored[:limit]]
 
     def suggest(self, emoji: str, limit: int = 5) -> list[Emoji]:
         if not isinstance(emoji, str):
@@ -409,7 +409,7 @@ class PymojisRepositoryImpl(PymojisRepository):
         if source is None:
             return []
         source_kws = {kw.lower() for kw in source.keywords}
-        scored: list[tuple[int, str, Emoji]] = []
+        scored: list[tuple[int, str, str, Emoji]] = []
         for e in self._emojis:
             if e.emoji == emoji:
                 continue
@@ -422,9 +422,9 @@ class PymojisRepositoryImpl(PymojisRepository):
                 shared = source_kws & {kw.lower() for kw in e.keywords}
                 score += 5 * len(shared)
             if score:
-                scored.append((-score, e.name, e))
+                scored.append((-score, e.name, e.emoji, e))
         scored.sort()
-        return [e for _, _, e in scored[:limit]]
+        return [e for _, _, _, e in scored[:limit]]
 
     def categories(self) -> list[str]:
         seen: dict[str, None] = {}
