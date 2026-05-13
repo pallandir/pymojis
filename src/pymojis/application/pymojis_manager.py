@@ -1,3 +1,4 @@
+from collections.abc import Callable, Iterator
 from typing import Literal
 
 from pymojis.domain.entities.emojis import Categories, Emoji
@@ -101,3 +102,57 @@ class PymojisManager:
             '&#x1F62A;'
         """
         return self.repository.to_html(emoji)
+
+    def extract(self, text: str) -> list[Emoji]:
+        """Return all emojis present in ``text``, in order of appearance.
+
+        ZWJ sequences and skin-tone composites are matched as whole units
+        (e.g. ``"👍🏽"`` returns the medium-skin-tone variant, not the bare
+        thumbs-up plus a separate modifier).
+        """
+        return self.repository.extract(text)
+
+    def find(self, text: str) -> Iterator[tuple[Emoji, int, int]]:
+        """Yield ``(emoji, start, end)`` for each emoji match in ``text``.
+
+        Indices are over the raw string (the same indices ``str.find`` uses),
+        so callers can slice ``text[start:end]`` to recover the matched glyph.
+        """
+        return self.repository.find(text)
+
+    def count(self, text: str) -> int:
+        """Return the total number of emoji occurrences in ``text``."""
+        return self.repository.count(text)
+
+    def count_by(self, text: str) -> dict[Emoji, int]:
+        """Return a histogram of ``{Emoji: occurrence_count}`` for ``text``."""
+        return self.repository.count_by(text)
+
+    def strip(self, text: str) -> str:
+        """Return ``text`` with every emoji removed (no whitespace collapsing)."""
+        return self.repository.strip(text)
+
+    def replace(self, text: str, repl: str | Callable[[Emoji], str]) -> str:
+        """Replace each emoji in ``text``.
+
+        Args:
+            repl: A literal string used for every match, or a callable
+                ``(Emoji) -> str`` invoked once per match.
+
+        Example:
+            >>> PymojisManager().replace("Hello 😀", "[emoji]")  # doctest: +SKIP
+            'Hello [emoji]'
+        """
+        return self.repository.replace(text, repl)
+
+    def demojifie(self, text: str) -> str:
+        """Return ``text`` with each emoji rewritten as ``:slugified_name:``.
+
+        Slugification lowercases the emoji name and replaces runs of
+        non-alphanumeric characters with single underscores.
+
+        Example:
+            >>> PymojisManager().demojifie("hi 😀")  # doctest: +SKIP
+            'hi :grinning_face:'
+        """
+        return self.repository.demojifie(text)

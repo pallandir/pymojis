@@ -1,5 +1,6 @@
 import logging
 import re
+from collections.abc import Callable, Iterator
 from random import sample
 from typing import Any, Literal
 
@@ -14,6 +15,11 @@ from pymojis.infrastructure.data_loader.file_loader import FileLoader
 from .utils import should_exclude
 
 _TOKEN_RE = re.compile(r"\w+", flags=re.UNICODE)
+_DEMOJI_SLUG_RE = re.compile(r"[^a-z0-9]+")
+
+
+def _slugify_name(name: str) -> str:
+    return _DEMOJI_SLUG_RE.sub("_", name.lower()).strip("_")
 
 
 class PymojisRepositoryImpl(PymojisRepository):
@@ -23,6 +29,8 @@ class PymojisRepositoryImpl(PymojisRepository):
         self._emoji_chars: frozenset[str] = frozenset()
         self._name_index: dict[str, str] = {}
         self._token_index: dict[str, str] = {}
+        self._char_to_emoji: dict[str, Emoji] = {}
+        self._emoji_pattern: re.Pattern[str] = re.compile("(?!x)x")
         self._data_loader = EmojiDataLoader(file_loader=FileLoader())
 
     def load_emojis(
@@ -45,6 +53,14 @@ class PymojisRepositoryImpl(PymojisRepository):
                     continue
                 token_index.setdefault(token, e.emoji)
         self._token_index = token_index
+        # Longest-match-first alternation: Python's `re` tries alternatives
+        # left to right, so ZWJ sequences and skin-tone composites must
+        # appear before their bare base ("👍🏽" before "👍").
+        sorted_emojis = sorted(self._emojis, key=lambda e: len(e.emoji), reverse=True)
+        self._char_to_emoji = {e.emoji: e for e in sorted_emojis}
+        self._emoji_pattern = re.compile(
+            "|".join(re.escape(e.emoji) for e in sorted_emojis)
+        )
         self.logger.info("Loaded %d emojis", len(self._emojis))
 
     def _parse_emojis(self, data: dict[str, Any]) -> None:
@@ -145,11 +161,63 @@ class PymojisRepositoryImpl(PymojisRepository):
     def contains_emojis(self, text: str) -> bool:
         if not isinstance(text, str):
             raise TypeError(f"text must be str, got {type(text).__name__}")
-        # Fast path: any single-codepoint emoji char present?
-        if any(ch in self._emoji_chars for ch in text):
-            return True
-        # Slow path: multi-codepoint emoji (ZWJ sequences, flags, etc.)
-        return any(e.emoji in text for e in self._emojis if len(e.emoji) > 1)
+        return self._emoji_pattern.search(text) is not None
+
+    def extract(self, text: str) -> list[Emoji]:
+        if not isinstance(text, str):
+            raise TypeError(f"text must be str, got {type(text).__name__}")
+        return [e for e, _, _ in self._iter_emojis(text)]
+
+    def find(self, text: str) -> Iterator[tuple[Emoji, int, int]]:
+        if not isinstance(text, str):
+            raise TypeError(f"text must be str, got {type(text).__name__}")
+        return self._iter_emojis(text)
+
+    def count(self, text: str) -> int:
+        if not isinstance(text, str):
+            raise TypeError(f"text must be str, got {type(text).__name__}")
+        return sum(1 for _ in self._iter_emojis(text))
+
+    def count_by(self, text: str) -> dict[Emoji, int]:
+        if not isinstance(text, str):
+            raise TypeError(f"text must be str, got {type(text).__name__}")
+        counts: dict[Emoji, int] = {}
+        for emoji, _, _ in self._iter_emojis(text):
+            counts[emoji] = counts.get(emoji, 0) + 1
+        return counts
+
+    def strip(self, text: str) -> str:
+        if not isinstance(text, str):
+            raise TypeError(f"text must be str, got {type(text).__name__}")
+        return self._emoji_pattern.sub("", text)
+
+    def replace(self, text: str, repl: str | Callable[[Emoji], str]) -> str:
+        if not isinstance(text, str):
+            raise TypeError(f"text must be str, got {type(text).__name__}")
+        if isinstance(repl, str):
+            literal = repl
+            return self._emoji_pattern.sub(lambda _m: literal, text)
+        if not callable(repl):
+            raise TypeError("repl must be str or callable")
+
+        def _apply(match: re.Match[str]) -> str:
+            return repl(self._char_to_emoji[match.group(0)])
+
+        return self._emoji_pattern.sub(_apply, text)
+
+    def demojifie(self, text: str) -> str:
+        if not isinstance(text, str):
+            raise TypeError(f"text must be str, got {type(text).__name__}")
+
+        def _to_name(match: re.Match[str]) -> str:
+            emoji = self._char_to_emoji[match.group(0)]
+            return f":{_slugify_name(emoji.name)}:"
+
+        return self._emoji_pattern.sub(_to_name, text)
+
+    def _iter_emojis(self, text: str) -> Iterator[tuple[Emoji, int, int]]:
+        for match in self._emoji_pattern.finditer(text):
+            yield self._char_to_emoji[match.group(0)], match.start(), match.end()
 
     def is_emoji(self, text: str) -> bool:
         if not isinstance(text, str):

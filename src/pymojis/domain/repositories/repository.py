@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from collections.abc import Callable, Iterator
 from typing import Literal
 
 from pymojis.domain.entities.emojis import Categories, Emoji
@@ -41,3 +42,24 @@ class PymojisRepository(ABC):
 
     @abstractmethod
     def to_html(self, emoji: str) -> str: ...
+
+    @abstractmethod
+    def extract(self, text: str) -> list[Emoji]: ...
+
+    @abstractmethod
+    def find(self, text: str) -> Iterator[tuple[Emoji, int, int]]: ...
+
+    @abstractmethod
+    def count(self, text: str) -> int: ...
+
+    @abstractmethod
+    def count_by(self, text: str) -> dict[Emoji, int]: ...
+
+    @abstractmethod
+    def strip(self, text: str) -> str: ...
+
+    @abstractmethod
+    def replace(self, text: str, repl: str | Callable[[Emoji], str]) -> str: ...
+
+    @abstractmethod
+    def demojifie(self, text: str) -> str: ...
