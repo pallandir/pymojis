@@ -370,3 +370,85 @@ class PymojisRepositoryImpl(PymojisRepository):
         if not _is_ris_pair(emoji):
             return None
         return "".join(chr(ord("A") + ord(c) - _RIS_FIRST) for c in emoji)
+
+    def search(self, query: str, limit: int = 10) -> list[Emoji]:
+        if not isinstance(query, str):
+            raise TypeError(f"query must be str, got {type(query).__name__}")
+        if limit < 0:
+            raise ValueError(f"limit must be >= 0, got {limit}")
+        q = query.strip().lower()
+        if not q:
+            return []
+        scored: list[tuple[int, str, Emoji]] = []
+        for e in self._emojis:
+            score = 0
+            name_low = e.name.lower()
+            if name_low == q:
+                score = 100
+            elif q in name_low:
+                score = 50
+            elif any(q == t for t in name_low.split()):
+                score = 40
+            for kw in e.keywords:
+                kw_low = kw.lower()
+                if kw_low == q:
+                    score = max(score, 30)
+                elif q in kw_low:
+                    score = max(score, 15)
+            if score:
+                scored.append((-score, e.name, e))
+        scored.sort()
+        return [e for _, _, e in scored[:limit]]
+
+    def suggest(self, emoji: str, limit: int = 5) -> list[Emoji]:
+        if not isinstance(emoji, str):
+            raise TypeError(f"emoji must be str, got {type(emoji).__name__}")
+        if limit < 0:
+            raise ValueError(f"limit must be >= 0, got {limit}")
+        source = self._char_to_emoji.get(emoji)
+        if source is None:
+            return []
+        source_kws = {kw.lower() for kw in source.keywords}
+        scored: list[tuple[int, str, Emoji]] = []
+        for e in self._emojis:
+            if e.emoji == emoji:
+                continue
+            score = 0
+            if e.sub_category == source.sub_category:
+                score += 10
+            elif e.category == source.category:
+                score += 2
+            if source_kws:
+                shared = source_kws & {kw.lower() for kw in e.keywords}
+                score += 5 * len(shared)
+            if score:
+                scored.append((-score, e.name, e))
+        scored.sort()
+        return [e for _, _, e in scored[:limit]]
+
+    def categories(self) -> list[str]:
+        seen: dict[str, None] = {}
+        for e in self._emojis:
+            seen.setdefault(e.category, None)
+        return list(seen)
+
+    def sub_categories(self, category: str | None = None) -> list[str]:
+        if category is not None and not isinstance(category, str):
+            raise TypeError(
+                f"category must be str or None, got {type(category).__name__}"
+            )
+        if category is not None:
+            target = category.lower()
+            pool = (e for e in self._emojis if e.category.lower() == target)
+        else:
+            pool = (e for e in self._emojis)
+        seen: dict[str, None] = {}
+        for e in pool:
+            seen.setdefault(e.sub_category, None)
+        return list(seen)
+
+    def get_by_subcategory(self, name: str) -> list[Emoji]:
+        if not isinstance(name, str):
+            raise TypeError(f"name must be str, got {type(name).__name__}")
+        target = name.lower()
+        return [e for e in self._emojis if e.sub_category.lower() == target]

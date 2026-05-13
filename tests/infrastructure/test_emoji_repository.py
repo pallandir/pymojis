@@ -351,6 +351,112 @@ def test_skin_tones_full_from_variant(full_repo: PymojisRepositoryImpl) -> None:
     assert len(tones) == 5
 
 
+# --- Phase 4: discovery -------------------------------------------------
+
+
+def test_search_by_exact_name(repository: PymojisRepositoryImpl) -> None:
+    results = repository.search("grinning face")
+    assert results[0].name == "grinning face"
+
+
+def test_search_by_substring(repository: PymojisRepositoryImpl) -> None:
+    results = repository.search("grin")
+    assert len(results) > 0
+    assert all(
+        "grin" in e.name.lower() or any("grin" in k.lower() for k in e.keywords)
+        for e in results
+    )
+
+
+def test_search_no_match(repository: PymojisRepositoryImpl) -> None:
+    assert repository.search("zzzzzzz_no_such_thing") == []
+
+
+def test_search_empty_query(repository: PymojisRepositoryImpl) -> None:
+    assert repository.search("") == []
+    assert repository.search("   ") == []
+
+
+def test_search_limit_caps_results(repository: PymojisRepositoryImpl) -> None:
+    results = repository.search("face", limit=3)
+    assert len(results) == 3
+
+
+def test_search_zero_limit_returns_empty(repository: PymojisRepositoryImpl) -> None:
+    assert repository.search("face", limit=0) == []
+
+
+def test_search_negative_limit_raises(repository: PymojisRepositoryImpl) -> None:
+    with pytest.raises(ValueError):
+        repository.search("face", limit=-1)
+
+
+def test_suggest_returns_relatives(repository: PymojisRepositoryImpl) -> None:
+    # 😀 (grinning face) → expect other smileys in the suggestion
+    results = repository.suggest("😀")
+    assert len(results) > 0
+    # All suggestions should share something with grinning face's structure.
+    assert all(e.emoji != "😀" for e in results)
+
+
+def test_suggest_unknown_returns_empty(repository: PymojisRepositoryImpl) -> None:
+    assert repository.suggest("not-an-emoji") == []
+
+
+def test_suggest_limit(repository: PymojisRepositoryImpl) -> None:
+    assert len(repository.suggest("😀", limit=2)) <= 2
+
+
+def test_categories_returns_all_present(repository: PymojisRepositoryImpl) -> None:
+    cats = repository.categories()
+    assert "Smileys & Emotion" in cats
+    assert "Flags" in cats
+    # No duplicates
+    assert len(cats) == len(set(cats))
+
+
+def test_sub_categories_all(repository: PymojisRepositoryImpl) -> None:
+    subs = repository.sub_categories()
+    assert "face-smiling" in subs
+    assert len(subs) == len(set(subs))
+
+
+def test_sub_categories_filtered(repository: PymojisRepositoryImpl) -> None:
+    subs = repository.sub_categories("Smileys & Emotion")
+    assert "face-smiling" in subs
+    # Should NOT contain a subcategory from a different category
+    assert not any(s.startswith("hand-") for s in subs)
+
+
+def test_sub_categories_unknown_category_returns_empty(
+    repository: PymojisRepositoryImpl,
+) -> None:
+    assert repository.sub_categories("Nonexistent") == []
+
+
+def test_get_by_subcategory(repository: PymojisRepositoryImpl) -> None:
+    results = repository.get_by_subcategory("face-smiling")
+    assert len(results) > 0
+    assert all(e.sub_category == "face-smiling" for e in results)
+
+
+def test_get_by_subcategory_unknown_returns_empty(
+    repository: PymojisRepositoryImpl,
+) -> None:
+    assert repository.get_by_subcategory("nonexistent") == []
+
+
+def test_discovery_wrong_type_raises(repository: PymojisRepositoryImpl) -> None:
+    with pytest.raises(TypeError):
+        repository.search(123)  # type: ignore[arg-type]
+    with pytest.raises(TypeError):
+        repository.suggest(123)  # type: ignore[arg-type]
+    with pytest.raises(TypeError):
+        repository.sub_categories(123)  # type: ignore[arg-type]
+    with pytest.raises(TypeError):
+        repository.get_by_subcategory(123)  # type: ignore[arg-type]
+
+
 def test_integration_methods_wrong_type_raise(
     repository: PymojisRepositoryImpl,
 ) -> None:

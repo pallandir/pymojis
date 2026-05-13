@@ -78,7 +78,31 @@ manager.base_of("👍🏽")                    # → "👍"
 manager.skin_tones("👍")                   # → ["👍🏻","👍🏼","👍🏽","👍🏾","👍🏿"]
 manager.to_shortcode("😀")                 # → ":grinning_face:"
 manager.from_shortcode(":grinning_face:")  # → "😀"
+
+# Discovery
+manager.search("grin", limit=3)            # → top-N Emoji matches by name + keyword
+manager.suggest("😀")                      # → related emojis (same subcategory + keyword overlap)
+manager.categories()                       # → ["Smileys & Emotion", "People & Body", ...]
+manager.sub_categories("Smileys & Emotion")
+manager.get_by_subcategory("face-smiling") # → list[Emoji] in that subcategory
 ```
+
+## CLI
+
+`pymojis` ships a small command-line tool — invoke it as `pymojis ...`
+(installed script) or `python -m pymojis ...` (no-install path).
+
+```bash
+pymojis search grin              # find emojis by name / keyword
+pymojis search face --limit 5
+pymojis random --length 3        # print 3 random emoji glyphs
+pymojis random --length 1 -v     # verbose: emoji + name + category
+pymojis info 😀                  # show all known fields for one emoji
+pymojis --full search "grin"     # use the full dataset (requires pymojis[full])
+```
+
+Exit codes: `0` on success, `1` on no-match / unknown-emoji, `2` on
+argument-parsing errors.
 
 To use the full Unicode dataset:
 
@@ -119,6 +143,11 @@ manager = PymojisManager(use_full_dataset=True)
 | `is_flag(emoji)` | `bool` | True for Flags-category records and RIS pairs. |
 | `flag_for(country_code)` | `str` | ISO 3166-1 alpha-2 → flag emoji. Raises on invalid. |
 | `country_of(emoji)` | `str \| None` | Decoded country code, or `None` for non-flags. |
+| `search(query, limit=10)` | `list[Emoji]` | Ranked by exact name > substring > token > keyword. |
+| `suggest(emoji, limit=5)` | `list[Emoji]` | Same subcategory + keyword overlap. |
+| `categories()` | `list[str]` | All category names in dataset order. |
+| `sub_categories(category=None)` | `list[str]` | Optionally filtered to one category. |
+| `get_by_subcategory(name)` | `list[Emoji]` | Case-insensitive subcategory filter. |
 
 All methods raise `TypeError` on non-`str` arguments — no silent `None`.
 

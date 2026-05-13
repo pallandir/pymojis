@@ -56,6 +56,9 @@ Repository = "https://github.com/pallandir/pymojis"
 Issues = "https://github.com/pallandir/pymojis/issues"
 Changelog = "https://github.com/pallandir/pymojis/releases"
 
+[project.scripts]
+pymojis = "pymojis.cli:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["pymojis*"]
@@ -111,6 +114,8 @@ ignore = [
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"]  # allow asserts in tests
 "scripts/*" = ["T20"]  # CI scripts may print
+"src/pymojis/cli.py" = ["T20"]  # CLI prints to stdout/stderr by design
+"src/pymojis/__main__.py" = ["T20"]
 
 [tool.mypy]
 python_version = "3.12"

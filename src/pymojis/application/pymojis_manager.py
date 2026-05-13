@@ -254,3 +254,41 @@ class PymojisManager:
         flags (England, Scotland, Wales) use tag sequences and return ``None``.
         """
         return self.repository.country_of(emoji)
+
+    def search(self, query: str, limit: int = 10) -> list[Emoji]:
+        """Return the top ``limit`` emojis matching ``query`` by name or keyword.
+
+        Scoring (highest wins): exact name (100) > name substring (50) >
+        name token equal (40) > exact keyword (30) > keyword substring (15).
+        Keyword matches require the full dataset (the light bundle ships
+        without keywords).
+
+        Example:
+            >>> [e.emoji for e in PymojisManager().search("grin", limit=3)]  # doctest: +SKIP
+            ['😀', '😁', '😃']
+        """
+        return self.repository.search(query, limit)
+
+    def suggest(self, emoji: str, limit: int = 5) -> list[Emoji]:
+        """Return ``limit`` emojis related to ``emoji``.
+
+        Same subcategory ranks highest, then keyword overlap (full dataset
+        only), then same category. The input emoji is excluded from
+        results. Empty list if ``emoji`` is unknown.
+        """
+        return self.repository.suggest(emoji, limit)
+
+    def categories(self) -> list[str]:
+        """Return the list of category names present in the loaded dataset.
+
+        Preserves dataset insertion order.
+        """
+        return self.repository.categories()
+
+    def sub_categories(self, category: str | None = None) -> list[str]:
+        """Return all subcategory names, optionally filtered to one category."""
+        return self.repository.sub_categories(category)
+
+    def get_by_subcategory(self, name: str) -> list[Emoji]:
+        """Return every ``Emoji`` whose ``sub_category`` matches ``name`` (case-insensitive)."""
+        return self.repository.get_by_subcategory(name)
