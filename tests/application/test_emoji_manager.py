@@ -67,3 +67,42 @@ def test_use_full_dataset_raises_when_missing(monkeypatch: pytest.MonkeyPatch) -
     monkeypatch.setitem(sys.modules, "pymojis_fulldata.data", None)
     with pytest.raises(DatasetNotFoundError):
         PymojisManager(use_full_dataset=True)
+
+
+def test_extract_facade(manager: PymojisManager) -> None:
+    result = manager.extract("hi 😀")
+    assert len(result) == 1
+    assert result[0].emoji == "😀"
+
+
+def test_find_facade(manager: PymojisManager) -> None:
+    matches = list(manager.find("😀 here"))
+    assert len(matches) == 1
+    _, start, end = matches[0]
+    assert start == 0
+    assert end == len("😀")
+
+
+def test_count_facade(manager: PymojisManager) -> None:
+    assert manager.count("😀😀") == 2
+
+
+def test_count_by_facade(manager: PymojisManager) -> None:
+    counts = manager.count_by("😀 hi 😀")
+    assert sum(counts.values()) == 2
+
+
+def test_strip_facade(manager: PymojisManager) -> None:
+    assert manager.strip("a 😀 b") == "a  b"  # noqa: B005
+
+
+def test_replace_facade_literal(manager: PymojisManager) -> None:
+    assert manager.replace("hi 😀", "X") == "hi X"
+
+
+def test_replace_facade_callable(manager: PymojisManager) -> None:
+    assert manager.replace("hi 😀", lambda e: e.name.upper()) == "hi GRINNING FACE"
+
+
+def test_demojifie_facade(manager: PymojisManager) -> None:
+    assert manager.demojifie("hi 😀") == "hi :grinning_face:"

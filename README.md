@@ -53,6 +53,14 @@ manager.is_emoji("😄😊")               # → False
 # HTML hex references
 manager.to_html("😵‍💫")
 # → "&#x1F635;&#x200D;&#x1F4AB;"
+
+# Text operations
+manager.extract("hi 😀 and 😪")            # → [Emoji('grinning face'), Emoji('sleepy face')]
+manager.count("😀😀😪")                    # → 3
+manager.strip("hi 😀 there")               # → "hi  there"
+manager.replace("hi 😀", "[e]")            # → "hi [e]"
+manager.replace("hi 😀", lambda e: e.name) # → "hi grinning face"
+manager.demojifie("hi 😀")                 # → "hi :grinning_face:"
 ```
 
 To use the full Unicode dataset:
@@ -77,8 +85,23 @@ manager = PymojisManager(use_full_dataset=True)
 | `is_emoji(text)` | `bool` | True if `text.strip()` is a single known emoji. |
 | `emojifie(text)` | `str` | Replace whole words with emojis (whose name *contains* that word). |
 | `to_html(emoji)` | `str` | Encode each codepoint as `&#xHEX;`. |
+| `extract(text)` | `list[Emoji]` | All emojis in `text`, in order of appearance. |
+| `find(text)` | `Iterator[tuple[Emoji, int, int]]` | `(emoji, start, end)` for each match — indices over the raw string. |
+| `count(text)` | `int` | Number of emoji occurrences in `text`. |
+| `count_by(text)` | `dict[Emoji, int]` | Histogram of `{Emoji: count}`. |
+| `strip(text)` | `str` | Remove every emoji (no whitespace collapsing). |
+| `replace(text, repl)` | `str` | `repl` is either a literal string or `Callable[[Emoji], str]`. |
+| `demojifie(text)` | `str` | Rewrite each emoji as `:slugified_name:`. |
 
 All methods raise `TypeError` on non-`str` arguments — no silent `None`.
+
+### Text scanning
+
+`extract` / `find` / `count` / `count_by` / `strip` / `replace` / `demojifie`
+all share a single longest-match-first scanner built at load time: ZWJ
+sequences and skin-tone composites are matched as whole units, so
+`extract("👍🏽")` returns the medium-skin-tone variant — never the bare
+thumbs-up plus a separate modifier.
 
 ### Categories
 
