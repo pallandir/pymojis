@@ -1,0 +1,111 @@
+name: Refresh dataset
+
+# Manual-only. Pulls fresh CLDR sources from unicode.org, regenerates the
+# bundled emoji datasets, and opens a PR into `develop` if anything changed.
+# Never auto-commits to develop directly.
+
+on:
+  workflow_dispatch:
+    inputs:
+      unicode_version:
+        description: 'Unicode emoji version (e.g., 16.0, 17.0)'
+        required: true
+        default: '16.0'
+      cldr_release:
+        description: 'CLDR release tag (e.g., release-46, release-47)'
+        required: true
+        default: 'release-46'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    name: Pull CLDR + rebuild
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate inputs
+        env:
+          UNICODE_VERSION: ${{ github.event.inputs.unicode_version }}
+          CLDR_RELEASE: ${{ github.event.inputs.cldr_release }}
+        run: |
+          if ! echo "$UNICODE_VERSION" | grep -Eq '^[0-9]+\.[0-9]+$'; then
+            echo "Invalid unicode_version: $UNICODE_VERSION" >&2
+            exit 1
+          fi
+          if ! echo "$CLDR_RELEASE" | grep -Eq '^release-[0-9]+(\.[0-9]+)?$'; then
+            echo "Invalid cldr_release: $CLDR_RELEASE" >&2
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install project
+        run: make install
+
+      - name: Fetch CLDR sources
+        env:
+          UNICODE_VERSION: ${{ github.event.inputs.unicode_version }}
+          CLDR_RELEASE: ${{ github.event.inputs.cldr_release }}
+        run: |
+          curl -fsSL "https://www.unicode.org/Public/emoji/${UNICODE_VERSION}/emoji-test.txt" \
+            -o third_party/cldr/emoji-test.txt
+          curl -fsSL "https://raw.githubusercontent.com/unicode-org/cldr/${CLDR_RELEASE}/common/annotations/en.xml" \
+            -o third_party/cldr/en.xml
+
+      - name: Regenerate datasets
+        run: make data
+
+      - name: Validate schema
+        run: uv run pytest tests/infrastructure/test_dataset_schema.py
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No changes detected — nothing to refresh."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff --stat
+          fi
+
+      - name: Open refresh PR
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UNICODE_VERSION: ${{ github.event.inputs.unicode_version }}
+          CLDR_RELEASE: ${{ github.event.inputs.cldr_release }}
+        run: |
+          BRANCH="chore/refresh-dataset-u${UNICODE_VERSION}-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add third_party/cldr/ \
+                  src/pymojis/infrastructure/data/emoji_data.json \
+                  packages/pymojis-fulldata/src/pymojis_fulldata/data/full_emoji_data.json
+          git commit -m "chore(data): refresh CLDR → Unicode ${UNICODE_VERSION} / ${CLDR_RELEASE}"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --base develop \
+            --head "$BRANCH" \
+            --title "chore(data): refresh CLDR → Unicode ${UNICODE_VERSION}" \
+            --body "Automated refresh of vendored CLDR sources and bundled emoji datasets.
+
+          - Unicode emoji version: \`${UNICODE_VERSION}\`
+          - CLDR release: \`${CLDR_RELEASE}\`
+
+          Review the dataset diff before merging."

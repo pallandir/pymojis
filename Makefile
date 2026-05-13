@@ -1,4 +1,4 @@
-.PHONY: install lint format-check typecheck test build twine-check ci clean
+.PHONY: install lint format-check typecheck test build twine-check ci clean data
 
 install:
 	uv sync --extra dev --frozen
@@ -24,6 +24,12 @@ twine-check:
 	uv run twine check dist/*
 
 ci: lint format-check typecheck test build twine-check
+
+# Regenerate the bundled emoji datasets from Chalda + vendored CLDR sources.
+# CLDR sources at third_party/cldr/ are refreshed separately by the
+# `refresh-dataset` GitHub workflow — this target never touches the network.
+data:
+	uv run python scripts/build_dataset.py
 
 clean:
 	rm -rf dist build *.egg-info
