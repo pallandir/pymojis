@@ -61,6 +61,23 @@ manager.strip("hi 😀 there")               # → "hi  there"
 manager.replace("hi 😀", "[e]")            # → "hi [e]"
 manager.replace("hi 😀", lambda e: e.name) # → "hi grinning face"
 manager.demojifie("hi 😀")                 # → "hi :grinning_face:"
+
+# Format / convert
+manager.to_codepoint_string("😀")          # → "U+1F600"
+manager.to_unicode_escape("😀")            # → "\\U0001F600"
+manager.to_image_url("😀")                 # → twemoji CDN URL (svg)
+manager.to_image_url("😀", provider="openmoji", extension="png")
+
+# Country flags (works without the full dataset)
+manager.flag_for("FR")                     # → "🇫🇷"
+manager.country_of("🇫🇷")                  # → "FR"
+manager.is_flag("🇫🇷")                     # → True
+
+# Family / shortcodes (requires the [full] dataset for non-None results)
+manager.base_of("👍🏽")                    # → "👍"
+manager.skin_tones("👍")                   # → ["👍🏻","👍🏼","👍🏽","👍🏾","👍🏿"]
+manager.to_shortcode("😀")                 # → ":grinning_face:"
+manager.from_shortcode(":grinning_face:")  # → "😀"
 ```
 
 To use the full Unicode dataset:
@@ -92,6 +109,16 @@ manager = PymojisManager(use_full_dataset=True)
 | `strip(text)` | `str` | Remove every emoji (no whitespace collapsing). |
 | `replace(text, repl)` | `str` | `repl` is either a literal string or `Callable[[Emoji], str]`. |
 | `demojifie(text)` | `str` | Rewrite each emoji as `:slugified_name:`. |
+| `to_codepoint_string(emoji, sep=" ", prefix="U+")` | `str` | `"U+1F600 U+200D U+1F4AB"`-style formatting. |
+| `to_unicode_escape(emoji)` | `str` | Python source escape: `\U0001F600`. |
+| `to_image_url(emoji, provider="twemoji", extension="svg")` | `str` | CDN URL — `"twemoji"` or `"openmoji"`. |
+| `to_shortcode(emoji, set_name="github")` | `str \| None` | Vendor shortcode (`":grinning_face:"`). Full dataset only. |
+| `from_shortcode(code, set_name=None)` | `str \| None` | Reverse lookup. Full dataset only. |
+| `base_of(emoji)` | `str \| None` | Skin-tone/ZWJ variant → base emoji. Full dataset only. |
+| `skin_tones(emoji)` | `list[str]` | All skin-tone siblings under the same base. Full dataset only. |
+| `is_flag(emoji)` | `bool` | True for Flags-category records and RIS pairs. |
+| `flag_for(country_code)` | `str` | ISO 3166-1 alpha-2 → flag emoji. Raises on invalid. |
+| `country_of(emoji)` | `str \| None` | Decoded country code, or `None` for non-flags. |
 
 All methods raise `TypeError` on non-`str` arguments — no silent `None`.
 

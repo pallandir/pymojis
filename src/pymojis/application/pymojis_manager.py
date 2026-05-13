@@ -156,3 +156,101 @@ class PymojisManager:
             'hi :grinning_face:'
         """
         return self.repository.demojifie(text)
+
+    def to_codepoint_string(
+        self, emoji: str, sep: str = " ", prefix: str = "U+"
+    ) -> str:
+        """Format an emoji as its codepoint string, e.g. ``'U+1F600'``.
+
+        Multi-codepoint emojis are space-separated by default.
+
+        Example:
+            >>> PymojisManager().to_codepoint_string("😀")  # doctest: +SKIP
+            'U+1F600'
+        """
+        return self.repository.to_codepoint_string(emoji, sep=sep, prefix=prefix)
+
+    def to_unicode_escape(self, emoji: str) -> str:
+        r"""Format an emoji as Python ``\\U`` escapes, suitable for source code.
+
+        Always emits 8-hex-digit ``\\U`` escapes (codepoints above U+FFFF
+        cannot use the 4-digit ``\\u`` form).
+
+        Example:
+            >>> PymojisManager().to_unicode_escape("😀")  # doctest: +SKIP
+            '\\U0001F600'
+        """
+        return self.repository.to_unicode_escape(emoji)
+
+    def to_image_url(
+        self,
+        emoji: str,
+        provider: Literal["twemoji", "openmoji"] = "twemoji",
+        extension: Literal["svg", "png"] = "svg",
+    ) -> str:
+        """Return a public CDN URL for the emoji's image at the given provider.
+
+        ``twemoji`` keeps Variation-Selector-16 (``FE0F``) in the filename;
+        ``openmoji`` strips it per their repo convention.
+        """
+        return self.repository.to_image_url(emoji, provider, extension)
+
+    def to_shortcode(self, emoji: str, set_name: str = "github") -> str | None:
+        """Return the emoji's shortcode for the given vendor set, or ``None``.
+
+        Requires the full dataset for any non-trivial result — the light
+        dataset ships without shortcodes, so this always returns ``None``
+        there.
+        """
+        return self.repository.to_shortcode(emoji, set_name)
+
+    def from_shortcode(self, code: str, set_name: str | None = None) -> str | None:
+        """Reverse lookup: shortcode (e.g. ``':grinning_face:'``) → emoji.
+
+        With ``set_name=None``, returns the first match across all vendor
+        sets. Returns ``None`` if no match.
+        """
+        return self.repository.from_shortcode(code, set_name)
+
+    def base_of(self, emoji: str) -> str | None:
+        """Return the base emoji for a skin-tone or ZWJ variant.
+
+        ``base_of('👍🏽')`` → ``'👍'``. Returns ``None`` for emojis that
+        have no parent (base emojis themselves, or unknown input).
+        """
+        return self.repository.base_of(emoji)
+
+    def skin_tones(self, emoji: str) -> list[str]:
+        """Return all skin-tone variants of the same base as ``emoji``.
+
+        Works whether ``emoji`` is the base or one of the variants. Empty
+        list if the emoji has no skin-tone family.
+        """
+        return self.repository.skin_tones(emoji)
+
+    def is_flag(self, emoji: str) -> bool:
+        """Return ``True`` if ``emoji`` is a country flag.
+
+        Accepts both dataset-known flags (Flags category) and any bare
+        Regional Indicator Symbol pair, even ones not yet in the dataset.
+        """
+        return self.repository.is_flag(emoji)
+
+    def flag_for(self, country_code: str) -> str:
+        """Return the flag emoji for an ISO 3166-1 alpha-2 country code.
+
+        Example:
+            >>> PymojisManager().flag_for('FR')  # doctest: +SKIP
+            '🇫🇷'
+
+        Raises ``ValueError`` for inputs that are not 2 ASCII letters.
+        """
+        return self.repository.flag_for(country_code)
+
+    def country_of(self, emoji: str) -> str | None:
+        """Return the ISO 3166-1 alpha-2 country code for a flag emoji, or ``None``.
+
+        Only the 2-Regional-Indicator-Symbol form is decoded; subdivision
+        flags (England, Scotland, Wales) use tag sequences and return ``None``.
+        """
+        return self.repository.country_of(emoji)

@@ -183,3 +183,186 @@ def test_contains_emojis_uses_scanner(repository: PymojisRepositoryImpl) -> None
     # Regression: contains_emojis now goes through the same regex as extract.
     assert repository.contains_emojis("only zwj: 😵‍💫")
     assert not repository.contains_emojis("totally plain string")
+
+
+# --- Phase 3: integration + family --------------------------------------
+
+
+def test_to_codepoint_string_single(repository: PymojisRepositoryImpl) -> None:
+    assert repository.to_codepoint_string("😀") == "U+1F600"
+
+
+def test_to_codepoint_string_zwj(repository: PymojisRepositoryImpl) -> None:
+    assert repository.to_codepoint_string("😵‍💫") == "U+1F635 U+200D U+1F4AB"
+
+
+def test_to_codepoint_string_custom_sep_prefix(
+    repository: PymojisRepositoryImpl,
+) -> None:
+    assert repository.to_codepoint_string("😀", sep="-", prefix="") == "1F600"
+
+
+def test_to_codepoint_string_empty_raises(repository: PymojisRepositoryImpl) -> None:
+    with pytest.raises(ValueError):
+        repository.to_codepoint_string("")
+
+
+def test_to_unicode_escape_single(repository: PymojisRepositoryImpl) -> None:
+    assert repository.to_unicode_escape("😀") == r"\U0001F600"
+
+
+def test_to_unicode_escape_multi(repository: PymojisRepositoryImpl) -> None:
+    # All escapes are 8-digit \U form, even for ZWJ (U+200D) inside the sequence.
+    assert repository.to_unicode_escape("😵‍💫") == r"\U0001F635\U0000200D\U0001F4AB"
+
+
+def test_to_image_url_twemoji_default_svg(repository: PymojisRepositoryImpl) -> None:
+    url = repository.to_image_url("😀")
+    assert url == (
+        "https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f600.svg"
+    )
+
+
+def test_to_image_url_twemoji_png(repository: PymojisRepositoryImpl) -> None:
+    url = repository.to_image_url("😀", provider="twemoji", extension="png")
+    assert url.endswith("/1f600.png")
+
+
+def test_to_image_url_openmoji_strips_fe0f(
+    repository: PymojisRepositoryImpl,
+) -> None:
+    # ❤️ = U+2764 U+FE0F; OpenMoji's repo stores it as 2764.svg
+    url = repository.to_image_url("❤️", provider="openmoji")
+    assert url == "https://openmoji.org/data/color/svg/2764.svg"
+
+
+def test_to_image_url_unknown_provider_raises(
+    repository: PymojisRepositoryImpl,
+) -> None:
+    with pytest.raises(ValueError):
+        repository.to_image_url("😀", provider="emojione")  # type: ignore[arg-type]
+
+
+def test_is_flag_country_flag(repository: PymojisRepositoryImpl) -> None:
+    # 🇫🇷 = U+1F1EB U+1F1F7 (FR)
+    assert repository.is_flag("\U0001f1eb\U0001f1f7")
+
+
+def test_is_flag_dataset_flag(repository: PymojisRepositoryImpl) -> None:
+    # 🏁 is in the Flags category but not an RIS pair.
+    assert repository.is_flag("🏁")
+
+
+def test_is_flag_not_a_flag(repository: PymojisRepositoryImpl) -> None:
+    assert not repository.is_flag("😀")
+    assert not repository.is_flag("hello")
+
+
+def test_flag_for_uppercase(repository: PymojisRepositoryImpl) -> None:
+    assert repository.flag_for("FR") == "\U0001f1eb\U0001f1f7"
+
+
+def test_flag_for_lowercase(repository: PymojisRepositoryImpl) -> None:
+    assert repository.flag_for("us") == "\U0001f1fa\U0001f1f8"
+
+
+def test_flag_for_invalid_raises(repository: PymojisRepositoryImpl) -> None:
+    with pytest.raises(ValueError):
+        repository.flag_for("FRA")
+    with pytest.raises(ValueError):
+        repository.flag_for("12")
+
+
+def test_country_of_country_flag(repository: PymojisRepositoryImpl) -> None:
+    assert repository.country_of("\U0001f1eb\U0001f1f7") == "FR"
+
+
+def test_country_of_non_flag_returns_none(repository: PymojisRepositoryImpl) -> None:
+    assert repository.country_of("😀") is None
+    assert repository.country_of("🏁") is None
+
+
+# --- light-dataset behavior of full-only methods ---
+
+
+def test_to_shortcode_light_returns_none(repository: PymojisRepositoryImpl) -> None:
+    # Light dataset ships without shortcodes, so this is always None.
+    assert repository.to_shortcode("😀") is None
+
+
+def test_from_shortcode_light_returns_none(repository: PymojisRepositoryImpl) -> None:
+    assert repository.from_shortcode(":grinning_face:") is None
+
+
+def test_base_of_light_returns_none(repository: PymojisRepositoryImpl) -> None:
+    assert repository.base_of("👍") is None
+
+
+def test_skin_tones_light_returns_empty(repository: PymojisRepositoryImpl) -> None:
+    assert repository.skin_tones("👍") == []
+
+
+# --- full-dataset behavior, skipped if extra not installed ---
+
+
+@pytest.fixture
+def full_repo() -> PymojisRepositoryImpl:
+    pytest.importorskip("pymojis_fulldata")
+    repo = PymojisRepositoryImpl()
+    repo.load_emojis(kind="full")
+    return repo
+
+
+def test_to_shortcode_full(full_repo: PymojisRepositoryImpl) -> None:
+    assert full_repo.to_shortcode("😀") == ":grinning_face:"
+
+
+def test_to_shortcode_full_unknown_set(full_repo: PymojisRepositoryImpl) -> None:
+    assert full_repo.to_shortcode("😀", set_name="slack") is None
+
+
+def test_from_shortcode_full(full_repo: PymojisRepositoryImpl) -> None:
+    assert full_repo.from_shortcode(":grinning_face:") == "😀"
+
+
+def test_from_shortcode_full_with_set(full_repo: PymojisRepositoryImpl) -> None:
+    assert full_repo.from_shortcode(":grinning_face:", set_name="github") == "😀"
+    assert full_repo.from_shortcode(":grinning_face:", set_name="nope") is None
+
+
+def test_base_of_full_variant(full_repo: PymojisRepositoryImpl) -> None:
+    # 👋🏻 (waving hand light skin tone) → 👋
+    assert full_repo.base_of("\U0001f44b\U0001f3fb") == "👋"
+
+
+def test_base_of_full_base_returns_none(full_repo: PymojisRepositoryImpl) -> None:
+    assert full_repo.base_of("👋") is None
+
+
+def test_skin_tones_full_from_base(full_repo: PymojisRepositoryImpl) -> None:
+    tones = full_repo.skin_tones("👋")
+    # 5 Fitzpatrick variants
+    assert len(tones) == 5
+
+
+def test_skin_tones_full_from_variant(full_repo: PymojisRepositoryImpl) -> None:
+    # Asking from a variant returns the other variants under the same base.
+    tones = full_repo.skin_tones("\U0001f44b\U0001f3fb")
+    assert len(tones) == 5
+
+
+def test_integration_methods_wrong_type_raise(
+    repository: PymojisRepositoryImpl,
+) -> None:
+    with pytest.raises(TypeError):
+        repository.to_shortcode(123)  # type: ignore[arg-type]
+    with pytest.raises(TypeError):
+        repository.from_shortcode(123)  # type: ignore[arg-type]
+    with pytest.raises(TypeError):
+        repository.base_of(123)  # type: ignore[arg-type]
+    with pytest.raises(TypeError):
+        repository.is_flag(123)  # type: ignore[arg-type]
+    with pytest.raises(TypeError):
+        repository.flag_for(123)  # type: ignore[arg-type]
+    with pytest.raises(TypeError):
+        repository.country_of(123)  # type: ignore[arg-type]

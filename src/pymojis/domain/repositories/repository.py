@@ -63,3 +63,40 @@ class PymojisRepository(ABC):
 
     @abstractmethod
     def demojifie(self, text: str) -> str: ...
+
+    @abstractmethod
+    def to_codepoint_string(
+        self, emoji: str, sep: str = " ", prefix: str = "U+"
+    ) -> str: ...
+
+    @abstractmethod
+    def to_unicode_escape(self, emoji: str) -> str: ...
+
+    @abstractmethod
+    def to_image_url(
+        self,
+        emoji: str,
+        provider: Literal["twemoji", "openmoji"] = "twemoji",
+        extension: Literal["svg", "png"] = "svg",
+    ) -> str: ...
+
+    @abstractmethod
+    def to_shortcode(self, emoji: str, set_name: str = "github") -> str | None: ...
+
+    @abstractmethod
+    def from_shortcode(self, code: str, set_name: str | None = None) -> str | None: ...
+
+    @abstractmethod
+    def base_of(self, emoji: str) -> str | None: ...
+
+    @abstractmethod
+    def skin_tones(self, emoji: str) -> list[str]: ...
+
+    @abstractmethod
+    def is_flag(self, emoji: str) -> bool: ...
+
+    @abstractmethod
+    def flag_for(self, country_code: str) -> str: ...
+
+    @abstractmethod
+    def country_of(self, emoji: str) -> str | None: ...

@@ -22,6 +22,17 @@ def _slugify_name(name: str) -> str:
     return _DEMOJI_SLUG_RE.sub("_", name.lower()).strip("_")
 
 
+_RIS_FIRST = 0x1F1E6  # Regional Indicator Symbol A
+_RIS_LAST = 0x1F1FF  # Regional Indicator Symbol Z
+_VARIATION_SELECTOR_16 = "FE0F"
+
+
+def _is_ris_pair(emoji: str) -> bool:
+    if len(emoji) != 2:
+        return False
+    return all(_RIS_FIRST <= ord(c) <= _RIS_LAST for c in emoji)
+
+
 class PymojisRepositoryImpl(PymojisRepository):
     def __init__(self) -> None:
         self.logger = logging.getLogger(__name__)
@@ -31,6 +42,10 @@ class PymojisRepositoryImpl(PymojisRepository):
         self._token_index: dict[str, str] = {}
         self._char_to_emoji: dict[str, Emoji] = {}
         self._emoji_pattern: re.Pattern[str] = re.compile("(?!x)x")
+        self._code_to_emoji_str: dict[tuple[str, ...], str] = {}
+        self._base_to_variants: dict[tuple[str, ...], list[str]] = {}
+        self._shortcode_by_set: dict[tuple[str, str], str] = {}
+        self._shortcode_any: dict[str, str] = {}
         self._data_loader = EmojiDataLoader(file_loader=FileLoader())
 
     def load_emojis(
@@ -61,6 +76,22 @@ class PymojisRepositoryImpl(PymojisRepository):
         self._emoji_pattern = re.compile(
             "|".join(re.escape(e.emoji) for e in sorted_emojis)
         )
+        # Family / shortcode indices — empty for the light dataset, populated
+        # for the full one. Callers see None / [] either way.
+        self._code_to_emoji_str = {tuple(e.code): e.emoji for e in self._emojis}
+        base_to_variants: dict[tuple[str, ...], list[str]] = {}
+        for e in self._emojis:
+            if e.base_code:
+                base_to_variants.setdefault(tuple(e.base_code), []).append(e.emoji)
+        self._base_to_variants = base_to_variants
+        shortcode_by_set: dict[tuple[str, str], str] = {}
+        shortcode_any: dict[str, str] = {}
+        for e in self._emojis:
+            for set_name, code in e.shortcodes.items():
+                shortcode_by_set[(set_name, code)] = e.emoji
+                shortcode_any.setdefault(code, e.emoji)
+        self._shortcode_by_set = shortcode_by_set
+        self._shortcode_any = shortcode_any
         self.logger.info("Loaded %d emojis", len(self._emojis))
 
     def _parse_emojis(self, data: dict[str, Any]) -> None:
@@ -153,10 +184,7 @@ class PymojisRepositoryImpl(PymojisRepository):
         return sample(pool, min(length, len(pool)))
 
     def get_by_emoji(self, emoji: str) -> Emoji | None:
-        for e in self._emojis:
-            if e.emoji == emoji:
-                return e
-        return None
+        return self._char_to_emoji.get(emoji)
 
     def contains_emojis(self, text: str) -> bool:
         if not isinstance(text, str):
@@ -238,3 +266,107 @@ class PymojisRepositoryImpl(PymojisRepository):
         if not isinstance(emoji, str):
             raise TypeError(f"emoji must be str, got {type(emoji).__name__}")
         return "".join(f"&#x{ord(ch):X};" for ch in emoji)
+
+    def to_codepoint_string(
+        self, emoji: str, sep: str = " ", prefix: str = "U+"
+    ) -> str:
+        if not isinstance(emoji, str) or not emoji:
+            raise ValueError(f"emoji must be a non-empty string, got {emoji!r}")
+        return sep.join(f"{prefix}{ord(c):04X}" for c in emoji)
+
+    def to_unicode_escape(self, emoji: str) -> str:
+        if not isinstance(emoji, str) or not emoji:
+            raise ValueError(f"emoji must be a non-empty string, got {emoji!r}")
+        return "".join(f"\\U{ord(c):08X}" for c in emoji)
+
+    def to_image_url(
+        self,
+        emoji: str,
+        provider: Literal["twemoji", "openmoji"] = "twemoji",
+        extension: Literal["svg", "png"] = "svg",
+    ) -> str:
+        if not isinstance(emoji, str) or not emoji:
+            raise ValueError(f"emoji must be a non-empty string, got {emoji!r}")
+        cps = [f"{ord(c):X}" for c in emoji]
+        if provider == "twemoji":
+            seq = "-".join(cp.lower() for cp in cps)
+            return (
+                "https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/"
+                f"{extension}/{seq}.{extension}"
+            )
+        if provider == "openmoji":
+            stripped = [cp for cp in cps if cp != _VARIATION_SELECTOR_16]
+            if not stripped:
+                raise ValueError(
+                    f"emoji has no displayable codepoints after stripping VS16: {emoji!r}"
+                )
+            seq = "-".join(stripped)
+            return f"https://openmoji.org/data/color/{extension}/{seq}.{extension}"
+        raise ValueError(f"unknown provider: {provider!r}")
+
+    def to_shortcode(self, emoji: str, set_name: str = "github") -> str | None:
+        if not isinstance(emoji, str):
+            raise TypeError(f"emoji must be str, got {type(emoji).__name__}")
+        if not isinstance(set_name, str) or not set_name:
+            raise ValueError("set_name must be a non-empty string")
+        record = self._char_to_emoji.get(emoji)
+        if record is None:
+            return None
+        return record.shortcodes.get(set_name)
+
+    def from_shortcode(self, code: str, set_name: str | None = None) -> str | None:
+        if not isinstance(code, str):
+            raise TypeError(f"code must be str, got {type(code).__name__}")
+        if set_name is not None:
+            if not isinstance(set_name, str) or not set_name:
+                raise ValueError("set_name must be None or a non-empty string")
+            return self._shortcode_by_set.get((set_name, code))
+        return self._shortcode_any.get(code)
+
+    def base_of(self, emoji: str) -> str | None:
+        if not isinstance(emoji, str):
+            raise TypeError(f"emoji must be str, got {type(emoji).__name__}")
+        record = self._char_to_emoji.get(emoji)
+        if record is None or not record.base_code:
+            return None
+        return self._code_to_emoji_str.get(tuple(record.base_code))
+
+    def skin_tones(self, emoji: str) -> list[str]:
+        if not isinstance(emoji, str):
+            raise TypeError(f"emoji must be str, got {type(emoji).__name__}")
+        record = self._char_to_emoji.get(emoji)
+        if record is None:
+            return []
+        # If `emoji` is itself a variant, return siblings under the same base.
+        key = tuple(record.base_code) if record.base_code else tuple(record.code)
+        return list(self._base_to_variants.get(key, []))
+
+    def is_flag(self, emoji: str) -> bool:
+        if not isinstance(emoji, str):
+            raise TypeError(f"emoji must be str, got {type(emoji).__name__}")
+        # Two paths: a known record in the Flags category, OR a bare 2-letter
+        # RIS sequence that isn't in the dataset yet (rare but valid Unicode).
+        record = self._char_to_emoji.get(emoji)
+        if record is not None:
+            return record.category == "Flags"
+        return _is_ris_pair(emoji)
+
+    def flag_for(self, country_code: str) -> str:
+        if not isinstance(country_code, str):
+            raise TypeError(
+                f"country_code must be str, got {type(country_code).__name__}"
+            )
+        if len(country_code) != 2 or not country_code.isalpha():
+            raise ValueError(
+                f"country_code must be 2 ASCII letters (ISO 3166-1 alpha-2), "
+                f"got {country_code!r}"
+            )
+        cc = country_code.upper()
+        return "".join(chr(_RIS_FIRST + ord(c) - ord("A")) for c in cc)
+
+    def country_of(self, emoji: str) -> str | None:
+        if not isinstance(emoji, str):
+            raise TypeError(f"emoji must be str, got {type(emoji).__name__}")
+        if not _is_ris_pair(emoji):
+            return None
+        return "".join(chr(ord("A") + ord(c) - _RIS_FIRST) for c in emoji)

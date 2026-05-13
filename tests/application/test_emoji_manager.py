@@ -106,3 +106,36 @@ def test_replace_facade_callable(manager: PymojisManager) -> None:
 
 def test_demojifie_facade(manager: PymojisManager) -> None:
     assert manager.demojifie("hi 😀") == "hi :grinning_face:"
+
+
+def test_to_codepoint_string_facade(manager: PymojisManager) -> None:
+    assert manager.to_codepoint_string("😀") == "U+1F600"
+
+
+def test_to_unicode_escape_facade(manager: PymojisManager) -> None:
+    assert manager.to_unicode_escape("😀") == r"\U0001F600"
+
+
+def test_to_image_url_facade(manager: PymojisManager) -> None:
+    assert manager.to_image_url("😀").endswith("/1f600.svg")
+
+
+def test_flag_for_facade(manager: PymojisManager) -> None:
+    assert manager.flag_for("FR") == "\U0001f1eb\U0001f1f7"
+
+
+def test_country_of_facade(manager: PymojisManager) -> None:
+    assert manager.country_of("\U0001f1eb\U0001f1f7") == "FR"
+
+
+def test_is_flag_facade(manager: PymojisManager) -> None:
+    assert manager.is_flag("\U0001f1eb\U0001f1f7")
+    assert not manager.is_flag("😀")
+
+
+def test_shortcode_full_roundtrip() -> None:
+    pytest.importorskip("pymojis_fulldata")
+    full = PymojisManager(use_full_dataset=True)
+    code = full.to_shortcode("😀")
+    assert code is not None
+    assert full.from_shortcode(code) == "😀"
