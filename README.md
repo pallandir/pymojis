@@ -5,252 +5,209 @@
 [![License: MIT](https://img.shields.io/pypi/l/pymojis.svg)](https://github.com/pallandir/pymojis/blob/main/LICENSE)
 [![CI](https://github.com/pallandir/pymojis/actions/workflows/github_ci.yaml/badge.svg)](https://github.com/pallandir/pymojis/actions/workflows/github_ci.yaml)
 
-A small, type-safe Python library for working with emojis: search them by
-name / code / character, transform text, detect emojis in strings, and
-convert to HTML.
+A tiny Python library for working with emojis. Look them up by name or
+codepoint, pick a random one, check if a string contains any, pull all
+the emojis out of a chat message, convert to HTML or to a Twemoji URL —
+that kind of thing.
 
-- **Zero runtime dependencies.**
-- **Two install sizes**: a tiny default (~230 KB of data) or the full
-  Unicode dataset (~1 MB) via the `[full]` extra.
-- **Strict typing** — `py.typed`, full mypy strict compliance.
-- **Fail-fast API** — bad input raises immediately, no silent `None`
-  returns or warnings.
+I wrote it because every time I needed "just a list of emojis with
+their names" I ended up vendoring a JSON file from somewhere. This is
+that JSON file with a few helpers on top, no runtime dependencies, and
+types that actually work in mypy strict.
 
 ## Install
 
 ```bash
-pip install pymojis              # lightweight: ~1900 emojis
-pip install 'pymojis[full]'      # full Unicode coverage: ~3790 emojis
+pip install pymojis              # ~1900 emojis, ~230 KB of data
+pip install 'pymojis[full]'      # full Unicode set, ~3790 emojis (~1 MB)
 ```
 
-Requires **Python 3.12+**.
+Python 3.12+.
 
-## Quick start
+The default dataset covers the everyday stuff. The `[full]` extra pulls
+in `pymojis-fulldata`, which ships every emoji including the skin-tone
+variants, ZWJ sequences, CLDR keywords, and GitHub-style shortcodes —
+useful if you care about completeness, overkill if you don't.
+
+## Using it
 
 ```python
 from pymojis import PymojisManager
 
-manager = PymojisManager()
+m = PymojisManager()
 
-# Pick random emojis
-print([e.emoji for e in manager.get_random(length=3)])
-# → ['😊', '🎉', '🌟']
+m.get_random(length=3)                                  # 3 random Emoji objects
+m.get_by_name("grinning face with smiling eyes")        # → '😄'
+m.get_by_code("1F604")                                  # → '😄'
+m.get_by_emoji("😊")                                    # → Emoji(...)
 
-# Look up by name / code / character
-manager.get_by_name("grinning face with smiling eyes")  # → '😄'
-manager.get_by_code("1F604")                            # → '😄'
-manager.get_by_emoji("😊")                              # → Emoji(...)
+m.contains_emojis("hello 👋")                            # → True
+m.is_emoji("😄")                                         # → True
 
-# Replace whole-word matches in text
-manager.emojifie("I'm sleepy")
-# → "I'm 😪"
+m.extract("hi 😀 and 😪")                                # → [Emoji('grinning face'), Emoji('sleepy face')]
+m.strip("hi 😀 there")                                   # → "hi  there"
+m.replace("hi 😀", lambda e: f"[{e.name}]")              # → "hi [grinning face]"
 
-# Detection
-manager.contains_emojis("hello 👋")    # → True
-manager.is_emoji("😄")                 # → True
-manager.is_emoji("😄😊")               # → False
+m.flag_for("FR")                                         # → '🇫🇷'
+m.country_of("🇫🇷")                                       # → 'FR'
 
-# HTML hex references
-manager.to_html("😵‍💫")
-# → "&#x1F635;&#x200D;&#x1F4AB;"
-
-# Text operations
-manager.extract("hi 😀 and 😪")            # → [Emoji('grinning face'), Emoji('sleepy face')]
-manager.count("😀😀😪")                    # → 3
-manager.strip("hi 😀 there")               # → "hi  there"
-manager.replace("hi 😀", "[e]")            # → "hi [e]"
-manager.replace("hi 😀", lambda e: e.name) # → "hi grinning face"
-manager.demojifie("hi 😀")                 # → "hi :grinning_face:"
-
-# Format / convert
-manager.to_codepoint_string("😀")          # → "U+1F600"
-manager.to_unicode_escape("😀")            # → "\\U0001F600"
-manager.to_image_url("😀")                 # → twemoji CDN URL (svg)
-manager.to_image_url("😀", provider="openmoji", extension="png")
-
-# Country flags (works without the full dataset)
-manager.flag_for("FR")                     # → "🇫🇷"
-manager.country_of("🇫🇷")                  # → "FR"
-manager.is_flag("🇫🇷")                     # → True
-
-# Family / shortcodes (requires the [full] dataset for non-None results)
-manager.base_of("👍🏽")                    # → "👍"
-manager.skin_tones("👍")                   # → ["👍🏻","👍🏼","👍🏽","👍🏾","👍🏿"]
-manager.to_shortcode("😀")                 # → ":grinning_face:"
-manager.from_shortcode(":grinning_face:")  # → "😀"
-
-# Discovery
-manager.search("grin", limit=3)            # → top-N Emoji matches by name + keyword
-manager.suggest("😀")                      # → related emojis (same subcategory + keyword overlap)
-manager.categories()                       # → ["Smileys & Emotion", "People & Body", ...]
-manager.sub_categories("Smileys & Emotion")
-manager.get_by_subcategory("face-smiling") # → list[Emoji] in that subcategory
+m.to_html("😵‍💫")                                        # → "&#x1F635;&#x200D;&#x1F4AB;"
+m.to_unicode_escape("😀")                                # → "\\U0001F600"
+m.to_image_url("😀")                                     # → twemoji CDN URL
 ```
 
-## CLI
-
-`pymojis` ships a small command-line tool — invoke it as `pymojis ...`
-(installed script) or `python -m pymojis ...` (no-install path).
-
-```bash
-pymojis search grin              # find emojis by name / keyword
-pymojis search face --limit 5
-pymojis random --length 3        # print 3 random emoji glyphs
-pymojis random --length 1 -v     # verbose: emoji + name + category
-pymojis info 😀                  # show all known fields for one emoji
-pymojis --full search "grin"     # use the full dataset (requires pymojis[full])
-```
-
-Exit codes: `0` on success, `1` on no-match / unknown-emoji, `2` on
-argument-parsing errors.
-
-To use the full Unicode dataset:
+Switching to the full set:
 
 ```python
-manager = PymojisManager(use_full_dataset=True)
-# Requires `pip install 'pymojis[full]'`. Raises DatasetNotFoundError
-# with installation instructions otherwise.
+m = PymojisManager(use_full_dataset=True)
+# Raises DatasetNotFoundError (with the pip command) if [full] isn't installed.
 ```
 
-## API
+## What's on the manager
 
-| Method | Returns | Notes |
-|---|---|---|
-| `get_random(categories=None, length=1, exclude=None)` | `list[Emoji]` | `categories` takes precedence over `exclude`. |
-| `get_all_emojis(exclude=None)` | `list[Emoji]` | `exclude` accepts `"complex"` or a list of categories. |
-| `get_by_code(code)` | `str \| None` | Single-codepoint lookup. Case-insensitive. |
-| `get_by_name(name)` | `str \| None` | Full-name lookup. Case-insensitive. |
-| `get_by_category(category)` | `list[str]` | All emojis in a category. |
-| `get_by_emoji(emoji)` | `Emoji \| None` | Reverse lookup from character to record. |
-| `contains_emojis(text)` | `bool` | True if `text` contains at least one known emoji. |
-| `is_emoji(text)` | `bool` | True if `text.strip()` is a single known emoji. |
-| `emojifie(text)` | `str` | Replace whole words with emojis (whose name *contains* that word). |
-| `to_html(emoji)` | `str` | Encode each codepoint as `&#xHEX;`. |
-| `extract(text)` | `list[Emoji]` | All emojis in `text`, in order of appearance. |
-| `find(text)` | `Iterator[tuple[Emoji, int, int]]` | `(emoji, start, end)` for each match — indices over the raw string. |
-| `count(text)` | `int` | Number of emoji occurrences in `text`. |
-| `count_by(text)` | `dict[Emoji, int]` | Histogram of `{Emoji: count}`. |
-| `strip(text)` | `str` | Remove every emoji (no whitespace collapsing). |
-| `replace(text, repl)` | `str` | `repl` is either a literal string or `Callable[[Emoji], str]`. |
-| `demojifie(text)` | `str` | Rewrite each emoji as `:slugified_name:`. |
-| `to_codepoint_string(emoji, sep=" ", prefix="U+")` | `str` | `"U+1F600 U+200D U+1F4AB"`-style formatting. |
-| `to_unicode_escape(emoji)` | `str` | Python source escape: `\U0001F600`. |
-| `to_image_url(emoji, provider="twemoji", extension="svg")` | `str` | CDN URL — `"twemoji"` or `"openmoji"`. |
-| `to_shortcode(emoji, set_name="github")` | `str \| None` | Vendor shortcode (`":grinning_face:"`). Full dataset only. |
-| `from_shortcode(code, set_name=None)` | `str \| None` | Reverse lookup. Full dataset only. |
-| `base_of(emoji)` | `str \| None` | Skin-tone/ZWJ variant → base emoji. Full dataset only. |
-| `skin_tones(emoji)` | `list[str]` | All skin-tone siblings under the same base. Full dataset only. |
-| `is_flag(emoji)` | `bool` | True for Flags-category records and RIS pairs. |
-| `flag_for(country_code)` | `str` | ISO 3166-1 alpha-2 → flag emoji. Raises on invalid. |
-| `country_of(emoji)` | `str \| None` | Decoded country code, or `None` for non-flags. |
-| `search(query, limit=10)` | `list[Emoji]` | Ranked by exact name > substring > token > keyword. |
-| `suggest(emoji, limit=5)` | `list[Emoji]` | Same subcategory + keyword overlap. |
-| `categories()` | `list[str]` | All category names in dataset order. |
-| `sub_categories(category=None)` | `list[str]` | Optionally filtered to one category. |
-| `get_by_subcategory(name)` | `list[Emoji]` | Case-insensitive subcategory filter. |
+**Lookup and random**
 
-All methods raise `TypeError` on non-`str` arguments — no silent `None`.
+- `get_random(categories=None, length=1, exclude=None)` — random pick. `categories` wins over `exclude`.
+- `get_all_emojis(exclude=None)` — every emoji. `exclude` accepts `"complex"` (drop multi-codepoint) or a list of categories.
+- `get_by_code(code)`, `get_by_name(name)` — single-codepoint / full-name lookup, case-insensitive.
+- `get_by_category(category)`, `get_by_subcategory(name)`, `get_by_emoji(emoji)`.
+- `categories()`, `sub_categories(category=None)` — list what the dataset actually contains.
 
-### Text scanning
+**Detection and scanning** — all share one longest-match-first regex,
+so `👍🏽` matches as one unit, not "thumbs up + skin tone modifier".
 
-`extract` / `find` / `count` / `count_by` / `strip` / `replace` / `demojifie`
-all share a single longest-match-first scanner built at load time: ZWJ
-sequences and skin-tone composites are matched as whole units, so
-`extract("👍🏽")` returns the medium-skin-tone variant — never the bare
-thumbs-up plus a separate modifier.
+- `contains_emojis(text)` / `is_emoji(text)`.
+- `extract(text)` → `list[Emoji]` in order of appearance.
+- `find(text)` → iterator of `(emoji, start, end)`.
+- `count(text)`, `count_by(text)`.
+- `strip(text)`, `replace(text, repl)` — `repl` is a literal string or `Callable[[Emoji], str]`.
+- `demojifie(text)` — rewrites each emoji as `:slugified_name:`.
+
+**Format and convert**
+
+- `to_html(emoji)` — `&#xHEX;` references.
+- `to_codepoint_string(emoji, sep=" ", prefix="U+")` — `"U+1F635 U+200D U+1F4AB"`.
+- `to_unicode_escape(emoji)` — `\U0001F600` form, safe to paste into Python source.
+- `to_image_url(emoji, provider="twemoji" | "openmoji", extension="svg" | "png")` — public CDN URLs.
+
+**Flags** — these don't need any dataset, they're computed from codepoints.
+
+- `is_flag(emoji)` — Flags category or a bare Regional Indicator Symbol pair.
+- `flag_for(country_code)` — `"FR"` → `"🇫🇷"`. Raises on invalid input.
+- `country_of(emoji)` — `"🇫🇷"` → `"FR"`. `None` for non-flags (including tag-sequence subdivision flags).
+
+**Family and shortcodes** — only meaningful with the `[full]` dataset.
+On the light bundle these return `None` / `[]` because the data isn't
+there (size budget), not because the logic is missing.
+
+- `base_of(emoji)` — `"👍🏽"` → `"👍"`.
+- `skin_tones(emoji)` — all five Fitzpatrick siblings; works whether you pass the base or a variant.
+- `to_shortcode(emoji, set_name="github")`, `from_shortcode(code, set_name=None)`.
+
+**Search**
+
+- `search(query, limit=10)` — ranked: exact name, then name substring, then name token, then keyword. Falls back to name-only on the light dataset (no keywords).
+- `suggest(emoji, limit=5)` — same subcategory first, then keyword overlap, then same category.
+
+**Text replacement based on names**
+
+- `emojifie(text)` — replaces whole words with an emoji whose name contains that word (see below).
+
+Anything that takes a string and gets something else raises `TypeError`
+on the spot. No silent `None`, no warnings to ignore.
 
 ### Categories
 
 ```python
 from pymojis import Categories
-
-Categories  # type alias of all valid categories:
-#   "Smileys & Emotion", "People & Body", "Animals & Nature",
-#   "Food & Drink", "Activities", "Travel & Places", "Objects",
-#   "Symbols", "Flags", "Component"
+# Literal type of: "Smileys & Emotion", "People & Body", "Animals & Nature",
+# "Food & Drink", "Activities", "Travel & Places", "Objects", "Symbols",
+# "Flags", "Component"
 ```
 
-### `Emoji` data model
+### The `Emoji` record
 
 ```python
-from pymojis import Emoji
-
-@dataclass-like
-class Emoji:
-    id: str            # auto-generated UUID
-    emoji: str         # the character itself, e.g. "😄"
-    name: str          # e.g. "grinning face with smiling eyes"
-    code: list[str]    # one or more Unicode codepoints, e.g. ["1F604"]
-                       #   (multi-codepoint emojis like ZWJ sequences have len > 1)
-    category: str      # e.g. "Smileys & Emotion"
-    sub_category: str  # e.g. "face-smiling"
+Emoji(
+    id=...,                          # UUID, generated on construction
+    emoji="👍🏽",
+    name="thumbs up: medium skin tone",
+    code=["1F44D", "1F3FD"],         # list because ZWJ sequences have multiple codepoints
+    category="People & Body",
+    sub_category="hand-fingers-closed",
+    unicode_version="1.0",
+    qualification="fully-qualified", # or "minimally-qualified", "unqualified", "component"
+    base_code=["1F44D"],             # None for base emojis; set for skin-tone variants
+    keywords=["hand", "thumb", "up"],          # full dataset only; [] on light
+    shortcodes={"github": ":thumbs_up_..."},   # full dataset only; {} on light
+)
 ```
 
-## Notes on `emojifie`
+`unicode_version`, `qualification`, and `base_code` come from
+`emoji-test.txt`; `keywords` and `shortcodes` are added from the CLDR
+annotations during the dataset build (see `scripts/build_dataset.py`).
 
-`emojifie` does whole-word matching. Each word in the input is looked up in
-an index of emoji-name tokens. Tokens shorter than 3 characters are skipped
-(otherwise pronouns like "I" and "m" would be replaced by ℹ and Ⓜ). When a
-word matches multiple emojis, the first one (in dataset order) wins.
+## CLI
 
-```python
-manager.emojifie("I'm sleepy")           # → "I'm 😪"  (sleepy → "sleepy face")
-manager.emojifie("zzzz xyzzy")           # → "zzzz xyzzy"  (no match, unchanged)
-```
-
-## Releases (maintainer notes)
-
-This repo publishes **two** packages on every git tag: `pymojis` and
-`pymojis-fulldata`. Both must share the same version.
-
-To cut a release:
+There's a small command-line tool — call it as `pymojis` once installed,
+or `python -m pymojis` without installing the script.
 
 ```bash
-# 1. Bump version in BOTH pyproject files
-$EDITOR pyproject.toml                                  # version = "X.Y.Z"
-$EDITOR packages/pymojis-fulldata/pyproject.toml        # version = "X.Y.Z"
-# Also bump the [full] extra dependency pin in pyproject.toml.
-
-# 2. Commit, tag, push
-git commit -am "Release vX.Y.Z"
-git tag vX.Y.Z
-git push origin main --tags
+pymojis search grin              # find emojis by name / keyword
+pymojis search face --limit 5
+pymojis random --length 3        # 3 random emoji glyphs
+pymojis random --length 1 -v     # verbose: emoji + name + category
+pymojis info 😀                  # everything we know about an emoji
+pymojis --full search "thumbs"   # use the full dataset for richer search
 ```
 
-CI runs the full `make ci` pipeline (lint, format, typecheck, tests,
-build both wheels, twine check) and publishes via PyPI Trusted Publishing
-(OIDC — no API tokens). One-time setup: register both projects as
-Trusted Publishers on https://pypi.org pointing at this repo and the
-workflow `.github/workflows/github_ci.yaml`.
+Exit codes: `0` on success, `1` when nothing matched (or the emoji's
+unknown), `2` when argparse didn't like your invocation.
+
+## A note on `emojifie`
+
+It's whole-word matching against a token index built from emoji names.
+Tokens shorter than 3 characters are skipped — otherwise "I" and "m"
+would get eaten by ℹ and Ⓜ, which is funny exactly once. If a word
+matches several emojis, the first one in dataset order wins.
+
+```python
+m.emojifie("I'm sleepy")     # → "I'm 😪"
+m.emojifie("zzzz xyzzy")     # → "zzzz xyzzy"
+```
+
+It still only looks at words that appear *in the emoji name*, so
+`"happy"` doesn't match 😄 — for keyword-aware search use `m.search`
+instead (with the `[full]` dataset, which ships the CLDR keywords).
 
 ## Development
 
-A `Makefile` wraps the common workflows:
+There's a `Makefile` for the usual chores:
 
 ```bash
 make install       # uv sync --extra dev --frozen
-make lint          # ruff check
-make format-check  # ruff format --check
-make typecheck     # mypy src
-make test          # pytest
-make build         # build both wheels into dist/
-make twine-check   # twine check dist/*
-make ci            # lint + format-check + typecheck + test + build + twine-check
-make clean         # remove dist/, build/, *.egg-info
+make lint
+make format-check
+make typecheck
+make test
+make build         # builds both wheels
+make ci            # everything above
 ```
 
-`pre-commit` is configured: `uv run pre-commit install` once, and the same
-checks run on every commit.
+`pre-commit` is set up — `uv run pre-commit install` once and the same
+checks run on commit.
 
 ## Contributing
 
-Issues and PRs welcome. Please run the full check suite above before
-opening a PR.
+Issues and PRs welcome. Run `make ci` before opening one.
 
 ## License
 
 MIT — see [LICENSE](LICENSE).
 
-The bundled emoji metadata derives from the work of
-[Chalda Pnuzig](https://github.com/chalda-pnuzig/emojis.json) (ISC License,
-see `third_party/`).
+The bundled emoji metadata is derived from
+[Chalda Pnuzig's emojis.json](https://github.com/chalda-pnuzig/emojis.json)
+(ISC, see `third_party/`). Keywords and shortcode hints come from the
+[Unicode CLDR](https://cldr.unicode.org/) annotations (Unicode License V3,
+see `third_party/cldr/LICENSE` and `third_party/NOTICE.txt`). Thanks to
+both projects for doing the tedious part.
