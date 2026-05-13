@@ -73,12 +73,23 @@ class PymojisRepositoryImpl(PymojisRepository):
     ) -> Emoji:
         if not isinstance(emoji_data, dict):
             raise TypeError("Emoji entry must be a dictionary")
+        required = ("name", "code", "emoji", "unicode_version", "qualification")
+        missing = [k for k in required if k not in emoji_data]
+        if missing:
+            raise ValueError(
+                f"Emoji record missing required fields {missing}: {emoji_data!r}"
+            )
         return Emoji(
             category=category,
             sub_category=subcategory,
             name=emoji_data["name"],
             code=emoji_data["code"],
             emoji=emoji_data["emoji"],
+            unicode_version=emoji_data["unicode_version"],
+            qualification=emoji_data["qualification"],
+            base_code=emoji_data.get("base_code"),
+            keywords=emoji_data.get("keywords"),
+            shortcodes=emoji_data.get("shortcodes"),
         )
 
     def get_all(
